@@ -237,44 +237,26 @@ class KnowledgeBaseManager:
             
             # Get sample of metadata to analyze
             if count > 0:
-                try:
-                    sample = self.chroma_collection.get(limit=min(count, 100))
-                    file_types = {}
-                    filenames = set()
-                    
-                    if sample and "metadatas" in sample and sample["metadatas"]:
-                        for i, metadata in enumerate(sample["metadatas"]):
-                            if metadata is None:
-                                continue
-                            
-                            # Handle both dict and None metadata
-                            if isinstance(metadata, dict):
-                                file_type = metadata.get("file_type", "unknown")
-                                filename = metadata.get("filename", f"unknown_file_{i}")
-                            else:
-                                file_type = "unknown"
-                                filename = f"unknown_file_{i}"
+                sample = self.chroma_collection.get(limit=min(count, 100))
+                file_types = {}
+                filenames = set()
+                
+                if sample["metadatas"]:
+                    for metadata in sample["metadatas"]:
+                        if metadata:
+                            file_type = metadata.get("file_type", "unknown")
+                            filename = metadata.get("filename", "unknown")
                             
                             file_types[file_type] = file_types.get(file_type, 0) + 1
                             filenames.add(filename)
-                    
-                    return {
-                        "success": True,
-                        "total_chunks": count,
-                        "unique_files": len(filenames),
-                        "file_types": file_types,
-                        "collection_name": "automotive_knowledge"
-                    }
-                except Exception as e:
-                    print(f"DEBUG: Error processing sample data: {e}")
-                    return {
-                        "success": True,
-                        "total_chunks": count,
-                        "unique_files": 0,
-                        "file_types": {},
-                        "collection_name": "automotive_knowledge",
-                        "note": f"Error processing metadata: {str(e)}"
-                    }
+                
+                return {
+                    "success": True,
+                    "total_chunks": count,
+                    "unique_files": len(filenames),
+                    "file_types": file_types,
+                    "collection_name": "automotive_knowledge"
+                }
             else:
                 return {
                     "success": True,
@@ -360,40 +342,20 @@ def search_kb(query: str) -> str:
 
 def get_kb_stats() -> str:
     """Get knowledge base statistics"""
-    try:
-        result = kb_manager.get_knowledge_base_stats()
-        
-        # Debug: check if result is a dict
-        if not isinstance(result, dict):
-            return f"❌ Unexpected result type: {type(result)}"
-        
-        if not result.get("success", False):
-            return f"❌ {result.get('message', 'Unknown error')}"
-        
-        stats = f"""📊 **Knowledge Base Statistics**
+    result = kb_manager.get_knowledge_base_stats()
+    
+    if not result["success"]:
+        return f"❌ {result['message']}"
+    
+    stats = f"""📊 **Knowledge Base Statistics**
 
-🗃️ **Total Chunks:** {result.get('total_chunks', 0)}
-📁 **Unique Files:** {result.get('unique_files', 0)}
-🗂️ **Collection:** {result.get('collection_name', 'unknown')}
+🗃️ **Total Chunks:** {result['total_chunks']}
+📁 **Unique Files:** {result['unique_files']}
+🗂️ **Collection:** {result['collection_name']}
 
 📋 **File Types:**"""
-        
-        file_types = result.get('file_types', {})
-        if file_types:
-            for file_type, count in file_types.items():
-                stats += f"\n• {file_type}: {count} chunks"
-        else:
-            stats += "\n• No files uploaded yet"
-        
-        return stats
-        
-    except Exception as e:
-        return f"❌ Error getting stats: {str(e)}"
-
-def upload_document_to_kb(file) -> str:
-    """Alias for upload_file_to_kb for backward compatibility"""
-    return upload_file_to_kb(file)
-
-def clear_kb() -> str:
-    """Clear knowledge base (placeholder - not implemented for safety)"""
-    return "⚠️ Clear function not implemented for data safety"
+    
+    for file_type, count in result['file_types'].items():
+        stats += f"\n• {file_type}: {count} chunks"
+    
+    return stats

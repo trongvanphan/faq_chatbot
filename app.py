@@ -115,12 +115,7 @@ def get_kb_stats_interface():
     """Get knowledge base statistics"""
     try:
         stats = get_kb_stats()
-        return f"""
-📊 **Knowledge Base Statistics:**
-- 📝 Total chunks: {stats['total_chunks']}
-- 🗄️ Collection: {stats['collection_name']}
-- ⚡ Status: {stats['status']}
-        """
+        return stats  # get_kb_stats() already returns formatted string
     except Exception as e:
         return f"❌ Lỗi: {str(e)}"
 

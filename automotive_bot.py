@@ -1,120 +1,110 @@
 """
-Automotive Bot with LangChain and Chroma Vector Database
-Handles conversational flows and retrieval integration for automotive queries
+Automotive Bot with LangChain and ChromaDB for RAG
 """
 
 import os
-from typing import List, Dict, Any
+from typing import Dict, Any
 from dotenv import load_dotenv
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
-# Load environment variables
 load_dotenv()
 
-# Configuration from environment variables (same as faq_bot.py)
+# Configuration
 OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL")
 MODEL = os.getenv("MODEL_NAME", "GPT-4o-mini")
-MAX_TOKENS = int(os.getenv("MAX_TOKENS", "200"))
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.5"))
-
-# Retry configuration
-RETRY_ATTEMPTS = int(os.getenv("RETRY_ATTEMPTS", "3"))
-RETRY_WAIT_MIN = int(os.getenv("RETRY_WAIT_MIN", "1"))
-RETRY_WAIT_MAX = int(os.getenv("RETRY_WAIT_MAX", "10"))
 
 try:
     import chromadb
-    from chromadb.config import Settings
     import openai
+    from langchain.chat_models import ChatOpenAI
+    from langchain.chains import ConversationalRetrievalChain
+    from langchain.memory import ConversationBufferWindowMemory
+    from langchain.prompts import PromptTemplate
+    from langchain.schema import Document, BaseRetriever
     
-    # Initialize OpenAI client with same config as faq_bot.py
+    # Initialize clients
     openai_client = openai.OpenAI(
         base_url=OPENAI_BASE_URL,
         api_key=os.getenv("OPENAI_API_KEY")
     )
+    chroma_client = chromadb.PersistentClient(path="./chroma_db")
     
-    # Try to import LangChain components
-    try:
-        from langchain.embeddings import OpenAIEmbeddings
-        from langchain.vectorstores import Chroma
-        from langchain.chat_models import ChatOpenAI
-        from langchain.chains import ConversationalRetrievalChain
-        from langchain.memory import ConversationBufferWindowMemory
-        from langchain.prompts import PromptTemplate
-        from langchain.schema import Document
-        LANGCHAIN_AVAILABLE = True
-    except ImportError:
-        print("⚠️ LangChain not available. Using simple fallback mode.")
-        LANGCHAIN_AVAILABLE = False
-        
 except ImportError as e:
-    print(f"⚠️ Some dependencies not available: {e}")
-    LANGCHAIN_AVAILABLE = False
+    print(f"⚠️ Dependencies not available: {e}")
     openai_client = None
-
-# Initialize ChromaDB client
-try:
-    chroma_client = chromadb.PersistentClient(path=os.getenv("CHROMA_DB_PATH", "./chroma_db"))
-except:
     chroma_client = None
+
+class CustomOpenAIEmbeddings:
+    """Custom embedding class using OpenAI API directly"""
+    def __init__(self, api_key, base_url, model="text-embedding-3-small"):
+        import openai
+        self.client = openai.OpenAI(api_key=api_key, base_url=base_url)
+        self.model = model
+        
+    def embed_documents(self, texts):
+        embeddings = []
+        for text in texts:
+            response = self.client.embeddings.create(model=self.model, input=text)
+            embeddings.append(response.data[0].embedding)
+        return embeddings
+        
+    def embed_query(self, text):
+        response = self.client.embeddings.create(model=self.model, input=text)
+        return response.data[0].embedding
+
+class CustomChromaRetriever(BaseRetriever):
+    """Custom retriever for ChromaDB integration"""
+    def __init__(self, collection, embeddings):
+        super().__init__()
+        self._collection = collection
+        self._embeddings = embeddings
+        
+    def _get_relevant_documents(self, query, run_manager=None):
+        query_embedding = self._embeddings.embed_query(query)
+        results = self._collection.query(query_embeddings=[query_embedding], n_results=4)
+        
+        documents = []
+        if results["documents"] and results["documents"][0]:
+            for i, doc in enumerate(results["documents"][0]):
+                metadata = results["metadatas"][0][i] if results["metadatas"] and results["metadatas"][0] else {}
+                documents.append(Document(page_content=doc, metadata=metadata))
+        return documents
 
 class AutomotiveBot:
     def __init__(self):
-        self.embeddings = None
-        self.vectorstore = None
-        self.llm = None
-        self.memory = None
         self.qa_chain = None
         self.conversation_history = []
         self.initialize_components()
     
     def initialize_components(self):
-        """Initialize components - LangChain if available, otherwise fallback"""
+        """Initialize bot components"""
         try:
-            if LANGCHAIN_AVAILABLE and chroma_client and openai_client:
-                self._initialize_langchain()
+            if chroma_client and openai_client:
+                self._setup_langchain()
             else:
-                self._initialize_fallback()
-                
+                self._setup_fallback()
         except Exception as e:
-            print(f"Error initializing AutomotiveBot: {str(e)}")
-            self._initialize_fallback()
+            print(f"Error initializing AutomotiveBot: {e}")
+            self._setup_fallback()
     
-    def _initialize_langchain(self):
-        """Initialize with full LangChain components"""
-        # Load embedding model and embedding key from environment
-        EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
-        EMBEDDING_KEY = os.getenv("EMBEDDING_KEY", os.getenv("OPENAI_API_KEY"))
-        EMBEDDING_BASE_URL = os.getenv("EMBEDDING_BASE_URL", OPENAI_BASE_URL)
-        
+    def _setup_langchain(self):
+        """Setup LangChain with ChromaDB"""
         # Initialize embeddings
-        self.embeddings = OpenAIEmbeddings(
-            openai_api_key=EMBEDDING_KEY,
-            openai_api_base=EMBEDDING_BASE_URL,
-            model=EMBEDDING_MODEL,
-            openai_api_type="open_ai"
+        self.embeddings = CustomOpenAIEmbeddings(
+            api_key=os.getenv("EMBEDDING_KEY", os.getenv("OPENAI_API_KEY")),
+            base_url=os.getenv("EMBEDDING_BASE_URL", OPENAI_BASE_URL),
+            model=os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
         )
         
-        # Initialize vector store - connect to existing collection
+        # Connect to ChromaDB collection
         try:
-            self.vectorstore = Chroma(
-                client=chroma_client,
-                collection_name="automotive_knowledge",
-                embedding_function=self.embeddings,
-                persist_directory=os.getenv("CHROMA_DB_PATH", "./chroma_db")
-            )
-            print(f"✅ Connected to existing ChromaDB collection: automotive_knowledge")
-        except Exception as e:
-            print(f"⚠️ Error connecting to existing collection: {e}")
-            # Create new collection if it doesn't exist
-            self.vectorstore = Chroma(
-                client=chroma_client,
-                collection_name="automotive_knowledge", 
-                embedding_function=self.embeddings
-            )
-            print("✅ Created new ChromaDB collection: automotive_knowledge")
+            self.chroma_collection = chroma_client.get_collection("automotive_knowledge")
+            print(f"✅ Connected to ChromaDB collection (documents: {self.chroma_collection.count()})")
+        except:
+            self.chroma_collection = chroma_client.create_collection("automotive_knowledge")
+            print("✅ Created new ChromaDB collection")
         
-        # Initialize LLM
+        # Initialize LLM and memory
         self.llm = ChatOpenAI(
             model_name=MODEL,
             temperature=TEMPERATURE,
@@ -122,77 +112,45 @@ class AutomotiveBot:
             openai_api_base=OPENAI_BASE_URL
         )
         
-        # Initialize memory
         self.memory = ConversationBufferWindowMemory(
-            k=5,  # Remember last 5 exchanges
+            k=5,
             memory_key="chat_history",
             return_messages=True,
             output_key="answer"
         )
         
-        # Create custom prompt template
-        prompt_template = """
-        Bạn là một chuyên gia tư vấn ô tô chuyên nghiệp và thân thiện. Hãy trả lời câu hỏi dựa trên kiến thức sau:
+        # Setup retrieval chain
+        prompt_template = """Bạn là chuyên gia tư vấn ô tô. Trả lời dựa trên thông tin sau:
 
-        Context: {context}
+Context: {context}
+Chat History: {chat_history}
+Question: {question}
 
-        Chat History: {chat_history}
+Trả lời bằng tiếng Việt, chi tiết và hữu ích. Nếu không có thông tin trong context, hãy nói rõ.
 
-        Question: {question}
-
-        Hướng dẫn trả lời:
-        - Trả lời bằng tiếng Việt một cách tự nhiên và thân thiện
-        - Sử dụng thông tin từ context để đưa ra câu trả lời chính xác
-        - Nếu không có thông tin trong context, hãy nói rõ và đưa ra lời khuyên chung
-        - Cung cấp thông tin chi tiết và hữu ích
-        - Có thể đề xuất thêm câu hỏi liên quan
-
-        Answer:"""
+Answer:"""
         
-        PROMPT = PromptTemplate(
-            template=prompt_template,
-            input_variables=["context", "chat_history", "question"]
-        )
-        
-        # Initialize conversational retrieval chain
-        self.qa_chain = ConversationalRetrievalChain.from_llm(
-            llm=self.llm,
-            retriever=self.vectorstore.as_retriever(
-                search_type="similarity",
-                search_kwargs={"k": 4}
-            ),
-            memory=self.memory,
-            combine_docs_chain_kwargs={"prompt": PROMPT},
-            return_source_documents=True,
-            verbose=True
-        )
-        
-        print("✅ Automotive Bot initialized with LangChain")
+        try:
+            retriever = CustomChromaRetriever(self.chroma_collection, self.embeddings)
+            self.qa_chain = ConversationalRetrievalChain.from_llm(
+                llm=self.llm,
+                retriever=retriever,
+                memory=self.memory,
+                combine_docs_chain_kwargs={"prompt": PromptTemplate(
+                    template=prompt_template,
+                    input_variables=["context", "chat_history", "question"]
+                )},
+                return_source_documents=True
+            )
+            print("✅ LangChain setup successful")
+        except Exception as e:
+            print(f"⚠️ LangChain setup failed: {e}")
+            self.qa_chain = None
     
-    def _initialize_fallback(self):
-        """Initialize fallback mode without LangChain"""
+    def _setup_fallback(self):
+        """Setup fallback mode"""
         self.qa_chain = None
-        self.conversation_history = []
-        print("⚠️ Automotive Bot running in fallback mode (no LangChain)")
-    
-    @retry(
-        stop=stop_after_attempt(RETRY_ATTEMPTS),
-        wait=wait_exponential(multiplier=1, min=RETRY_WAIT_MIN, max=RETRY_WAIT_MAX),
-        retry=retry_if_exception_type((Exception,)),
-        reraise=True
-    )
-    def _call_openai_direct(self, messages):
-        """Direct OpenAI API call for fallback mode"""
-        if not openai_client:
-            raise Exception("OpenAI client not available")
-            
-        response = openai_client.chat.completions.create(
-            model=MODEL,
-            messages=messages,
-            max_tokens=MAX_TOKENS,
-            temperature=TEMPERATURE
-        )
-        return response.choices[0].message.content.strip()
+        print("⚠️ Running in fallback mode")
     
     def get_response(self, question: str) -> Dict[str, Any]:
         """Get response from the automotive bot"""
@@ -201,10 +159,9 @@ class AutomotiveBot:
                 # Use LangChain mode
                 result = self.qa_chain({"question": question})
                 
-                # Format source documents
                 sources = []
                 if result.get("source_documents"):
-                    for i, doc in enumerate(result["source_documents"][:3]):  # Top 3 sources
+                    for doc in result["source_documents"][:3]:
                         sources.append({
                             "content": doc.page_content[:200] + "...",
                             "metadata": doc.metadata
@@ -217,12 +174,12 @@ class AutomotiveBot:
                     "mode": "langchain"
                 }
             else:
-                # Use fallback mode with direct OpenAI API
+                # Use fallback mode
                 return self._get_fallback_response(question)
                 
         except Exception as e:
             return {
-                "answer": f"❌ Lỗi khi xử lý câu hỏi: {str(e)}",
+                "answer": f"❌ Lỗi: {str(e)}",
                 "sources": [],
                 "error": True,
                 "mode": "error"
@@ -231,43 +188,19 @@ class AutomotiveBot:
     def _get_fallback_response(self, question: str) -> Dict[str, Any]:
         """Fallback response using direct OpenAI API"""
         try:
-            # Build conversation context
             messages = [
-                {
-                    "role": "system", 
-                    "content": """Bạn là một chuyên gia tư vấn ô tô chuyên nghiệp và thân thiện. 
-                    
-Hãy trả lời các câu hỏi về:
-- Thông tin xe hơi, công nghệ ô tô
-- Tư vấn mua xe, so sánh xe
-- Bảo dưỡng và sửa chữa xe
-- Lái xe an toàn
-- Xu hướng ngành ô tô
-
-Trả lời bằng tiếng Việt một cách tự nhiên, chi tiết và hữu ích."""
-                }
+                {"role": "system", "content": "Bạn là chuyên gia tư vấn ô tô. Trả lời bằng tiếng Việt."},
+                {"role": "user", "content": question}
             ]
             
-            # Add conversation history (last 4 exchanges)
-            for msg in self.conversation_history[-8:]:  # 4 exchanges = 8 messages
-                messages.append(msg)
-            
-            # Add current question
-            messages.append({"role": "user", "content": question})
-            
-            # Get response
-            answer = self._call_openai_direct(messages)
-            
-            # Update conversation history
-            self.conversation_history.append({"role": "user", "content": question})
-            self.conversation_history.append({"role": "assistant", "content": answer})
-            
-            # Keep history manageable
-            if len(self.conversation_history) > 20:
-                self.conversation_history = self.conversation_history[-20:]
+            response = openai_client.chat.completions.create(
+                model=MODEL,
+                messages=messages,
+                temperature=TEMPERATURE
+            )
             
             return {
-                "answer": answer,
+                "answer": response.choices[0].message.content.strip(),
                 "sources": [],
                 "error": False,
                 "mode": "fallback"
@@ -275,7 +208,7 @@ Trả lời bằng tiếng Việt một cách tự nhiên, chi tiết và hữu 
             
         except Exception as e:
             return {
-                "answer": f"❌ Lỗi khi gọi OpenAI API: {str(e)}",
+                "answer": f"❌ Lỗi API: {str(e)}",
                 "sources": [],
                 "error": True,
                 "mode": "fallback_error"
@@ -283,29 +216,9 @@ Trả lời bằng tiếng Việt một cách tự nhiên, chi tiết và hữu 
     
     def reset_conversation(self):
         """Reset conversation memory"""
-        if self.memory:
+        if hasattr(self, 'memory') and self.memory:
             self.memory.clear()
-        if self.conversation_history:
-            self.conversation_history.clear()
-    
-    def get_conversation_info(self) -> Dict[str, Any]:
-        """Get current conversation information"""
-        try:
-            if self.memory:
-                # LangChain mode
-                history = self.memory.chat_memory.messages
-                return {
-                    "message_count": len(history),
-                    "status": "LangChain Active" if len(history) > 0 else "LangChain Empty"
-                }
-            else:
-                # Fallback mode
-                return {
-                    "message_count": len(self.conversation_history) // 2,  # Each exchange = 2 messages
-                    "status": "Fallback Active" if len(self.conversation_history) > 0 else "Fallback Empty"
-                }
-        except Exception as e:
-            return {"message_count": 0, "status": f"Error: {str(e)}"}
+        self.conversation_history.clear()
 
 # Global instance
 automotive_bot = AutomotiveBot()
@@ -317,22 +230,23 @@ def get_automotive_response(question: str) -> str:
     if result["error"]:
         return result["answer"]
     
-    # Format response with sources and mode info
+    # Format response with sources
     response = result["answer"]
     
     # Add mode indicator
-    mode_indicator = {
+    mode_icons = {
         "langchain": "🧠 LangChain + ChromaDB",
-        "fallback": "⚡ Direct OpenAI API", 
-        "error": "❌ Error Mode"
-    }.get(result.get("mode", "unknown"), "❓ Unknown Mode")
+        "fallback": "⚡ Direct OpenAI",
+        "error": "❌ Error"
+    }
+    mode = mode_icons.get(result.get("mode", "unknown"), "❓ Unknown")
     
     if result.get("sources"):
-        response += f"\n\n📚 **Nguồn tham khảo ({mode_indicator}):**\n"
+        response += f"\n\n📚 **Nguồn ({mode}):**\n"
         for i, source in enumerate(result["sources"], 1):
             response += f"{i}. {source['content']}\n"
     else:
-        response += f"\n\n🤖 *Powered by {mode_indicator}*"
+        response += f"\n\n🤖 *{mode}*"
     
     return response
 
@@ -341,23 +255,9 @@ def reset_automotive_conversation():
     automotive_bot.reset_conversation()
 
 def get_automotive_info() -> Dict[str, Any]:
-    """Get automotive bot conversation info"""
-    return automotive_bot.get_conversation_info()
-
-def sync_with_kb_manager():
-    """Sync automotive bot with KB manager's vector store"""
-    try:
-        from kb_manager import kb_manager
-        
-        if kb_manager.vectorstore and automotive_bot.vectorstore:
-            # Both are using the same ChromaDB client and collection name
-            # They should automatically sync since they point to the same data
-            print("✅ Automotive bot and KB manager are using shared ChromaDB")
-            return True
-        else:
-            print("⚠️ One or both components are not using ChromaDB")
-            return False
-            
-    except Exception as e:
-        print(f"❌ Sync error: {e}")
-        return False
+    """Get automotive bot info"""
+    if hasattr(automotive_bot, 'memory') and automotive_bot.memory:
+        history = automotive_bot.memory.chat_memory.messages
+        return {"message_count": len(history), "status": "LangChain"}
+    else:
+        return {"message_count": len(automotive_bot.conversation_history) // 2, "status": "Fallback"}
