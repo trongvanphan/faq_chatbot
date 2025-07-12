@@ -1,0 +1,19 @@
+@startuml
+actor User
+
+User -> "Gradio UI" : Ask question
+"Gradio UI" -> "Automotive Bot" : Process query
+
+alt Knowledge Base Query (RAG)
+    "Automotive Bot" -> "ChromaDB" : Similarity search
+    "ChromaDB" --> "Automotive Bot" : Return relevant docs
+    "Automotive Bot" -> "OpenAI" : Generate response
+    "OpenAI" --> "Automotive Bot" : Return answer
+else News Query (Tavily)
+    "Automotive Bot" -> "Tavily API" : Search news
+    "Tavily API" --> "Automotive Bot" : Return news result
+end
+
+"Automotive Bot" -> "Gradio UI" : Format response
+"Gradio UI" -> User : Display answer
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+skinparam rectangle {
+  BackgroundColor white
+  BorderColor black
+}
+
+' Layers
+rectangle "Frontend" as FE {
+  [Gradio UI]
+}
+
+rectangle "Backend" as BE {
+  [Context Manager]
+  [FAQ Bot]
+  [Automotive Bot]
+  [KB Manager]
+}
+
+rectangle "AI/ML Layer" as ML {
+  [OpenAI API]
+  [LangChain]
+  [Tavily API]
+}
+
+rectangle "Data Layer" as DL {
+  [FAISS]
+  [ChromaDB]
+  [File System]
+}
+
+' Frontend to Backend
+[Gradio UI] --> [Context Manager]
+[Gradio UI] --> [FAQ Bot]
+[Gradio UI] --> [Automotive Bot]
+[Gradio UI] --> [KB Manager]
+
+' Backend to AI/ML
+[Context Manager] --> [OpenAI API]
+[FAQ Bot] --> [OpenAI API]
+[Automotive Bot] --> [LangChain]
+[Automotive Bot] --> [Tavily API]
+[KB Manager] --> [LangChain]
+
+' AI/ML to Data Layer
+[LangChain] --> [FAISS]
+[LangChain] --> [ChromaDB]
+[KB Manager] --> [File System]
+[ChromaDB] --> [File System]
+
+@enduml

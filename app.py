@@ -165,25 +165,21 @@ retry_wait_min = os.getenv("RETRY_WAIT_MIN", "1")
 retry_wait_max = os.getenv("RETRY_WAIT_MAX", "10")
 
 with gr.Blocks() as demo:
-    gr.Markdown(f"""
-    # 🚗 FAQ Chatbot: Context Management & Multi-turn Conversations
-    
-    **Demo năm cấp độ chatbot khác nhau:**
-    
-    **🔁 Retry Configuration:** Max attempts: {retry_attempts}, Wait: {retry_wait_min}-{retry_wait_max}s
-    """)
+    # gr.Markdown(f"""
+    # # 🚗 FAQ Chatbot: Context Management & Multi-turn Conversations
+    # **Demo năm cấp độ chatbot khác nhau:**
+    # **🔁 Retry Configuration:** Max attempts: {retry_attempts}, Wait: {retry_wait_min}-{retry_wait_max}s
+    # """)
     
     with gr.Tab("🤖 Automotive Bot"):
         gr.Markdown("""
         ### LangChain Automotive Bot với ChromaDB Vector Store
-        
         **✨ Đặc điểm:**
         - 🧠 **LangChain ConversationalRetrievalChain**
         - 🗄️ **ChromaDB local vector database**
         - 🔍 **Similarity search** cho câu trả lời chính xác
         - 💬 **Conversational memory** nhớ ngữ cảnh
         - 📚 **RAG (Retrieval-Augmented Generation)**
-        
         **💡 Cách sử dụng:**
         1. Hỏi bất kỳ câu hỏi nào về ô tô
         2. Bot sẽ tìm kiếm trong knowledge base
@@ -204,15 +200,12 @@ with gr.Blocks() as demo:
     
     with gr.Tab("📚 KB Management - RAG"):
         gr.Markdown("""
-        ### Knowledge Base Management với RAG
-        
-        **✨ Tính năng:**
+        ### Knowledge Base Management với RAG        **✨ Tính năng:**
         - 📤 **Upload documents** (PDF, TXT, MD)
         - 🔧 **Text chunking** và preprocessing
         - 🗄️ **ChromaDB vector storage** với FAISS
         - 🔍 **Similarity search** trong knowledge base
         - 📊 **Statistics** và monitoring
-        
         **📋 Quy trình:**
         1. Upload tài liệu automotive
         2. Hệ thống tự động chunking và embedding
@@ -262,129 +255,77 @@ with gr.Blocks() as demo:
         stats_btn.click(get_kb_stats_interface, outputs=stats_display)
         clear_btn.click(clear_kb_interface, outputs=clear_result)
     
-    with gr.Tab("🧠 Context-Aware Bot (28June)"):
-        gr.Markdown("""
-        ### Bot với Context Management + Function Calling
+    # with gr.Tab("🧠 Context-Aware Bot (28June)"):
+    #     gr.Markdown("""
+    #     ### Bot với Context Management + Function Calling
+        #
+    #     **✨ Đặc điểm:**
+    #     - 🧠 **Nhớ toàn bộ cuộc trò chuyện**
+    #     - 🔗 **Hiểu references** ("nó", "xe đó", "mẹo này")
+    #     - 📚 **Context summary** để quản lý token
+    #     - 🔧 **Function calling** với context
         
-        **✨ Đặc điểm:**
-        - 🧠 **Nhớ toàn bộ cuộc trò chuyện**
-        - 🔗 **Hiểu references** ("nó", "xe đó", "mẹo này")
-        - 📚 **Context summary** để quản lý token
-        - 🔧 **Function calling** với context
-        
-        **💡 Thử nghiệm:**
-        1. "Gợi ý xe SUV cho tôi"
-        2. "Honda CR-V có ưu điểm gì?" ← Hiểu CR-V từ response trước
-        3. "Giá của nó như thế nào?" ← "nó" = Honda CR-V
-        """)
-        
-        context_chatbot = gr.Chatbot(type="messages", height=400)
-        with gr.Row():
-            context_txt = gr.Textbox(
-                show_label=False, 
-                placeholder="Hỏi về xe, rồi tiếp tục hỏi chi tiết về xe đó...",
-                scale=4
-            )
-            reset_btn = gr.Button("🔄 Reset Context", scale=1)
-        
-        context_txt.submit(context_aware_chatbot_interface, [context_txt, context_chatbot], [context_txt, context_chatbot])
-        reset_btn.click(reset_context, outputs=gr.Textbox(visible=False))
+    #     **💡 Thử nghiệm:**
+    #     1. "Gợi ý xe SUV cho tôi"
+    #     2. "Honda CR-V có ưu điểm gì?" ← Hiểu CR-V từ response trước
+    #     3. "Giá của nó như thế nào?" ← "nó" = Honda CR-V
+    #     """)
+    #
+    #     context_chatbot = gr.Chatbot(type="messages", height=400)
+    #     with gr.Row():
+    #         context_txt = gr.Textbox(
+    #             show_label=False, 
+    #             placeholder="Hỏi về xe, rồi tiếp tục hỏi chi tiết về xe đó...",
+    #             scale=4
+    #         )
+    #         reset_btn = gr.Button("🔄 Reset Context", scale=1)
+    #
+    #     context_txt.submit(context_aware_chatbot_interface, [context_txt, context_chatbot], [context_txt, context_chatbot])
+    #     reset_btn.click(reset_context, outputs=gr.Textbox(visible=False))
     
-    with gr.Tab("🔧 Function Calling Bot (28June)"):
-        gr.Markdown("""
-        ### Bot với Function Calling (No Context)
+    # with gr.Tab("🔧 Function Calling Bot (28June)"):
+    #     gr.Markdown("""
+    #     ### Bot với Function Calling (No Context)
+    #
+    #     **✨ Đặc điểm:**
+    #     - 🔧 **Function calling** capabilities
+    #     - 🔁 **Retry mechanism**
+    #     - ❌ **Không nhớ** cuộc trò chuyện trước
         
-        **✨ Đặc điểm:**
-        - 🔧 **Function calling** capabilities
-        - 🔁 **Retry mechanism**
-        - ❌ **Không nhớ** cuộc trò chuyện trước
+    #     **💡 Hạn chế:**
+    #     - Mỗi câu hỏi được xử lý độc lập
+    #     - Không hiểu references
+    #     """)
         
-        **💡 Hạn chế:**
-        - Mỗi câu hỏi được xử lý độc lập
-        - Không hiểu references
-        """)
+    #     function_chatbot = gr.Chatbot(type="messages", height=400)
+    #     with gr.Row():
+    #         function_txt = gr.Textbox(
+    #             show_label=False, 
+    #             placeholder="Hỏi về xe hơi, bảo dưỡng, gợi ý xe...",
+    #             scale=4
+    #         )
         
-        function_chatbot = gr.Chatbot(type="messages", height=400)
-        with gr.Row():
-            function_txt = gr.Textbox(
-                show_label=False, 
-                placeholder="Hỏi về xe hơi, bảo dưỡng, gợi ý xe...",
-                scale=4
-            )
-        
-        function_txt.submit(chatbot_interface, [function_txt, function_chatbot], [function_txt, function_chatbot])
+    #     function_txt.submit(chatbot_interface, [function_txt, function_chatbot], [function_txt, function_chatbot])
     
-    with gr.Tab("📖 Simple FAQ Bot (21June)"):
-        gr.Markdown("""
-        ### Bot thông thường (FAQ only)
+    # with gr.Tab("📖 Simple FAQ Bot (21June)"):
+    #     gr.Markdown("""
+    #     ### Bot thông thường (FAQ only)
         
-        **✨ Đặc điểm:**
-        - 📖 **Chỉ dữ liệu FAQ** tĩnh
-        - 🔁 **Retry mechanism**
-        - ❌ **Không có function calling**
-        - ❌ **Không có context**
-        """)
+    #     **✨ Đặc điểm:**
+    #     - 📖 **Chỉ dữ liệu FAQ** tĩnh
+    #     - 🔁 **Retry mechanism**
+    #     - ❌ **Không có function calling**
+    #     - ❌ **Không có context**
+    #     """)
         
-        simple_chatbot = gr.Chatbot(type="messages", height=400)
-        with gr.Row():
-            simple_txt = gr.Textbox(
-                show_label=False, 
-                placeholder="Hỏi câu hỏi về ô tô (FAQ cơ bản)...",
-                scale=4
-            )
+    #     simple_chatbot = gr.Chatbot(type="messages", height=400)
+    #     with gr.Row():
+    #         simple_txt = gr.Textbox(
+    #             show_label=False, 
+    #             placeholder="Hỏi câu hỏi về ô tô (FAQ cơ bản)...",
+    #             scale=4
+    #         )
         
-        simple_txt.submit(simple_chatbot_interface, [simple_txt, simple_chatbot], [simple_txt, simple_chatbot])
-    
-    with gr.Tab("💻 IT Helpdesk Bot"):
-        gr.Markdown("""
-        ### 🔧 IT Helpdesk Bot (Based on sample.py)
-        
-        **✨ Features:**
-        - 💬 **RAG-powered IT Support** (FAISS + LangChain)
-        - 🔧 **Function Calling** (System status, Ticket creation)  
-        - � **Knowledge Base** (Password reset, VPN, Printers, etc.)
-        - 🎫 **IT Ticket System** (Create tickets for complex issues)
-        
-        **💡 Try these:**
-        - "How to reset my password?"
-        - "Check status of printer01"
-        - "Create a ticket for broken laptop"
-        - "My computer is running slow"
-        """)
-        
-        it_helpdesk_chatbot = gr.Chatbot(type="messages", height=400)
-        
-        with gr.Row():
-            it_helpdesk_txt = gr.Textbox(
-                show_label=False, 
-                placeholder="Describe your IT issue or ask for system status...",
-                scale=3
-            )
-            it_helpdesk_reset_btn = gr.Button("🔄 Reset", scale=1)
-        
-        with gr.Row():
-            devices_btn = gr.Button("📋 Available Devices", scale=1)
-            devices_display = gr.Textbox(
-                label="System Devices",
-                placeholder="Click 'Available Devices' to see monitored systems...",
-                lines=3,
-                scale=2,
-                interactive=False
-            )
-        
-        # Event handlers
-        it_helpdesk_txt.submit(
-            it_helpdesk_interface, 
-            [it_helpdesk_txt, it_helpdesk_chatbot], 
-            [it_helpdesk_chatbot, it_helpdesk_txt]
-        )
-        it_helpdesk_reset_btn.click(
-            reset_it_helpdesk_interface, 
-            outputs=[it_helpdesk_chatbot, devices_display]
-        )
-        devices_btn.click(
-            get_device_list_interface, 
-            outputs=devices_display
-        )
+    #     simple_txt.submit(simple_chatbot_interface, [simple_txt, simple_chatbot], [simple_txt, simple_chatbot])
 
 demo.launch()

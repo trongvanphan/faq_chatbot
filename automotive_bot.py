@@ -1,9 +1,9 @@
 """
-Automotive Bot with LangChain and ChromaDB for RAG
+Automotive Bot with LangChain, ChromaDB for RAG, and Tavily for News Search
 """
 
 import os
-from typing import Dict, Any
+from typing import Dict, Any, List
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,23 +12,34 @@ load_dotenv()
 OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL")
 MODEL = os.getenv("MODEL_NAME", "GPT-4o-mini")
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.5"))
+TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
 try:
     import chromadb
     import openai
-    from langchain.chat_models import ChatOpenAI
+    from langchain_community.chat_models import ChatOpenAI
+    # TavilySearchResults import fallback
+    try:
+        from langchain_community.tools.tavily_search.tool import TavilySearchResults
+    except ImportError:
+        from langchain_community.tools.tavily_search import TavilySearchResults
+    try:
+        from langchain_community.vectorstores import FAISS
+    except ImportError:
+        from langchain.vectorstores import FAISS
     from langchain.chains import ConversationalRetrievalChain
     from langchain.memory import ConversationBufferWindowMemory
     from langchain.prompts import PromptTemplate
     from langchain.schema import Document, BaseRetriever
-    
+    from langchain.agents import initialize_agent, AgentType
+    from langchain.tools import Tool
+
     # Initialize clients
     openai_client = openai.OpenAI(
         base_url=OPENAI_BASE_URL,
         api_key=os.getenv("OPENAI_API_KEY")
     )
     chroma_client = chromadb.PersistentClient(path="./chroma_db")
-    
 except ImportError as e:
     print(f"⚠️ Dependencies not available: {e}")
     openai_client = None
@@ -73,6 +84,7 @@ class CustomChromaRetriever(BaseRetriever):
 class AutomotiveBot:
     def __init__(self):
         self.qa_chain = None
+        self.agent = None
         self.conversation_history = []
         self.initialize_components()
     
@@ -81,6 +93,7 @@ class AutomotiveBot:
         try:
             if chroma_client and openai_client:
                 self._setup_langchain()
+                self._setup_agent()
             else:
                 self._setup_fallback()
         except Exception as e:
@@ -147,16 +160,108 @@ Answer:"""
             print(f"⚠️ LangChain setup failed: {e}")
             self.qa_chain = None
     
+    def _setup_agent(self):
+        """Setup agent with Tavily search tool"""
+        try:
+            if not TAVILY_API_KEY:
+                print("⚠️ Tavily API key not found - agent will not be available")
+                return
+            
+            # Create Tavily search tool
+            tavily_search = TavilySearchResults(
+                api_key=TAVILY_API_KEY,
+                max_results=5,
+                search_depth="advanced"
+            )
+            
+            # Create knowledge base search tool
+            def search_knowledge_base(query: str) -> str:
+                """Search the local knowledge base for automotive information"""
+                try:
+                    if not self.chroma_collection:
+                        return "Knowledge base not available"
+                    
+                    query_embedding = self.embeddings.embed_query(query)
+                    results = self.chroma_collection.query(
+                        query_embeddings=[query_embedding], 
+                        n_results=3
+                    )
+                    
+                    if not results["documents"] or not results["documents"][0]:
+                        return "No relevant information found in knowledge base"
+                    
+                    response = "Knowledge base results:\n"
+                    for i, doc in enumerate(results["documents"][0], 1):
+                        response += f"{i}. {doc[:300]}...\n\n"
+                    
+                    return response
+                except Exception as e:
+                    return f"Error searching knowledge base: {str(e)}"
+            
+            # Define tools
+            tools = [
+                Tool(
+                    name="tavily_search",
+                    func=tavily_search.run,
+                    description="Search for latest automotive news, reviews, and information. Use this for current events, new car releases, market trends, and recent automotive developments."
+                ),
+                Tool(
+                    name="knowledge_base_search",
+                    func=search_knowledge_base,
+                    description="Search the local knowledge base for stored automotive information like prices, specifications, and historical data."
+                )
+            ]
+            
+            # Initialize agent
+            self.agent = initialize_agent(
+                tools,
+                self.llm,
+                agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+                verbose=True,
+                handle_parsing_errors=True,
+                max_iterations=3
+            )
+            
+            print("✅ Agent setup successful with Tavily integration")
+            
+        except Exception as e:
+            print(f"⚠️ Agent setup failed: {e}")
+            self.agent = None
+    
     def _setup_fallback(self):
         """Setup fallback mode"""
         self.qa_chain = None
+        self.agent = None
         print("⚠️ Running in fallback mode")
     
     def get_response(self, question: str) -> Dict[str, Any]:
         """Get response from the automotive bot"""
         try:
-            if self.qa_chain:
-                # Use LangChain mode
+            # Check if question requires news search
+            news_keywords = [
+                "tin tức", "news", "mới nhất", "latest", "cập nhật", "update",
+                "ra mắt", "launch", "giới thiệu", "introduce", "thị trường", "market",
+                "xu hướng", "trend", "đánh giá", "review", "so sánh", "compare"
+            ]
+            
+            question_lower = question.lower()
+            requires_news = any(keyword in question_lower for keyword in news_keywords)
+            
+            if requires_news and self.agent:
+                # Use agent for news search
+                print("🔍 Using agent for news search...")
+                result = self.agent.run(question)
+                
+                return {
+                    "answer": result,
+                    "sources": [],
+                    "error": False,
+                    "mode": "agent_news"
+                }
+            
+            elif self.qa_chain:
+                # Use LangChain mode for knowledge base queries
+                print("📚 Using LangChain for knowledge base search...")
                 result = self.qa_chain({"question": question})
                 
                 sources = []
@@ -236,6 +341,7 @@ def get_automotive_response(question: str) -> str:
     # Add mode indicator
     mode_icons = {
         "langchain": "🧠 LangChain + ChromaDB",
+        "agent_news": "🔍 Agent + Tavily News",
         "fallback": "⚡ Direct OpenAI",
         "error": "❌ Error"
     }
@@ -258,6 +364,6 @@ def get_automotive_info() -> Dict[str, Any]:
     """Get automotive bot info"""
     if hasattr(automotive_bot, 'memory') and automotive_bot.memory:
         history = automotive_bot.memory.chat_memory.messages
-        return {"message_count": len(history), "status": "LangChain"}
+        return {"message_count": len(history), "status": "LangChain + Agent"}
     else:
         return {"message_count": len(automotive_bot.conversation_history) // 2, "status": "Fallback"}

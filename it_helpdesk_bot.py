@@ -20,23 +20,23 @@ AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-07-01-preview")
 AZURE_DEPLOYMENT_CHAT = os.getenv("AZURE_DEPLOYMENT_CHAT", "gpt-4o-mini")
 AZURE_DEPLOYMENT_EMBEDDING = os.getenv("AZURE_DEPLOYMENT_EMBEDDING", "text-embedding-3-small")
+AZURE_EMBEDDING_KEY = os.getenv("EMBEDDING_KEY") 
 
 try:
     import openai
-    from langchain.vectorstores import FAISS
+    from langchain_community.vectorstores import FAISS
     from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
     from langchain.chains import ConversationalRetrievalChain
     from langchain.text_splitter import RecursiveCharacterTextSplitter
-    
+
     # Initialize Azure OpenAI client
     openai_client = openai.AzureOpenAI(
         azure_endpoint=AZURE_OPENAI_ENDPOINT,
         api_key=AZURE_OPENAI_API_KEY,
         api_version=AZURE_OPENAI_API_VERSION
     )
-    
+
     DEPENDENCIES_AVAILABLE = True
-    
 except ImportError as e:
     print(f"⚠️ Dependencies not available: {e}")
     DEPENDENCIES_AVAILABLE = False
@@ -80,12 +80,13 @@ class ITHelpdeskBot:
             "Blue screen errors: Note error code, restart in safe mode, run memory diagnostic, contact IT with error details."
         ]
         
-        # Initialize Azure OpenAI embeddings
+        # Initialize Azure OpenAI embeddings (force correct model and api_version)
         embeddings = AzureOpenAIEmbeddings(
             azure_endpoint=AZURE_OPENAI_ENDPOINT,
             azure_deployment=AZURE_DEPLOYMENT_EMBEDDING,
-            api_key=AZURE_OPENAI_API_KEY,
-            api_version=AZURE_OPENAI_API_VERSION
+            api_key=AZURE_EMBEDDING_KEY,
+            api_version=AZURE_OPENAI_API_VERSION,
+            model="text-embedding-3-small"
         )
         
         # Create FAISS vectorstore
