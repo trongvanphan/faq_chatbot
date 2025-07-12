@@ -93,12 +93,19 @@ class KnowledgeBaseManager:
     
     def _initialize_langchain(self):
         """Initialize with full LangChain components"""
+        # Load embedding model and embedding key from environment
+        EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+        EMBEDDING_KEY = os.getenv("EMBEDDING_KEY", os.getenv("OPENAI_API_KEY"))
+        EMBEDDING_BASE_URL = os.getenv("EMBEDDING_BASE_URL", OPENAI_BASE_URL)
+
         # Initialize embeddings
         self.embeddings = OpenAIEmbeddings(
-            openai_api_key=os.getenv("OPENAI_API_KEY"),
-            openai_api_base=OPENAI_BASE_URL
+            openai_api_key=EMBEDDING_KEY,
+            openai_api_base=EMBEDDING_BASE_URL,
+            model=EMBEDDING_MODEL,
+            openai_api_type="open_ai"
         )
-        
+
         # Initialize text splitter
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
@@ -106,14 +113,26 @@ class KnowledgeBaseManager:
             length_function=len,
             separators=["\n\n", "\n", " ", ""]
         )
-        
-        # Initialize vector store
-        self.vectorstore = Chroma(
-            client=chroma_client,
-            collection_name=self.collection_name,
-            embedding_function=self.embeddings
-        )
-        
+
+        # Initialize vector store - connect to existing collection
+        try:
+            self.vectorstore = Chroma(
+                client=chroma_client,
+                collection_name=self.collection_name,
+                embedding_function=self.embeddings,
+                persist_directory=os.getenv("CHROMA_DB_PATH", "./chroma_db")
+            )
+            print(f"✅ Connected to existing ChromaDB collection: {self.collection_name}")
+        except Exception as e:
+            print(f"⚠️ Error connecting to existing collection: {e}")
+            # Create new collection if it doesn't exist
+            self.vectorstore = Chroma(
+                client=chroma_client,
+                collection_name=self.collection_name,
+                embedding_function=self.embeddings
+            )
+            print(f"✅ Created new ChromaDB collection: {self.collection_name}")
+
         print("✅ KB Manager initialized with LangChain + ChromaDB")
     
     def _initialize_fallback(self):
@@ -394,13 +413,18 @@ class KnowledgeBaseManager:
         try:
             if self.vectorstore and chroma_client:
                 # ChromaDB mode
-                chroma_client.delete_collection(self.collection_name)
+                try:
+                    chroma_client.delete_collection(self.collection_name)
+                    print(f"🗑️ Deleted collection: {self.collection_name}")
+                except:
+                    print(f"⚠️ Collection {self.collection_name} may not exist")
                 
-                # Reinitialize vector store
+                # Reinitialize vector store with persist_directory
                 self.vectorstore = Chroma(
                     client=chroma_client,
                     collection_name=self.collection_name,
-                    embedding_function=self.embeddings
+                    embedding_function=self.embeddings,
+                    persist_directory=os.getenv("CHROMA_DB_PATH", "./chroma_db")
                 )
                 
                 return {

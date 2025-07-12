@@ -12,7 +12,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 load_dotenv()
 
 # Configuration from environment variables (same as faq_bot.py)
-OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://aiportalapi.stu-platform.live/jpe")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL")
 MODEL = os.getenv("MODEL_NAME", "GPT-4o-mini")
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "200"))
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.5"))
@@ -82,18 +82,37 @@ class AutomotiveBot:
     
     def _initialize_langchain(self):
         """Initialize with full LangChain components"""
+        # Load embedding model and embedding key from environment
+        EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+        EMBEDDING_KEY = os.getenv("EMBEDDING_KEY", os.getenv("OPENAI_API_KEY"))
+        EMBEDDING_BASE_URL = os.getenv("EMBEDDING_BASE_URL", OPENAI_BASE_URL)
+        
         # Initialize embeddings
         self.embeddings = OpenAIEmbeddings(
-            openai_api_key=os.getenv("OPENAI_API_KEY"),
-            openai_api_base=OPENAI_BASE_URL
+            openai_api_key=EMBEDDING_KEY,
+            openai_api_base=EMBEDDING_BASE_URL,
+            model=EMBEDDING_MODEL,
+            openai_api_type="open_ai"
         )
         
-        # Initialize vector store
-        self.vectorstore = Chroma(
-            client=chroma_client,
-            collection_name="automotive_knowledge",
-            embedding_function=self.embeddings
-        )
+        # Initialize vector store - connect to existing collection
+        try:
+            self.vectorstore = Chroma(
+                client=chroma_client,
+                collection_name="automotive_knowledge",
+                embedding_function=self.embeddings,
+                persist_directory=os.getenv("CHROMA_DB_PATH", "./chroma_db")
+            )
+            print(f"✅ Connected to existing ChromaDB collection: automotive_knowledge")
+        except Exception as e:
+            print(f"⚠️ Error connecting to existing collection: {e}")
+            # Create new collection if it doesn't exist
+            self.vectorstore = Chroma(
+                client=chroma_client,
+                collection_name="automotive_knowledge", 
+                embedding_function=self.embeddings
+            )
+            print("✅ Created new ChromaDB collection: automotive_knowledge")
         
         # Initialize LLM
         self.llm = ChatOpenAI(
@@ -304,7 +323,7 @@ def get_automotive_response(question: str) -> str:
     # Add mode indicator
     mode_indicator = {
         "langchain": "🧠 LangChain + ChromaDB",
-        "fallback": "⚡ Direct OpenAI API",
+        "fallback": "⚡ Direct OpenAI API", 
         "error": "❌ Error Mode"
     }.get(result.get("mode", "unknown"), "❓ Unknown Mode")
     
@@ -324,3 +343,21 @@ def reset_automotive_conversation():
 def get_automotive_info() -> Dict[str, Any]:
     """Get automotive bot conversation info"""
     return automotive_bot.get_conversation_info()
+
+def sync_with_kb_manager():
+    """Sync automotive bot with KB manager's vector store"""
+    try:
+        from kb_manager import kb_manager
+        
+        if kb_manager.vectorstore and automotive_bot.vectorstore:
+            # Both are using the same ChromaDB client and collection name
+            # They should automatically sync since they point to the same data
+            print("✅ Automotive bot and KB manager are using shared ChromaDB")
+            return True
+        else:
+            print("⚠️ One or both components are not using ChromaDB")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Sync error: {e}")
+        return False
