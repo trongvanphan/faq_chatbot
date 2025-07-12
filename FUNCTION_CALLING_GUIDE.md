@@ -105,7 +105,7 @@ python test_functions.py
 Thêm vào `.env`:
 ```
 OPENAI_API_KEY=your_api_key
-OPENAI_BASE_URL=https://aiportalapi.stu-platform.live/jpe
+OPENAI_BASE_URL=https://
 MODEL_NAME=GPT-4o-mini
 MAX_TOKENS=200
 TEMPERATURE=0.5

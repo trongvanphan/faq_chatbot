@@ -9,7 +9,7 @@ from faq_data import FAQ_LIST, FUNCTION_DEFINITIONS, AVAILABLE_FUNCTIONS
 load_dotenv()
 
 # Configuration from environment variables
-OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://aiportalapi.stu-platform.live/jpe")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://")
 MODEL = os.getenv("MODEL_NAME", "GPT-4o-mini")
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "200"))
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0.5"))

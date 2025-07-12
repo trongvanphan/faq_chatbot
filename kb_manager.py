@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuration from environment variables
-OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://aiportalapi.stu-platform.live/jpe")
+OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://")
 MODEL = os.getenv("MODEL_NAME", "GPT-4o-mini")
 
 try:
