@@ -4,6 +4,7 @@ from context_manager import get_contextual_response, reset_conversation, get_con
 from faq_bot import get_faq_answer_with_functions, get_faq_answer
 from automotive_bot import get_automotive_response, reset_automotive_conversation, get_automotive_info
 from kb_manager import upload_document_to_kb, get_kb_stats, search_kb, clear_kb
+from it_helpdesk_bot import get_it_helpdesk_response, reset_it_helpdesk_conversation, get_it_device_list
 
 def context_aware_chatbot_interface(user_input, history):
     """Chatbot with full context management"""
@@ -126,6 +127,37 @@ def clear_kb_interface():
         return result
     except Exception as e:
         return f"❌ Lỗi: {str(e)}"
+
+# IT Helpdesk Bot Interface Functions
+def it_helpdesk_interface(user_input, history):
+    """IT Helpdesk bot interface"""
+    try:
+        if not user_input.strip():
+            return history, ""
+        
+        response = get_it_helpdesk_response(user_input)
+        
+        # Ensure history is a list of dicts for Gradio Chatbot
+        history = history or []
+        history.append({"role": "user", "content": user_input})
+        history.append({"role": "assistant", "content": response})
+        
+        return history, ""
+    except Exception as e:
+        error_msg = f"❌ Lỗi IT Helpdesk: {str(e)}"
+        history = history or []
+        history.append({"role": "user", "content": user_input})
+        history.append({"role": "assistant", "content": error_msg})
+        return history, ""
+
+def reset_it_helpdesk_interface():
+    """Reset IT helpdesk conversation"""
+    reset_it_helpdesk_conversation()
+    return [], ""  # Clear chatbot and devices display
+
+def get_device_list_interface():
+    """Get available devices for status check"""
+    return get_it_device_list()
 
 # Get retry configuration for display
 retry_attempts = os.getenv("RETRY_ATTEMPTS", "3")
@@ -302,5 +334,57 @@ with gr.Blocks() as demo:
             )
         
         simple_txt.submit(simple_chatbot_interface, [simple_txt, simple_chatbot], [simple_txt, simple_chatbot])
+    
+    with gr.Tab("💻 IT Helpdesk Bot"):
+        gr.Markdown("""
+        ### 🔧 IT Helpdesk Bot (Based on sample.py)
+        
+        **✨ Features:**
+        - 💬 **RAG-powered IT Support** (FAISS + LangChain)
+        - 🔧 **Function Calling** (System status, Ticket creation)  
+        - � **Knowledge Base** (Password reset, VPN, Printers, etc.)
+        - 🎫 **IT Ticket System** (Create tickets for complex issues)
+        
+        **💡 Try these:**
+        - "How to reset my password?"
+        - "Check status of printer01"
+        - "Create a ticket for broken laptop"
+        - "My computer is running slow"
+        """)
+        
+        it_helpdesk_chatbot = gr.Chatbot(type="messages", height=400)
+        
+        with gr.Row():
+            it_helpdesk_txt = gr.Textbox(
+                show_label=False, 
+                placeholder="Describe your IT issue or ask for system status...",
+                scale=3
+            )
+            it_helpdesk_reset_btn = gr.Button("🔄 Reset", scale=1)
+        
+        with gr.Row():
+            devices_btn = gr.Button("📋 Available Devices", scale=1)
+            devices_display = gr.Textbox(
+                label="System Devices",
+                placeholder="Click 'Available Devices' to see monitored systems...",
+                lines=3,
+                scale=2,
+                interactive=False
+            )
+        
+        # Event handlers
+        it_helpdesk_txt.submit(
+            it_helpdesk_interface, 
+            [it_helpdesk_txt, it_helpdesk_chatbot], 
+            [it_helpdesk_chatbot, it_helpdesk_txt]
+        )
+        it_helpdesk_reset_btn.click(
+            reset_it_helpdesk_interface, 
+            outputs=[it_helpdesk_chatbot, devices_display]
+        )
+        devices_btn.click(
+            get_device_list_interface, 
+            outputs=devices_display
+        )
 
 demo.launch()
