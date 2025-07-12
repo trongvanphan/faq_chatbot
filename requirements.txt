@@ -1,0 +1,17 @@
+openai
+gradio
+python-dotenv
+tenacity
+
+# LangChain and RAG dependencies
+langchain
+langchain-openai
+chromadb
+faiss-cpu
+PyPDF2
+pandas
+numpy
+
+# Text processing
+tiktoken
+beautifulsoup4
