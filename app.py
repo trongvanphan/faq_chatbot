@@ -4,7 +4,6 @@ from context_manager import get_contextual_response, reset_conversation, get_con
 from faq_bot import get_faq_answer_with_functions, get_faq_answer
 from automotive_bot import get_automotive_response, reset_automotive_conversation, get_automotive_info
 from kb_manager import upload_document_to_kb, get_kb_stats, search_kb, clear_kb
-from it_helpdesk_bot import get_it_helpdesk_response, reset_it_helpdesk_conversation, get_it_device_list
 
 def context_aware_chatbot_interface(user_input, history):
     """Chatbot with full context management"""
@@ -59,17 +58,32 @@ def reset_context():
     return "🔄 Context đã được reset!"
 
 def automotive_bot_interface(user_input, history):
-    """LangChain Automotive Bot with ChromaDB"""
+    """AI Automotive Consultant with Advanced Reasoning - Powered by LangChain + ChromaDB + Tavily"""
     try:
+        print(f"🎯 UI Request: {user_input}")
         answer = get_automotive_response(user_input)
+        
+        # Enhanced Debugging: Print the full response to be sent to the UI
+        print("\n" + "="*30 + " UI RESPONSE START " + "="*30)
+        print(answer)
+        print("="*31 + " UI RESPONSE END " + "="*31 + "\n")
         
         # Get context information for display
         context_info = get_automotive_info()
-        status_msg = f"✅ LangChain Bot: {context_info['message_count']} messages, Status: {context_info['status']}"
+        
+        # Enhanced status with capabilities
+        capabilities = []
+        if "LangChain" in context_info['status']:
+            capabilities.extend(["📚 Knowledge Base", "🔍 Live Search", "🧠 AI Reasoning"])
+        if "Agent" in context_info['status']:
+            capabilities.append("🤖 Smart Agent")
+        
+        status_msg = f"✅ {', '.join(capabilities)} | {context_info['message_count']} messages"
         
     except Exception as e:
         answer = f"❌ Lỗi: {str(e)}"
         status_msg = "❌ Thất bại"
+        print(f"❌ UI Error: {e}")
     
     history = history or []
     history.append({"role": "user", "content": user_input})
@@ -128,37 +142,6 @@ def clear_kb_interface():
     except Exception as e:
         return f"❌ Lỗi: {str(e)}"
 
-# IT Helpdesk Bot Interface Functions
-def it_helpdesk_interface(user_input, history):
-    """IT Helpdesk bot interface"""
-    try:
-        if not user_input.strip():
-            return history, ""
-        
-        response = get_it_helpdesk_response(user_input)
-        
-        # Ensure history is a list of dicts for Gradio Chatbot
-        history = history or []
-        history.append({"role": "user", "content": user_input})
-        history.append({"role": "assistant", "content": response})
-        
-        return history, ""
-    except Exception as e:
-        error_msg = f"❌ Lỗi IT Helpdesk: {str(e)}"
-        history = history or []
-        history.append({"role": "user", "content": user_input})
-        history.append({"role": "assistant", "content": error_msg})
-        return history, ""
-
-def reset_it_helpdesk_interface():
-    """Reset IT helpdesk conversation"""
-    reset_it_helpdesk_conversation()
-    return [], ""  # Clear chatbot and devices display
-
-def get_device_list_interface():
-    """Get available devices for status check"""
-    return get_it_device_list()
-
 # Get retry configuration for display
 retry_attempts = os.getenv("RETRY_ATTEMPTS", "3")
 retry_wait_min = os.getenv("RETRY_WAIT_MIN", "1")
@@ -171,82 +154,113 @@ with gr.Blocks() as demo:
     # **🔁 Retry Configuration:** Max attempts: {retry_attempts}, Wait: {retry_wait_min}-{retry_wait_max}s
     # """)
     
-    with gr.Tab("🤖 Automotive Bot"):
+    with gr.Tab("🚗 AI Automotive Consultant"):
         gr.Markdown("""
-        ### LangChain Automotive Bot với ChromaDB Vector Store
-        **✨ Đặc điểm:**
-        - 🧠 **LangChain ConversationalRetrievalChain**
-        - 🗄️ **ChromaDB local vector database**
-        - 🔍 **Similarity search** cho câu trả lời chính xác
-        - 💬 **Conversational memory** nhớ ngữ cảnh
-        - 📚 **RAG (Retrieval-Augmented Generation)**
-        **💡 Cách sử dụng:**
-        1. Hỏi bất kỳ câu hỏi nào về ô tô
-        2. Bot sẽ tìm kiếm trong knowledge base
-        3. Trả lời dựa trên thông tin đã được index
+        ## 🚗 Advanced AI Automotive Consultant
+        
+        **🎯 Chuyên gia tư vấn ô tô thông minh với khả năng suy luận**
+        
+        ### 🌟 Tính năng đặc biệt:
+        - 🧠 **AI Reasoning Process**: Hiển thị quá trình suy nghĩ của AI
+        - � **Local Knowledge Base**: Dữ liệu Audi & Honda chuyên sâu  
+        - 🔍 **Live Web Search**: Tìm kiếm tin tức và thông tin mới nhất với Tavily
+        - 🤖 **Smart Fallback**: Tự động chuyển đổi giữa các nguồn thông tin
+        - 💬 **Context Memory**: Nhớ cuộc hội thoại để tư vấn chính xác hơn
+        
+        ### � Cách hoạt động:
+        1. **Knowledge Base First**: Tìm trong database Audi/Honda
+        2. **Smart Agent**: Nếu không có info → Tự động search online  
+        3. **Direct Chat**: Fallback cuối cùng với AI model        
+        
         """)
         
-        automotive_chatbot = gr.Chatbot(type="messages", height=400)
+        automotive_chatbot = gr.Chatbot(
+            type="messages", 
+            height=500,
+            show_copy_button=True,
+            placeholder="🤖 Xin chào! Tôi là AI Automotive Consultant. Tôi có thể tư vấn về xe hơi với khả năng suy luận thông minh và tìm kiếm thông tin realtime. Hãy hỏi tôi bất cứ điều gì về ô tô!"
+        )
         with gr.Row():
             automotive_txt = gr.Textbox(
                 show_label=False, 
-                placeholder="Hỏi về xe hơi, công nghệ ô tô, bảo dưỡng...",
+                placeholder="💬 Hỏi về xe hơi, công nghệ, tin tức, so sánh, tư vấn mua xe...",
                 scale=4
             )
-            automotive_reset_btn = gr.Button("🔄 Reset Chat", scale=1)
+            automotive_reset_btn = gr.Button("🔄 Reset", scale=1, variant="secondary")
+        
+        gr.Examples(
+            examples=[
+                "So sánh Audi A4 và Honda Civic về tính năng an toàn",
+                "Tin tức mới nhất về xe điện Tesla",
+                "Bảo dưỡng định kỳ cho Honda Accord cần làm gì?",
+                "Toyota Camry 2024 có những nâng cấp gì?",
+                "Xu hướng thị trường ô tô điện năm 2025"
+            ],
+            inputs=automotive_txt
+        )
         
         automotive_txt.submit(automotive_bot_interface, [automotive_txt, automotive_chatbot], [automotive_txt, automotive_chatbot])
         automotive_reset_btn.click(reset_automotive_context, outputs=gr.Textbox(visible=False))
     
-    with gr.Tab("📚 KB Management - RAG"):
+    with gr.Tab("📚 Knowledge Base Manager"):
         gr.Markdown("""
-        ### Knowledge Base Management với RAG        **✨ Tính năng:**
-        - 📤 **Upload documents** (PDF, TXT, MD)
-        - 🔧 **Text chunking** và preprocessing
-        - 🗄️ **ChromaDB vector storage** với FAISS
-        - 🔍 **Similarity search** trong knowledge base
-        - 📊 **Statistics** và monitoring
-        **📋 Quy trình:**
-        1. Upload tài liệu automotive
-        2. Hệ thống tự động chunking và embedding
-        3. Lưu vào ChromaDB local database
-        4. Sử dụng trong Automotive Bot ở tab trước
+        ## 📚 Vector Database & RAG Management System
+        
+        **🎯 Quản lý cơ sở tri thức thông minh cho AI Automotive Consultant**
+        
+        ### 🌟 Tính năng:
+        - 📤 **Smart Document Upload**: Hỗ trợ PDF, TXT, Markdown
+        - 🔧 **Auto Text Processing**: Tự động phân chunk và preprocessing
+        - 🗄️ **ChromaDB Vector Storage**: Lưu trữ embedding hiệu quả
+        - 🔍 **Semantic Search**: Tìm kiếm theo nghĩa, không chỉ từ khóa
+        - 📊 **Real-time Statistics**: Monitor database performance
+        
+        ### 🚀 Workflow:
+        1. **Upload**: Tải tài liệu automotive lên hệ thống
+        2. **Processing**: AI tự động phân tích và tạo embeddings
+        3. **Storage**: Lưu vào ChromaDB với metadata
+        4. **Integration**: Sử dụng ngay trong AI Consultant
+        
+        **💡 Gợi ý tài liệu tốt:**
+        - Manual xe Audi/Honda
+        - Review chuyên sâu từ Car & Driver, Motor Trend
+        - Thông số kỹ thuật chính thức từ nhà sản xuất
         """)
         
         with gr.Row():
             with gr.Column(scale=1):
-                gr.Markdown("### 📤 Upload Document")
+                gr.Markdown("### 📤 Upload Documents")
                 upload_file = gr.File(
-                    label="Choose File (PDF, TXT, MD)",
+                    label="📄 Choose File (PDF, TXT, MD)",
                     file_types=[".pdf", ".txt", ".md"]
                 )
                 upload_description = gr.Textbox(
-                    label="Description (optional)",
-                    placeholder="Mô tả ngắn về tài liệu..."
+                    label="📝 Description (optional)",
+                    placeholder="Ví dụ: Manual Audi A4 2024, Review Honda Civic..."
                 )
-                upload_btn = gr.Button("📤 Upload to KB", variant="primary")
-                upload_result = gr.Textbox(label="Upload Status", lines=3)
+                upload_btn = gr.Button("📤 Upload to Knowledge Base", variant="primary")
+                upload_result = gr.Textbox(label="📊 Upload Status", lines=3)
                 
             with gr.Column(scale=1):
-                gr.Markdown("### 🔍 Search Knowledge Base")
+                gr.Markdown("### 🔍 Semantic Search")
                 search_query = gr.Textbox(
-                    label="Search Query",
-                    placeholder="Nhập từ khóa tìm kiếm..."
+                    label="🔎 Search Query",
+                    placeholder="Ví dụ: động cơ turbo Audi, hệ thống an toàn Honda..."
                 )
-                search_btn = gr.Button("🔍 Search")
-                search_results = gr.Textbox(label="Search Results", lines=8)
+                search_btn = gr.Button("🔍 Semantic Search", variant="secondary")
+                search_results = gr.Textbox(label="🎯 Search Results", lines=8)
         
         with gr.Row():
             with gr.Column(scale=1):
-                gr.Markdown("### 📊 KB Statistics")
-                stats_btn = gr.Button("📊 Get Stats")
-                stats_display = gr.Textbox(label="Statistics", lines=4)
+                gr.Markdown("### 📊 Database Statistics")
+                stats_btn = gr.Button("📊 View Statistics", variant="secondary")
+                stats_display = gr.Textbox(label="📈 Knowledge Base Stats", lines=4)
                 
             with gr.Column(scale=1):
-                gr.Markdown("### 🗑️ Clear KB")
-                gr.Markdown("⚠️ **Cảnh báo:** Thao tác này sẽ xóa toàn bộ dữ liệu!")
+                gr.Markdown("### 🗑️ Reset Database")
+                gr.Markdown("⚠️ **Warning**: This will permanently delete all data!")
                 clear_btn = gr.Button("🗑️ Clear All Data", variant="stop")
-                clear_result = gr.Textbox(label="Clear Status", lines=2)
+                clear_result = gr.Textbox(label="⚠️ Clear Status", lines=2)
         
         # Event handlers for KB Management
         upload_btn.click(upload_file_interface, [upload_file, upload_description], upload_result)
@@ -328,4 +342,12 @@ with gr.Blocks() as demo:
         
     #     simple_txt.submit(simple_chatbot_interface, [simple_txt, simple_chatbot], [simple_txt, simple_chatbot])
 
-demo.launch()
+if __name__ == "__main__":
+    demo.launch()
+    # demo.launch(
+    #     server_name="http://127.0.0.1/",
+    #     server_port=7860,
+    #     share=True,
+    #     show_api=False,
+    #     favicon_path=None
+    # )

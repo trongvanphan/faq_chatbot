@@ -3,6 +3,7 @@ Automotive Bot with LangChain, ChromaDB for RAG, and Tavily for News Search
 """
 
 import os
+import re
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 
@@ -33,6 +34,7 @@ try:
     from langchain.schema import Document, BaseRetriever
     from langchain.agents import initialize_agent, AgentType
     from langchain.tools import Tool
+    from langchain.callbacks.base import BaseCallbackHandler
 
     # Initialize clients
     openai_client = openai.OpenAI(
@@ -44,6 +46,129 @@ except ImportError as e:
     print(f"⚠️ Dependencies not available: {e}")
     openai_client = None
     chroma_client = None
+
+class AgentCallbackHandler(BaseCallbackHandler):
+    """Custom callback handler to capture agent thoughts and observations"""
+    def __init__(self):
+        super().__init__()
+        self.thoughts = []
+        self.observations = []
+        self.actions = []
+        self.current_step = 0
+    
+    def on_agent_action(self, action, color=None, **kwargs):
+        """Called when agent takes an action"""
+        print(f"🔧 Agent Action: {action.tool} with input: {action.tool_input}")
+        self.current_step += 1
+        self.actions.append({
+            "step": self.current_step,
+            "tool": action.tool,
+            "tool_input": action.tool_input,
+            "log": action.log
+        })
+    
+    def on_tool_end(self, output, color=None, observation_prefix=None, llm_prefix=None, **kwargs):
+        """Called when a tool finishes execution"""
+        print(f"👀 Tool End: Output length: {len(str(output))}")
+        print(f"🔍 Tool End Debug: Current step = {self.current_step}")
+        print(f"📊 Tool End Debug: Output preview = {str(output)[:100]}...")
+        
+        # Make sure we have a current step from agent action
+        if self.current_step > 0:
+            obs_data = {
+                "step": self.current_step,
+                "output": str(output)[:500] + ("..." if len(str(output)) > 500 else "")
+            }
+            self.observations.append(obs_data)
+            print(f"✅ Added observation for step {self.current_step}: {len(obs_data['output'])} chars")
+        else:
+            print("⚠️ Tool ended but no current step!")
+    
+    def on_tool_start(self, serialized, input_str, **kwargs):
+        """Called when a tool starts execution"""
+        print(f"🛠️ Tool Start: {serialized.get('name', 'Unknown')} with {input_str}")
+    
+    def on_text(self, text, color=None, end="\n", **kwargs):
+        """Called when agent generates text (including observations)"""
+        if "Observation:" in text:
+            print(f"📝 Text with Observation: {text[:100]}...")
+            # Try to capture observation from text
+            if self.current_step > 0:
+                obs_match = re.search(r'Observation:\s*(.*)', text, re.DOTALL)
+                if obs_match:
+                    obs_text = obs_match.group(1).strip()
+                    self.observations.append({
+                        "step": self.current_step,
+                        "output": obs_text[:500] + ("..." if len(obs_text) > 500 else "")
+                    })
+    
+    def on_llm_start(self, serialized, prompts, **kwargs):
+        """Called when LLM starts"""
+        print(f"🤖 LLM Start: {len(prompts)} prompts")
+    
+    def on_llm_end(self, response, **kwargs):
+        """Called when LLM ends"""
+        print(f"✅ LLM End: Generated response")
+    
+    def on_chain_start(self, serialized, inputs, **kwargs):
+        """Called when a chain starts"""
+        print(f"🔗 Chain Start: {serialized.get('name', 'Unknown')}")
+    
+    def on_chain_end(self, outputs, **kwargs):
+        """Called when a chain ends"""
+        print(f"🏁 Chain End: {type(outputs)}")
+    
+    def on_agent_finish(self, finish, color=None, **kwargs):
+        """Called when agent finishes"""
+        print(f"✅ Agent Finished with: {type(finish)}")
+        pass
+    
+    def get_thinking_process(self):
+        """Get the thinking process as formatted text"""
+        print(f"🧠 Getting thinking process: {len(self.actions)} actions, {len(self.observations)} observations")
+        
+        if not self.actions:
+            return ""
+        
+        process = "🧠 **Quá trình suy nghĩ của Bot:**\n\n"
+        
+        for i, action in enumerate(self.actions, 1):
+            # Debug: Print the full log to see its structure
+            print(f"🔍 Action {i} log: {action['log'][:200]}...")
+            
+            thought = ""
+            # First, try to extract the thought using regex, which is the most reliable
+            thought_match = re.search(r'Thought:\s*(.*?)(?:\nAction:|$)', action["log"], re.DOTALL)
+            if thought_match:
+                thought = thought_match.group(1).strip()
+            
+            # Fallback: If no explicit thought is found, generate a descriptive one.
+            if not thought or thought.isspace():
+                thought = f"Tôi cần sử dụng công cụ `{action['tool']}` để tìm kiếm thông tin về chủ đề: '{action['tool_input']}'."
+            
+            process += f"**💭 Bước {i} - Suy nghĩ:**\n{thought}\n\n"
+            process += f"**🔧 Hành động:**\nSử dụng công cụ: `{action['tool']}`\n"
+            process += f"**📝 Input cho công cụ:**\n`{action['tool_input']}`\n\n"
+            
+            # Find corresponding observation
+            obs = next((o for o in self.observations if o["step"] == action["step"]), None)
+            if obs:
+                obs_content = obs['output'].strip()
+                if len(obs_content) > 400:
+                    obs_content = obs_content[:400] + "..."
+                process += f"**👀 Quan sát:**\n{obs_content}\n\n"
+            
+            process += "---\n\n"
+        
+        print(f"📋 Generated process length: {len(process)}")
+        return process
+    
+    def reset(self):
+        """Reset the callback handler"""
+        self.thoughts.clear()
+        self.observations.clear()
+        self.actions.clear()
+        self.current_step = 0
 
 class CustomOpenAIEmbeddings:
     """Custom embedding class using OpenAI API directly"""
@@ -86,6 +211,7 @@ class AutomotiveBot:
         self.qa_chain = None
         self.agent = None
         self.conversation_history = []
+        self.callback_handler = AgentCallbackHandler()
         self.initialize_components()
     
     def initialize_components(self):
@@ -219,7 +345,8 @@ Answer:"""
                 agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
                 verbose=True,
                 handle_parsing_errors=True,
-                max_iterations=3
+                max_iterations=3,
+                callbacks=[self.callback_handler]
             )
             
             print("✅ Agent setup successful with Tavily integration")
@@ -250,13 +377,18 @@ Answer:"""
             if requires_news and self.agent:
                 # Use agent for news search
                 print("🔍 Using agent for news search...")
+                self.callback_handler.reset()  # Reset before new agent run
                 result = self.agent.run(question)
+                
+                # Get thinking process
+                thinking_process = self.callback_handler.get_thinking_process()
                 
                 return {
                     "answer": result,
                     "sources": [],
                     "error": False,
-                    "mode": "agent_news"
+                    "mode": "agent_news",
+                    "thinking_process": thinking_process
                 }
             
             elif self.qa_chain:
@@ -272,11 +404,54 @@ Answer:"""
                             "metadata": doc.metadata
                         })
                 
+                # Check if knowledge base has relevant information
+                has_relevant_info = (
+                    result.get("source_documents") and 
+                    len(result["source_documents"]) > 0 and
+                    any(doc.page_content.strip() for doc in result["source_documents"]) and
+                    # Check if the answer contains meaningful content, not just "không có thông tin"
+                    not any(phrase in result["answer"].lower() for phrase in [
+                        "không có thông tin", "không tìm thấy", "không có dữ liệu",
+                        "no information", "not found", "no data",
+                        "xin lỗi, nhưng trong thông tin mà tôi có không có",
+                        "trong thông tin mà tôi có không có chi tiết về",
+                        "sorry, but i don't have information about",
+                        "i don't have specific information about"
+                    ])
+                )
+                
+                # If no relevant info in knowledge base, try agent first, then fallback
+                if not has_relevant_info:
+                    if self.agent:
+                        print("🔍 Knowledge base không có thông tin, đang dùng agent...")
+                        try:
+                            self.callback_handler.reset()  # Reset before new agent run
+                            agent_result = self.agent.run(question)
+                            
+                            # Get thinking process
+                            thinking_process = self.callback_handler.get_thinking_process()
+                            
+                            return {
+                                "answer": agent_result,
+                                "sources": [],
+                                "error": False,
+                                "mode": "agent_fallback",
+                                "thinking_process": thinking_process
+                            }
+                        except Exception as e:
+                            print(f"⚠️ Agent failed: {e}, falling back to direct chat...")
+                            return self._get_fallback_response(question)
+                    else:
+                        # No agent available, use direct chat
+                        print("📱 Không có agent, dùng direct chat...")
+                        return self._get_fallback_response(question)
+                
                 return {
                     "answer": result["answer"],
                     "sources": sources,
                     "error": False,
-                    "mode": "langchain"
+                    "mode": "langchain",
+                    "thinking_process": ""  # No thinking process for LangChain
                 }
             else:
                 # Use fallback mode
@@ -308,7 +483,8 @@ Answer:"""
                 "answer": response.choices[0].message.content.strip(),
                 "sources": [],
                 "error": False,
-                "mode": "fallback"
+                "mode": "fallback",
+                "thinking_process": ""  # No thinking process for fallback
             }
             
         except Exception as e:
@@ -330,6 +506,30 @@ automotive_bot = AutomotiveBot()
 
 def get_automotive_response(question: str) -> str:
     """Get response from automotive bot"""
+    # Check if user wants to search online
+    if question.lower().startswith("search online"):
+        search_query = question[13:].strip()  # Remove "search online" prefix
+        if search_query and automotive_bot.agent:
+            print("🌐 User requested online search...")
+            try:
+                automotive_bot.callback_handler.reset()  # Reset before new agent run
+                result = automotive_bot.agent.run(search_query)
+                
+                # Get thinking process
+                thinking_process = automotive_bot.callback_handler.get_thinking_process()
+                
+                response = f"🌐 **Kết quả tìm kiếm online:**\n\n{result}\n\n🤖 *🔍 Agent + Tavily Search*"
+                
+                # Add thinking process if available
+                if thinking_process:
+                    response = thinking_process + "\n" + response
+                
+                return response
+            except Exception as e:
+                return f"❌ Lỗi khi tìm kiếm online: {str(e)}"
+        else:
+            return "❌ Không thể tìm kiếm online. Vui lòng thử lại hoặc kiểm tra kết nối."
+    
     result = automotive_bot.get_response(question)
     
     if result["error"]:
@@ -338,21 +538,41 @@ def get_automotive_response(question: str) -> str:
     # Format response with sources
     response = result["answer"]
     
+    # Add thinking process if available (for agent modes)
+    thinking_process = result.get("thinking_process", "")
+    if thinking_process:
+        print(f"🧠 Adding thinking process to response ({len(thinking_process)} chars)")
+        response = thinking_process + "\n\n" + response
+    else:
+        print(f"⚠️ No thinking process found for mode: {result.get('mode', 'unknown')}")
+    
     # Add mode indicator
     mode_icons = {
         "langchain": "🧠 LangChain + ChromaDB",
         "agent_news": "🔍 Agent + Tavily News",
+        "agent_fallback": "🤖 Smart Agent Fallback",
         "fallback": "⚡ Direct OpenAI",
-        "error": "❌ Error"
+        "error": "❌ Error",
+        "suggest_online_search": "💡 Gợi ý tìm kiếm online"
     }
     mode = mode_icons.get(result.get("mode", "unknown"), "❓ Unknown")
     
-    if result.get("sources"):
+    # Only show sources if there are actually sources with meaningful content
+    # and the response is not just a greeting or simple interaction
+    if (result.get("sources") and 
+        len(result["sources"]) > 0 and 
+        any(source.get("content", "").strip() for source in result["sources"]) and
+        len(response.strip()) > 20 and  # Not just a short greeting
+        result.get("mode") == "langchain"):  # Only for langchain mode with real retrieval
         response += f"\n\n📚 **Nguồn ({mode}):**\n"
         for i, source in enumerate(result["sources"], 1):
-            response += f"{i}. {source['content']}\n"
+            if source.get("content", "").strip():  # Only show non-empty sources
+                response += f"{i}. {source['content']}\n"
     else:
-        response += f"\n\n🤖 *{mode}*"
+        # Only show mode for non-langchain or when no real sources were used
+        if result.get("mode") != "langchain" or not result.get("sources"):
+            if result.get("mode") != "suggest_online_search":  # Don't show mode for suggestion
+                response += f"\n\n🤖 *{mode}*"
     
     return response
 
