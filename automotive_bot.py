@@ -344,7 +344,7 @@ Answer:"""
                 self.llm,
                 agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
                 verbose=True,
-                handle_parsing_errors=True,
+                handle_parsing_errors="Vui lòng định dạng lại output. Luôn luôn phải có 'Action:' và 'Action Input:'.",
                 max_iterations=3,
                 callbacks=[self.callback_handler]
             )
