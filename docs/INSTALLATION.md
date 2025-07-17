@@ -83,8 +83,62 @@ mkdir chroma_db
 ### 🧪 Kiểm tra cài đặt
 
 ```bash
-# Chạy test setup
-python test_setup.py
+# Chạy test setup (nếu có)
+python -c "
+import openai, gradio, chromadb, langchain
+print('✅ All dependencies installed successfully')
+"
+
+# Test OpenAI connection
+python -c "
+import openai
+import os
+from dotenv import load_dotenv
+load_dotenv()
+client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+print('✅ OpenAI connection successful')
+"
+```
+
+### 🛠️ Troubleshooting
+
+#### 🔧 Lỗi thường gặp
+
+**1. ModuleNotFoundError: No module named 'xxx'**
+```bash
+# Đảm bảo virtual environment được kích hoạt
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**2. OpenAI API Error**
+```bash
+# Kiểm tra API key trong .env
+cat .env | grep OPENAI_API_KEY
+# Đảm bảo API key hợp lệ và có credit
+```
+
+**3. ChromaDB Error**
+```bash
+# Tạo thư mục ChromaDB
+mkdir -p chroma_db
+# Kiểm tra quyền ghi
+touch chroma_db/test.txt && rm chroma_db/test.txt
+```
+
+**4. Gradio không khởi động**
+```bash
+# Kiểm tra port 7860 có bị chiếm không
+lsof -i :7860
+# Hoặc thử port khác
+python app.py --server-port 7861
+```
+
+**5. Tavily API Error (Optional)**
+```bash
+# Tavily là tùy chọn, ứng dụng vẫn chạy được mà không có
+# Chỉ ảnh hưởng đến tính năng web search
+echo "TAVILY_API_KEY=optional" >> .env
 ```
 
 ### 🌐 Chạy ứng dụng

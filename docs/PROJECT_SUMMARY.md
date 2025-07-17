@@ -39,39 +39,82 @@
 
 ### 📱 **Enhanced Gradio Interface**
 - ✅ Modern, intuitive design with automotive theme
-- ✅ Clear feature descriptions and capabilities
-- ✅ Example queries for user guidance
-- ✅ Professional status indicators
-- ✅ Copy-to-clipboard functionality
+- ✅ Multiple specialized tabs for different use cases
+- ✅ Clear feature descriptions and example queries
+- ✅ Professional status indicators and progress feedback
+- ✅ Copy-to-clipboard functionality for responses
+- ✅ Responsive design for different screen sizes
 
-### 🗂️ **Two Main Tabs**
+### 🗂️ **Five Specialized Tabs**
 
 #### **Tab 1: 🚗 AI Automotive Consultant**
 ```
-🌟 Features:
-- AI Reasoning Process display
-- Local Knowledge Base (Audi & Honda)
-- Live Web Search (Tavily)
-- Smart Fallback system
-- Context Memory
+🌟 Main Features:
+- LangChain Agent with transparent reasoning
+- Intelligent fallback: KB → Agent → Direct Chat
+- Real-time web search via Tavily API
+- ChromaDB knowledge base integration
+- Context-aware conversation memory
 
-💡 Example queries provided
+💡 Smart query routing
 🔄 Easy conversation reset
-📊 Real-time status indicators
+📊 Real-time capability indicators
 ```
 
 #### **Tab 2: 📚 Knowledge Base Manager**
 ```
-🌟 Features:
-- Smart Document Upload (PDF, TXT, MD)
-- Auto Text Processing
-- Semantic Search
-- Real-time Statistics
-- Database Management
+🌟 RAG Features:
+- Smart document upload (PDF, TXT, MD)
+- Automatic text chunking and embedding
+- Semantic similarity search
+- Real-time database statistics
+- ChromaDB vector store management
 
 🔧 Complete RAG pipeline
 📈 Performance monitoring
-🗑️ Data management tools
+🗑️ Database management tools
+```
+
+#### **Tab 3: 🧠 Context-Aware Bot**
+```
+🌟 Memory Features:
+- Multi-turn conversation support
+- Reference resolution ("it", "that car")
+- Conversation history management
+- Context-aware responses
+- Session memory with reset capability
+
+💭 Natural conversation flow
+🔄 Context reset functionality
+📝 Message history tracking
+```
+
+#### **Tab 4: 🔧 Function Calling Bot**
+```
+🌟 Structured Features:
+- OpenAI function calling implementation
+- Predefined automotive functions
+- Structured data retrieval
+- Quick fact lookup
+- Compatible with traditional FAQ systems
+
+⚡ Fast structured responses
+🎯 Precise information delivery
+📋 Function-based interactions
+```
+
+#### **Tab 5: 💬 Simple FAQ Bot**
+```
+🌟 Basic Features:
+- Traditional FAQ responses
+- No function calling overhead
+- Quick basic interactions
+- Lightweight operation
+- Fallback compatibility
+
+🚀 Fast response times
+💬 Simple conversation mode
+🔧 Minimal complexity
 ```
 
 ## 🔧 **Technical Architecture**

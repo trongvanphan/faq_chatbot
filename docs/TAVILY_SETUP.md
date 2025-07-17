@@ -25,40 +25,59 @@ TAVILY_API_KEY=your_tavily_api_key
 
 ## 📦 Install Dependencies
 
-```bash
-pip install tavily-python langchain-community langchain-core
-```
-
-Or update your requirements:
+Tavily integration is included in the main requirements:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+Key dependencies for web search:
+```bash
+pip install langchain-community tavily-python langchain-core
+```
+
 ## 🧪 Test the Integration
 
-Run the test script:
+Test the automotive bot with Tavily:
 
 ```bash
-python test_automotive_agent.py
+# Activate virtual environment
+source venv/bin/activate
+
+# Run the main application
+python app.py
+
+# Or test directly in Python
+python -c "
+from automotive_bot import get_automotive_response
+print(get_automotive_response('tin tức mới nhất về Tesla'))
+"
 ```
 
 ## 🔄 How It Works
 
 ### Smart Query Routing
-The bot automatically detects query type and routes to appropriate handler:
+The automotive bot automatically detects query type and chooses the best approach:
 
-**News/Current Events** → **Agent + Tavily**
+**News/Current Events** → **LangChain Agent + Tavily**
 - Keywords: "tin tức", "news", "mới nhất", "đánh giá", "review", etc.
-- Searches real-time web for latest information
+- Activates agent mode with web search capability
+- Displays full reasoning process
 
-**Knowledge Base Queries** → **LangChain + ChromaDB**
-- Keywords: "giá", "thông số", "specifications", etc.
-- Searches uploaded documents and stored data
+**Knowledge Base Queries** → **Direct RAG**
+- Specific information about uploaded documents
+- Fast ChromaDB vector similarity search
+- No reasoning display (direct response)
 
-### Agent Tools
-1. **Tavily Search**: Real-time web search for automotive news
-2. **Knowledge Base Search**: Local document search
+**Complex/Unknown** → **Agent Fallback**
+- When KB search returns insufficient results
+- Agent can use both Tavily and KB search tools
+- Transparent reasoning with tool usage display
+
+### Agent Tools Available
+1. **Tavily Search Tool**: Real-time web search for automotive news and reviews
+2. **Knowledge Base Search Tool**: Query local ChromaDB vector database
+3. **Intelligent Routing**: Automatic tool selection based on query content
 
 ### Example Queries
 

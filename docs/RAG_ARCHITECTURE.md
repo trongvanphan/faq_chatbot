@@ -114,7 +114,67 @@ agent = initialize_agent(
 )
 ```
 
-### 4. 🔄 Smart Fallback Chain
+### 4. 🔄 Intelligent Fallback Chain
+
+The system implements a sophisticated three-tier fallback strategy:
+
+#### Tier 1: Direct Knowledge Base Search
+```python
+def try_knowledge_base_search(query: str) -> Optional[str]:
+    """First attempt: Search local ChromaDB"""
+    try:
+        retriever = CustomChromaRetriever(collection, embeddings)
+        docs = retriever.get_relevant_documents(query)
+        
+        if docs and len(docs) > 0:
+            # Found relevant documents, generate response
+            return generate_rag_response(query, docs)
+        return None
+    except Exception as e:
+        print(f"KB search failed: {e}")
+        return None
+```
+
+#### Tier 2: LangChain Agent with Tools
+```python
+def handle_agent_mode(query: str) -> str:
+    """Second attempt: Use LangChain agent with tools"""
+    try:
+        # Agent has access to both Tavily and KB search
+        tools = [tavily_search_tool, kb_search_tool]
+        agent = initialize_agent(
+            tools=tools,
+            llm=self.llm,
+            agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+            callbacks=[reasoning_callback_handler]
+        )
+        
+        response = agent.run(query)
+        reasoning = reasoning_callback_handler.get_thinking_process()
+        
+        return f"{reasoning}\n\n**🎯 Kết luận:**\n{response}"
+    except Exception as e:
+        print(f"Agent mode failed: {e}")
+        return handle_direct_chat_fallback(query)
+```
+
+#### Tier 3: Direct Chat Fallback
+```python
+def handle_direct_chat_fallback(query: str) -> str:
+    """Final fallback: Direct LLM chat"""
+    try:
+        response = openai_client.chat.completions.create(
+            model=MODEL,
+            messages=[
+                {"role": "system", "content": automotive_system_prompt},
+                {"role": "user", "content": query}
+            ],
+            temperature=TEMPERATURE
+        )
+        return f"💬 **Direct Chat:**\n{response.choices[0].message.content}"
+    except Exception as e:
+        return f"❌ Xin lỗi, tôi gặp lỗi kỹ thuật: {str(e)}"
+```
 
 ```python
 def intelligent_fallback(self, question: str):

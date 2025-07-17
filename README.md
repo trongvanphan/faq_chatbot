@@ -113,20 +113,26 @@ pip install -r requirements.txt
 3. **Environment Setup**
 Create `.env` file:
 ```env
-# OpenAI Configuration
-OPENAI_API_KEY=your_openai_api_key
+# OpenAI Configuration (Required)
+OPENAI_API_KEY=your_openai_api_key_here
 OPENAI_BASE_URL=https://api.openai.com/v1
 MODEL_NAME=gpt-4o-mini
 TEMPERATURE=0.5
 
-# Embedding Configuration
-EMBEDDING_KEY=your_openai_api_key
+# Embedding Configuration (uses same OpenAI key by default)
+EMBEDDING_KEY=your_openai_api_key_here
 EMBEDDING_BASE_URL=https://api.openai.com/v1
 EMBEDDING_MODEL=text-embedding-3-small
 
-# Tavily Web Search
-TAVILY_API_KEY=your_tavily_api_key
+# Tavily Web Search (Optional - for news and current information)
+TAVILY_API_KEY=your_tavily_api_key_here
+
+# Optional: Advanced settings
+MAX_TOKENS=1000
+RETRY_ATTEMPTS=3
 ```
+
+**Note**: The system works without Tavily API key but web search features will be disabled.
 
 4. **Launch Application**
 ```bash

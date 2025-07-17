@@ -27,43 +27,65 @@ Found 5 recent articles about Tesla Model Y including:
 
 ### 🎯 When Reasoning is Displayed
 
-The reasoning process is shown when:
-- **Agent News Search**: Searching for latest automotive news
-- **Agent Fallback**: When knowledge base lacks information
-- **Manual Online Search**: When user explicitly requests online search
+The reasoning process is shown specifically for:
+- **LangChain Agent Mode**: When agent uses tools (Tavily search, KB search)
+- **Complex Query Handling**: Multi-step problem solving
+- **News/Current Information**: Real-time web search scenarios
+- **Fallback to Agent**: When knowledge base doesn't have sufficient information
 
 ### 🚫 When Reasoning is Hidden
 
 No reasoning display for:
-- **Knowledge Base Queries**: Direct RAG from local database
-- **Simple Conversations**: Greetings and basic interactions
-- **Fallback Chat**: Direct LLM responses
+- **Direct Knowledge Base Responses**: Fast RAG from ChromaDB
+- **Simple Conversations**: Greetings, basic interactions, and direct chat fallback
+- **Function Calling Mode**: Structured queries using predefined functions
+- **Context-Aware Chat**: Simple multi-turn conversations
 
 ## Technical Implementation
 
 ### AgentCallbackHandler Class
 
 ```python
-class AgentCallbackHandler:
+class AgentCallbackHandler(BaseCallbackHandler):
+    """Custom callback handler to capture agent thoughts and observations"""
+    
     def on_agent_action(self, action, **kwargs):
-        """Capture when agent takes an action"""
+        """Called when agent takes an action"""
+        self.current_step += 1
         self.actions.append({
             "step": self.current_step,
             "tool": action.tool,
             "tool_input": action.tool_input,
-            "log": action.log
+            "log": action.log  # Contains the full reasoning
         })
     
     def on_tool_end(self, output, **kwargs):
-        """Capture tool execution results"""
-        self.observations.append({
-            "step": self.current_step,
-            "output": str(output)[:500] + "..."
-        })
+        """Called when a tool finishes execution"""
+        if self.current_step > 0:
+            self.observations.append({
+                "step": self.current_step,
+                "output": str(output)[:500] + ("..." if len(str(output)) > 500 else "")
+            })
     
     def get_thinking_process(self):
         """Format the thinking process for display"""
-        # Extract thoughts and format for user display
+        process = "🧠 **Quá trình suy nghĩ của Bot:**\n\n"
+        
+        for i, action in enumerate(self.actions, 1):
+            # Extract thought from agent log using regex
+            thought_match = re.search(r'Thought:\s*(.*?)(?:\nAction:|$)', action["log"], re.DOTALL)
+            thought = thought_match.group(1).strip() if thought_match else f"Cần sử dụng {action['tool']}"
+            
+            process += f"**💭 Bước {i} - Suy nghĩ:**\n{thought}\n\n"
+            process += f"**🔧 Hành động:** `{action['tool']}`\n"
+            process += f"**📝 Input:** `{action['tool_input']}`\n\n"
+            
+            # Add corresponding observation
+            obs = next((o for o in self.observations if o["step"] == action["step"]), None)
+            if obs:
+                process += f"**👀 Quan sát:**\n{obs['output']}\n\n---\n\n"
+        
+        return process
 ```
 
 ### Process Flow
