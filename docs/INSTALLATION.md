@@ -3,32 +3,36 @@
 ## Hướng dẫn cài đặt và chạy FAQ Chatbot
 
 ### 📋 Yêu cầu hệ thống
-- Python 3.8+ 
-- OpenAI API Key
-- 4GB RAM (khuyến nghị)
-- 2GB disk space cho ChromaDB
+- Python 3.8+ (Python 3.11+ recommended)
+- OpenAI API Key (required)
+- Tavily API Key (optional - for web search features)
+- 4GB RAM (recommended for optimal performance)
+- 2GB disk space cho ChromaDB vector database
 
 ### 🔧 Cài đặt
 
-#### Bước 1: Clone project (nếu chưa có)
+#### Bước 1: Clone project
 ```bash
-git clone <repository-url>
+git clone https://github.com/trongvanphan/faq_chatbot.git
 cd faq_chatbot
 ```
 
 #### Bước 2: Tự động cài đặt (Khuyến nghị)
 ```bash
-# Chạy script cài đặt tự động
+# Chạy script cài đặt tự động (tạo virtual environment + cài dependencies)
+chmod +x setup.sh
 ./setup.sh
 ```
 
-#### Bước 3: Cấu hình API Key
+#### Bước 3: Cấu hình API Keys
 ```bash
-# Edit file .env
+# Copy template và edit file .env
+cp .env.example .env
 nano .env
 
-# Thêm OpenAI API Key
+# Thêm các API keys cần thiết:
 OPENAI_API_KEY=your_openai_api_key_here
+TAVILY_API_KEY=your_tavily_api_key_here  # Optional for web search
 ```
 
 #### Bước 4: Chạy ứng dụng
@@ -93,11 +97,21 @@ Mở trình duyệt và truy cập: http://127.0.0.1:7860
 
 ### 📱 Giao diện ứng dụng
 
-Sau khi chạy thành công, bạn sẽ thấy 5 tab:
+Sau khi chạy thành công, bạn sẽ thấy các tab chính:
 
-1. **🤖 Automotive Bot** - LangChain với ChromaDB
-2. **📚 KB Management - RAG** - Upload và quản lý tài liệu  
-3. **🧠 Context-Aware Bot** - Bot nhớ ngữ cảnh
+1. **🚗 AI Automotive Consultant** - LangChain agent với ChromaDB và web search
+2. **📚 Knowledge Base Manager** - Upload và quản lý tài liệu RAG
+3. **🧠 Context-Aware Bot** - Bot nhớ ngữ cảnh đa lượt hội thoại
+4. **🔧 Function Calling Bot** - OpenAI function calling cho câu hỏi có cấu trúc
+5. **💬 Simple FAQ Bot** - FAQ cơ bản không có function calling
+
+### 🎯 Tính năng chính
+
+- **Intelligent Fallback**: Tự động chuyển đổi giữa Knowledge Base → Agent → Direct Chat
+- **Transparent Reasoning**: Hiển thị quá trình suy nghĩ của AI agent
+- **Real-time Web Search**: Tìm kiếm tin tức ô tô mới nhất qua Tavily API
+- **Conversation Memory**: Nhớ ngữ cảnh qua nhiều lượt hội thoại
+- **Document Upload**: Upload PDF, TXT, MD để mở rộng knowledge base
 4. **🔧 Function Calling Bot** - Bot với function calling
 5. **📖 Simple FAQ Bot** - Bot FAQ đơn giản
 

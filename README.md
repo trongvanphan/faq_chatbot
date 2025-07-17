@@ -1,8 +1,26 @@
 # 🚗 AI Automotive Consultant | Advanced RAG + Agent System
 
-> **World-class automotive AI consultant with transparent reasoning, real-time web search, and intelligent fallback mechanisms**
+> **World-class automotive AI consultant with transparent reasoning, real-time web search, and intelligent fallback mech### User Interface
 
-![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
+### Main Features
+- **🚗 AI Automotive Consultant**: Primary chat interface with reasoning display and intelligent fallback
+- **📚 Knowledge Base Manager**: Document upload, search capabilities, and database management
+
+### Available Interfaces
+The application provides multiple chatbot interfaces:
+
+1. **AI Automotive Consultant** (Main): Advanced LangChain agent with web search and reasoning display
+2. **Context-Aware Bot**: Multi-turn conversation with memory management
+3. **Function Calling Bot**: OpenAI function calling for structured queries
+4. **Simple FAQ Bot**: Basic FAQ responses without function calling
+
+### Example Interactions
+The interface shows:
+- User queries and AI responses
+- Reasoning process visualization (for agent mode)
+- Source attribution and confidence indicators
+- System status and capabilities
+- Copy-to-clipboard functionality for responsesython](https://img.shields.io/badge/Python-3.11+-blue.svg)
 ![LangChain](https://img.shields.io/badge/LangChain-Latest-green.svg)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20DB-orange.svg)
 ![Gradio](https://img.shields.io/badge/Gradio-UI-yellow.svg)
@@ -67,21 +85,28 @@ graph TB
 
 ### Prerequisites
 ```bash
-Python 3.11+
+Python 3.8+
 OpenAI API Key
-Tavily API Key (for web search)
+Tavily API Key (for web search - optional)
+4GB RAM (recommended)
+2GB disk space for ChromaDB
 ```
 
 ### Installation
 
 1. **Clone Repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/trongvanphan/faq_chatbot.git
 cd faq_chatbot
 ```
 
 2. **Install Dependencies**
 ```bash
+# Create virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install required packages
 pip install -r requirements.txt
 ```
 
@@ -204,22 +229,37 @@ Custom `AgentCallbackHandler` captures:
 ### Project Structure
 ```
 faq_chatbot/
-├── app.py                          # Main Gradio interface
-├── automotive_bot.py               # Core AI consultant logic
-├── context_manager.py              # Context and memory management
-├── kb_manager.py                   # Knowledge base operations
-├── faq_bot.py                      # Legacy FAQ functionality
+├── app.py                          # Main Gradio interface with multiple tabs
+├── automotive_bot.py               # Core AI consultant with LangChain agents
+├── context_manager.py              # Multi-turn conversation and memory management
+├── kb_manager.py                   # Knowledge base operations and ChromaDB integration
+├── faq_bot.py                      # Function calling and legacy FAQ functionality
+├── faq_data.py                     # Static data, function definitions, and FAQ content
 ├── requirements.txt                # Python dependencies
-├── .env                           # Environment configuration
-├── chroma_db/                     # Vector database storage
+├── setup.sh                        # Automated setup script
+├── .env                           # Environment configuration (create from .env.example)
+├── chroma_db/                     # Vector database storage (auto-created)
+├── docs/                          # Comprehensive documentation
+│   ├── PROJECT_SUMMARY.md         # Complete project overview
+│   ├── RAG_ARCHITECTURE.md        # RAG system technical details
+│   ├── REASONING_GUIDE.md          # AI reasoning and transparency
+│   ├── CONTEXT_MANAGEMENT_GUIDE.md # Conversation memory system
+│   ├── FUNCTION_CALLING_GUIDE.md   # OpenAI function calling implementation
+│   ├── TAVILY_SETUP.md            # Web search API setup
+│   └── INSTALLATION.md            # Detailed installation guide
+├── sample/                        # Sample automotive data files
+│   ├── gia_xe_audi_2020_2025.txt
+│   └── gia_xe_honda_2020_2025.txt
 └── README.md                      # This documentation
 ```
 
 ### Key Classes
-- **`AutomotiveBot`**: Main controller with LangChain integration
-- **`AgentCallbackHandler`**: Reasoning process capture
-- **`CustomOpenAIEmbeddings`**: Direct OpenAI embedding interface
-- **`CustomChromaRetriever`**: ChromaDB integration for LangChain
+- **`AutomotiveBot`**: Main controller with LangChain agent integration and intelligent fallback
+- **`AgentCallbackHandler`**: Custom callback handler for reasoning process capture and visualization
+- **`ConversationManager`**: Multi-turn conversation memory and context management
+- **`KnowledgeBaseManager`**: ChromaDB operations and document processing
+- **`CustomOpenAIEmbeddings`**: Direct OpenAI embedding interface for vector operations
+- **`CustomChromaRetriever`**: ChromaDB integration for LangChain retrieval chains
 
 ## 🤝 Contributing
 

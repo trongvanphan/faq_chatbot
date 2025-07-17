@@ -5,50 +5,68 @@ This document explains the sophisticated Retrieval-Augmented Generation (RAG) sy
 
 ## Architecture Overview
 
+## Architecture Overview
+
 ```mermaid
 graph TB
-    A[User Query] --> B[Query Classifier]
+    A[User Query] --> B[Automotive Bot Controller]
     
-    B --> C{Query Type?}
-    C -->|News/Latest| D[Agent Mode]
-    C -->|Knowledge Base| E[RAG Mode]
-    C -->|General| F[Direct Chat]
+    B --> C{Query Type Classification}
+    C -->|News/Current| D[LangChain Agent Mode]
+    C -->|Knowledge Base| E[Direct RAG Mode]
+    C -->|General| F[Direct Chat Fallback]
     
-    D --> G[Tavily Web Search]
-    D --> H[Knowledge Base Search]
+    D --> G[Tavily Web Search Tool]
+    D --> H[Knowledge Base Search Tool]
+    D --> I[Agent Reasoning Display]
     
-    E --> I[ChromaDB Vector Search]
-    I --> J[Document Retrieval]
-    J --> K[Context Assembly]
-    K --> L[LangChain QA Chain]
+    E --> J[ChromaDB Vector Search]
+    J --> K[Document Retrieval]
+    K --> L[Context Assembly]
+    L --> M[LangChain QA Response]
     
-    F --> M[Direct OpenAI API]
+    F --> N[Direct OpenAI API Call]
     
-    G --> N[Agent Response]
-    H --> N
-    L --> O[RAG Response] 
-    M --> P[Direct Response]
+    G --> O[Agent Response with Sources]
+    H --> O
+    I --> P[Reasoning Process Display]
+    M --> Q[RAG Response with Attribution]
+    N --> R[Simple Chat Response]
     
-    N --> Q[Reasoning Display]
-    O --> R[Source Attribution]
-    P --> S[Simple Response]
+    O --> S[Combined Agent Output]
+    P --> S
+    Q --> T[Knowledge Base Output]
+    R --> U[Fallback Output]
 ```
 
 ## Core Components
 
-### 1. 🧠 Multi-Modal Query Classification
+### 1. 🧠 Intelligent Query Classification
+
+The system automatically determines the best response strategy based on query content:
 
 ```python
-def classify_query(question: str) -> str:
+def get_automotive_response(user_input: str) -> str:
+    """Smart routing based on query type and content"""
+    
+    # News/current events keywords
     news_keywords = [
         "tin tức", "news", "mới nhất", "latest", 
-        "cập nhật", "update", "ra mắt", "launch"
+        "cập nhật", "update", "ra mắt", "launch",
+        "đánh giá", "review", "thị trường", "market"
     ]
     
-    if any(keyword in question.lower() for keyword in news_keywords):
-        return "agent_news"
-    else:
-        return "knowledge_base"
+    # Check for news-related queries
+    if any(keyword in user_input.lower() for keyword in news_keywords):
+        return handle_agent_mode(user_input)  # Use LangChain agent
+    
+    # Try knowledge base first for specific information
+    kb_response = try_knowledge_base_search(user_input)
+    if kb_response and "không tìm thấy" not in kb_response.lower():
+        return kb_response  # Direct RAG response
+    
+    # Fallback to agent mode for complex queries
+    return handle_agent_mode(user_input)
 ```
 
 ### 2. 📚 ChromaDB Vector Store
