@@ -5,6 +5,7 @@ Coordinates between different specialized agents and handles routing decisions.
 
 from typing import Dict, Any, List
 from chat_state import ChatState
+from langgraph.agents.news_research_agent.car_news_agent import external_news_agent
 from services import get_azure_llm
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableSequence
@@ -143,25 +144,7 @@ class MasterOrchestrationAgent:
                 return {**state, "context_docs": [], "answer": "I'm having trouble accessing the document database right now."}
     
     def search_news(self, state: ChatState) -> ChatState:
-        """
-        Handle news search requests.
-        """
-        topic = state["question"].lower()
-        
-        # Mock news articles - in production, this would connect to a real news API
-        mock_articles = [
-            "🚘 Breaking: Electric vehicle sales surge 25% in Q2 2025.",
-            "🔧 Update: Toyota announces new hybrid models for 2026.",
-            "🛠️ Analysis: How EV maintenance compares with gas-powered cars.",
-            "⚡ News: Major automakers commit to faster EV charging networks.",
-            "🌱 Report: Government extends EV tax incentives through 2026."
-        ]
-        
-        response = f"Here are some recent news headlines related to **{topic}**:\n\n"
-        response += "\n".join(f"- {article}" for article in mock_articles)
-        response += "\n\n*Note: This is a demo with mock headlines. In production, this would pull real-time news.*"
-        
-        return {**state, "answer": response}
+        return external_news_agent(state)
     
     def generate_answer(self, state: ChatState) -> ChatState:
         """

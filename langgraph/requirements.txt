@@ -8,6 +8,7 @@ langchain-openai>=0.0.5
 langchain-community>=0.0.10
 langchain-core>=0.1.0
 langgraph>=0.0.26
+langchain_tavily>=0.0.1
 
 # Vector database
 chromadb>=0.4.0
