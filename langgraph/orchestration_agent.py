@@ -5,7 +5,7 @@ Coordinates between different specialized agents and handles routing decisions.
 
 from typing import Dict, Any, List
 from chat_state import ChatState
-from langgraph.agents.news_research_agent.car_news_agent import external_news_agent
+from agents.news_research_agent.car_news_agent import external_news_agent
 from services import get_azure_llm
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableSequence

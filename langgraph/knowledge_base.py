@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from orchestration_agent import master_agent
 import docx2txt
 from PyPDF2 import PdfReader
 from typing import List, Dict, Any
@@ -474,6 +475,20 @@ def knowledge_base_tab():
     
     # Display database path
     st.info(f"📁 Database location: {stats.get('database_path', 'Unknown')}")
+
+     # Agent status sidebar
+    with st.sidebar:
+        st.subheader("🤖 Available Agents")
+        agents = master_agent.get_available_agents()
+        for agent_name, agent_info in agents.items():
+            st.write(f"**{agent_name.title()}:** {agent_info['description']}")
+        st.subheader("🧠 Workflow Diagram")
+        if st.button("Show LangGraph Workflow"):
+            image_bytes = master_agent.get_workflow_image()
+            if image_bytes:
+                st.image(image_bytes, caption="Master Orchestration Graph", use_column_width=True)
+            else:
+                st.error("Failed to generate workflow image.")
 
 if __name__ == "__main__":
     # For testing

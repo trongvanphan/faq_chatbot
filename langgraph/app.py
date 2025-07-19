@@ -8,7 +8,7 @@ from chat import chat_tab
 st.set_page_config(page_title="RAG Q&A App", layout="wide")
 st.title("📚 RAG Q&A Document Application")
 
-tab1, tab2 = st.tabs(["Knowledge Base", "Chat"])
+tab1, tab2 = st.tabs(["Chat", "Knowledge Base"])
 
 with tab1:
     chat_tab()

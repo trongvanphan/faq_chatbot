@@ -61,19 +61,7 @@ def chat_tab():
         st.session_state['chat_history'] = []
         st.rerun()
     
-    # Agent status sidebar
-    with st.sidebar:
-        st.subheader("🤖 Available Agents")
-        agents = master_agent.get_available_agents()
-        for agent_name, agent_info in agents.items():
-            st.write(f"**{agent_name.title()}:** {agent_info['description']}")
-        st.subheader("🧠 Workflow Diagram")
-        if st.button("Show LangGraph Workflow"):
-            image_bytes = master_agent.get_workflow_image()
-            if image_bytes:
-                st.image(image_bytes, caption="Master Orchestration Graph", use_column_width=True)
-            else:
-                st.error("Failed to generate workflow image.")
+   
 
 
 # Example usage prompts for different agents:

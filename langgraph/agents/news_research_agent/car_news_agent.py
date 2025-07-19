@@ -1,29 +1,26 @@
 from services import get_azure_llm, get_tavily_search
+from langchain_core.messages import SystemMessage, HumanMessage
 llm = get_azure_llm()
 
 def evaluate(prompt):
-    response = llm.chat.completions.create(
-        model="GPT-4.1",
-        messages=[
-            {"role": "system", "content": """You are an expert car assistant.
+    response = llm.invoke([
+        SystemMessage(content="""You are an expert car assistant.
 
-Your job is to evaluate whether a news article is directly relevant to a user's question about cars, vehicles, automotive trends, car models, safety, pricing, features, or industry updates.
+        Your job is to evaluate whether a news article is directly relevant to a user's question about cars, vehicles, automotive trends, car models, safety, pricing, features, or industry updates.
 
-Consider the news title, content, and the user's question.
+        Consider the news title, content, and the user's question.
 
-If the news clearly answers or provides valuable information related to the user's question, reply with:
-YES
+        If the news clearly answers or provides valuable information related to the user's question, reply with:
+        YES
 
-If the news is not directly related or only vaguely mentions related topics, reply with:
-NO
+        If the news is not directly related or only vaguely mentions related topics, reply with:
+        NO
 
-Reply strictly with YES or NO."""},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.0,
-        max_tokens=10
-    )
-    return response.choices[0].message.content.strip()
+        Reply strictly with YES or NO."""),
+        HumanMessage(content=prompt)
+    ])
+    
+    return response.content
 
 def external_news_agent(state):
     question = state.get("question", "").strip()
