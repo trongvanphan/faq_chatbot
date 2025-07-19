@@ -6,3 +6,6 @@
 /langgraph/__pycache__
 chroma_db/chroma.sqlite3
 /chroma_db
+/langgraph/.chromadb
+/langgraph/agents/recommendation/__pycache__
+/langgraph/agents/__pycache__
