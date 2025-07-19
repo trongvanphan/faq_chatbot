@@ -11,6 +11,10 @@ faiss-cpu
 PyPDF2
 pandas
 numpy
+langchain_community
+langgraph
+streamlit
+docx2txt
 
 # Text processing
 tiktoken

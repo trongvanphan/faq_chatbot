@@ -267,6 +267,14 @@ faq_chatbot/
 - **`CustomOpenAIEmbeddings`**: Direct OpenAI embedding interface for vector operations
 - **`CustomChromaRetriever`**: ChromaDB integration for LangChain retrieval chains
 
+## 📚 Context Packs
+
+This repository includes context packs to help developers and AI assistants understand the codebase:
+
+| Context Pack | Type | Description |
+|-------------|------|-------------|
+| [FAQ Chatbot](docs/context/faq-chatbot-context-pack.md) | App | Comprehensive automotive AI consultant application guide |
+
 ## 🤝 Contributing
 
 1. Fork the repository
