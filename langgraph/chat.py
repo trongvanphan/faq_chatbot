@@ -23,7 +23,7 @@ class ChatState(TypedDict, total=False):
     answer: str
     next_step: str
 
-def retrieve_docs(state:StateGraph) -> ChatState:
+def retrieve_docs(state:ChatState) -> ChatState:
     retriever = get_vectordb().as_retriever(search_kwargs={"k": 4}) 
     docs = retriever.get_relevant_documents(state["question"])
     return {**state, "context_docs": docs}
