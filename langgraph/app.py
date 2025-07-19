@@ -11,6 +11,7 @@ st.title("📚 RAG Q&A Document Application")
 tab1, tab2 = st.tabs(["Knowledge Base", "Chat"])
 
 with tab1:
-    knowledge_base_tab()
-with tab2:
     chat_tab()
+    
+with tab2:
+    knowledge_base_tab()

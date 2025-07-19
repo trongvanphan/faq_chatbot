@@ -276,6 +276,14 @@ class MasterOrchestrationAgent:
         """
         return self.available_agents.copy()
 
-
+    def get_workflow_image(self) -> bytes:
+        """
+        Returns a PNG image (as bytes) of the LangGraph workflow.
+        """
+        try:
+            return self.workflow.get_graph().draw_mermaid_png()
+        except Exception as e:
+            logger.error(f"Error generating workflow image: {e}")
+            return None
 # Create global master orchestration agent instance
 master_agent = MasterOrchestrationAgent()
