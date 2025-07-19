@@ -1,0 +1,1304 @@
+{
+  "cars": [
+    {
+      "carId": "C001",
+      "make": "Ford",
+      "model": "Mustang",
+      "name": "Ford Mustang",
+      "year": 2015,
+      "vin": "FD9CFB4D-9F34-4A3B-A273-D6DE44666224",
+      "color": "Orange",
+      "seat": 4,
+      "size": "Subcompact sedan (4-5 passengers, small trunk)",
+      "purposes": [
+        "child_transport",
+        "family_road_trips",
+        "track_racing"
+      ],
+      "priority": [
+        "affordability",
+        "safety",
+        "versatility"
+      ],
+      "brand_origin": "Japanese",
+      "safety_rating": "Good safety",
+      "style": "Functional, versatile",
+      "technology": "Subaru EyeSight, Starlink system",
+      "startPrice": 3000000000
+    },
+    {
+      "carId": "C002",
+      "make": "Honda",
+      "model": "Jazz",
+      "name": "Honda Jazz",
+      "year": 2018,
+      "vin": "6451B9C1-9299-4278-B444-63CAA2E0A748",
+      "color": "Brown",
+      "seat": 3,
+      "size": "Hatchback (5 passengers, flexible cargo)",
+      "purposes": [
+        "track_racing",
+        "luxury",
+        "first_car"
+      ],
+      "priority": [
+        "design",
+        "storage_solutions",
+        "safety"
+      ],
+      "brand_origin": "French",
+      "safety_rating": "2-star NHTSA",
+      "style": "Italian flair",
+      "technology": "Subaru EyeSight, Starlink system",
+      "startPrice": 544000000
+    },
+    {
+      "carId": "C003",
+      "make": "Honda",
+      "model": "Accord",
+      "name": "Honda Accord",
+      "year": 2015,
+      "vin": "537FCAFE-1EE6-46F4-9378-517E3F74EC09",
+      "color": "Yellow",
+      "seat": 2,
+      "size": "Full-size sedan (5-6 passengers, very large trunk)",
+      "purposes": [
+        "hauling_cargo",
+        "track_racing",
+        "weekend_trips"
+      ],
+      "priority": [
+        "spacious_interior",
+        "driver_aids",
+        "dealer_network"
+      ],
+      "brand_origin": "Japanese",
+      "safety_rating": "Very good safety",
+      "style": "Workmanlike, durable",
+      "technology": "Wireless charging, smart grid integration",
+      "startPrice": 1319000000
+    },
+    {
+      "carId": "C004",
+      "make": "Ford",
+      "model": "Escape",
+      "name": "Ford Escape",
+      "year": 2022,
+      "vin": "568424F1-DCEF-4766-A71D-6C1E17473013",
+      "color": "Red",
+      "seat": 4,
+      "size": "Mid-size SUV (7-8 passengers, large cargo)",
+      "purposes": [
+        "track_racing",
+        "first_car",
+        "beach_mountain"
+      ],
+      "priority": [
+        "visibility",
+        "ease_of_parking",
+        "dealer_network"
+      ],
+      "brand_origin": "Czech",
+      "safety_rating": "Very good safety",
+      "style": "Conservative, elegant",
+      "technology": "Wireless charging, smart grid integration",
+      "startPrice": null
+    },
+    {
+      "carId": "C005",
+      "make": "Honda",
+      "model": "Jazz",
+      "name": "Honda Jazz",
+      "year": 2021,
+      "vin": "7995AB94-0E5D-4F9E-BAF3-6E89649C7C44",
+      "color": "Yellow",
+      "seat": 6,
+      "size": "Heavy-duty pickup (3-6 passengers, extra-large bed)",
+      "purposes": [
+        "work_commute",
+        "weekend_trips",
+        "performance_driving"
+      ],
+      "priority": [
+        "climate_control",
+        "prestige",
+        "uniqueness"
+      ],
+      "brand_origin": "Czech",
+      "safety_rating": "Below average safety",
+      "style": "Retro, nostalgic",
+      "technology": "Large touchscreen, Android Auto/Apple CarPlay",
+      "startPrice": 544000000
+    },
+    {
+      "carId": "C006",
+      "make": "Kia",
+      "model": "Sportage",
+      "name": "Kia Sportage",
+      "year": 2018,
+      "vin": "52E63EA3-07CA-4C42-B743-1CF3875A0C4E",
+      "color": "Orange",
+      "seat": 6,
+      "size": "Full-size SUV (8-9 passengers, massive cargo)",
+      "purposes": [
+        "tech_enthusiast",
+        "Orangeping_outdoors",
+        "luxury"
+      ],
+      "priority": [
+        "acceleration",
+        "power",
+        "technology"
+      ],
+      "brand_origin": "American (Electric)",
+      "safety_rating": "1-star NHTSA",
+      "style": "Premium, refined",
+      "technology": "UConnect system, Harman Kardon audio",
+      "startPrice": 799000000
+    },
+    {
+      "carId": "C007",
+      "make": "Toyota",
+      "model": "RAV4",
+      "name": "Toyota RAV4",
+      "year": 2017,
+      "vin": "65FC7861-D7A0-4B30-8357-BFD95498CB2C",
+      "color": "Black",
+      "seat": 4,
+      "size": "Wagon (5-7 passengers, maximum cargo)",
+      "purposes": [
+        "tech_enthusiast",
+        "road_trips",
+        "retirement_car"
+      ],
+      "priority": [
+        "durability",
+        "comfortable_seats",
+        "handling"
+      ],
+      "brand_origin": "German",
+      "safety_rating": "Below average safety",
+      "style": "Luxurious, prestigious",
+      "technology": "Premium audio, wireless charging",
+      "startPrice": 2500000000
+    },
+    {
+      "carId": "C008",
+      "make": "Ford",
+      "model": "Ranger",
+      "name": "Ford Ranger",
+      "year": 2021,
+      "vin": "A7B8199F-704F-47DF-A16E-852B39BD67AC",
+      "color": "White",
+      "seat": 2,
+      "size": "Subcompact SUV (5 passengers, minimal cargo)",
+      "purposes": [
+        "business",
+        "work_commute",
+        "luxury"
+      ],
+      "priority": [
+        "uniqueness",
+        "design",
+        "navigation"
+      ],
+      "brand_origin": "Chinese",
+      "safety_rating": "5-star NHTSA",
+      "style": "German engineering focus",
+      "technology": "5G connectivity, streaming services",
+      "startPrice": 669000000
+    },
+    {
+      "carId": "C009",
+      "make": "Ford",
+      "model": "Escape",
+      "name": "Ford Escape",
+      "year": 2024,
+      "vin": "42BBE784-FA3A-44D4-8F56-DD3D9A7E07D8",
+      "color": "Yellow",
+      "seat": 4,
+      "size": "Van/Minivan (7-8 passengers, enormous cargo)",
+      "purposes": [
+        "work_commute",
+        "short_trips",
+        "sports_activities"
+      ],
+      "priority": [
+        "warranty",
+        "driver_aids",
+        "passenger_space"
+      ],
+      "brand_origin": "German Luxury",
+      "safety_rating": "Average safety",
+      "style": "Practical, family-friendly",
+      "technology": "Luxury infotainment, massage seats",
+      "startPrice": null
+    },
+    {
+      "carId": "C010",
+      "make": "Honda",
+      "model": "CR-V",
+      "name": "Honda CR-V",
+      "year": 2018,
+      "vin": "31D102EA-5E49-4F6C-85C5-68CFCD6AA346",
+      "color": "Yellow",
+      "seat": 6,
+      "size": "Mid-size crossover (7-8 passengers, good cargo)",
+      "purposes": [
+        "moving_furniture",
+        "tech_enthusiast",
+        "off_road_adventure"
+      ],
+      "priority": [
+        "climate_control",
+        "low_maintenance",
+        "towing_capacity"
+      ],
+      "brand_origin": "Swedish",
+      "safety_rating": "Excellent safety",
+      "style": "Contemporary, sleek",
+      "technology": "UConnect system, Harman Kardon audio",
+      "startPrice": 1109000000
+    },
+    {
+      "carId": "C011",
+      "make": "Ford",
+      "model": "Ranger",
+      "name": "Ford Ranger",
+      "year": 2024,
+      "vin": "9C3127DD-D786-4B90-B72B-4A1900252227",
+      "color": "Black",
+      "seat": 3,
+      "size": "Mid-size sedan (5 passengers, large trunk)",
+      "purposes": [
+        "retirement_car",
+        "child_transport",
+        "professional_image"
+      ],
+      "priority": [
+        "parts_availability",
+        "low_maintenance",
+        "connectivity"
+      ],
+      "brand_origin": "British Luxury",
+      "safety_rating": "4-star NHTSA",
+      "style": "Luxurious, prestigious",
+      "technology": "Basic AM/FM radio, manual climate",
+      "startPrice": 669000000
+    },
+    {
+      "carId": "C012",
+      "make": "Mercedes-Benz",
+      "model": "C300",
+      "name": "Mercedes-Benz C300",
+      "year": 2024,
+      "vin": "5B86E289-5579-42B8-A0CB-0FE80F8704CB",
+      "color": "Red",
+      "seat": 6,
+      "size": "Convertible (2-4 passengers, minimal trunk)",
+      "purposes": [
+        "performance_driving",
+        "family_road_trips",
+        "moving_furniture"
+      ],
+      "priority": [
+        "luxury",
+        "off_road_capability",
+        "smartphone_integration"
+      ],
+      "brand_origin": "Japanese",
+      "safety_rating": "Below average safety",
+      "style": "Practical, family-friendly",
+      "technology": "5G connectivity, streaming services",
+      "startPrice": 2199000000
+    },
+    {
+      "carId": "C013",
+      "make": "Kia",
+      "model": "Morning",
+      "name": "Kia Morning",
+      "year": 2018,
+      "vin": "DD0FDF46-43A7-44FC-A67D-2A544ECFF4FF",
+      "color": "Blue",
+      "seat": 4,
+      "size": "Full-size sedan (5-6 passengers, very large trunk)",
+      "purposes": [
+        "tech_enthusiast",
+        "hauling_cargo",
+        "sports_activities"
+      ],
+      "priority": [
+        "quiet_cabin",
+        "fuel_economy",
+        "style"
+      ],
+      "brand_origin": "German Luxury",
+      "safety_rating": "Very good safety",
+      "style": "Aggressive, performance-oriented",
+      "technology": "Autopilot, large touchscreen, OTA updates",
+      "startPrice": 349000000
+    },
+    {
+      "carId": "C014",
+      "make": "Toyota",
+      "model": "Corolla",
+      "name": "Toyota Corolla",
+      "year": 2016,
+      "vin": "CC4E18DA-4892-4DE3-9FCD-09B3B0435793",
+      "color": "White",
+      "seat": 3,
+      "size": "Compact sedan (5 passengers, standard trunk)",
+      "purposes": [
+        "short_trips",
+        "highway_cruising",
+        "performance_driving"
+      ],
+      "priority": [
+        "smartphone_integration",
+        "cargo_space",
+        "climate_control"
+      ],
+      "brand_origin": "Swedish",
+      "safety_rating": "4-star",
+      "style": "Athletic, dynamic",
+      "technology": "Fast charging, mobile app control",
+      "startPrice": 725000000
+    },
+    {
+      "carId": "C015",
+      "make": "Ford",
+      "model": "Explorer",
+      "name": "Ford Explorer",
+      "year": 2017,
+      "vin": "53A002CB-4501-44DF-9A6A-888C10583843",
+      "color": "Brown",
+      "seat": 5,
+      "size": "Mid-size crossover (7-8 passengers, good cargo)",
+      "purposes": [
+        "track_racing",
+        "client_meetings",
+        "tech_enthusiast"
+      ],
+      "priority": [
+        "affordability",
+        "storage_solutions",
+        "reliability"
+      ],
+      "brand_origin": "Multi-national",
+      "safety_rating": "Very good safety",
+      "style": "Classic, timeless",
+      "technology": "Premium iDrive system, premium audio",
+      "startPrice": 2439000000
+    },
+    {
+      "carId": "C016",
+      "make": "Mercedes-Benz",
+      "model": "GLA",
+      "name": "Mercedes-Benz GLA",
+      "year": 2022,
+      "vin": "F3656705-F3A0-42E3-9A64-3192A08DB2A4",
+      "color": "Red",
+      "seat": 7,
+      "size": "Luxury sedan (4-5 passengers, premium space)",
+      "purposes": [
+        "eco_friendly",
+        "luxury",
+        "off_road_adventure"
+      ],
+      "priority": [
+        "ride_quality",
+        "sportiness",
+        "visibility"
+      ],
+      "brand_origin": "American Luxury",
+      "safety_rating": "3-star NHTSA",
+      "style": "Understated, sophisticated",
+      "technology": "Premium iDrive system, premium audio",
+      "startPrice": 1519000000
+    },
+    {
+      "carId": "C017",
+      "make": "Honda",
+      "model": "Civic",
+      "name": "Honda Civic",
+      "year": 2017,
+      "vin": "5724283C-B8F5-4232-AE70-BA132D49FEED",
+      "color": "Black",
+      "seat": 6,
+      "size": "Convertible (2-4 passengers, minimal trunk)",
+      "purposes": [
+        "daily_commute",
+        "moving_furniture",
+        "short_trips"
+      ],
+      "priority": [
+        "cargo_space",
+        "spacious_interior",
+        "design"
+      ],
+      "brand_origin": "British Luxury",
+      "safety_rating": "Excellent safety",
+      "style": "Progressive, innovative",
+      "technology": "Autopilot, large touchscreen, OTA updates",
+      "startPrice": 730000000
+    },
+    {
+      "carId": "C018",
+      "make": "Toyota",
+      "model": "RAV4",
+      "name": "Toyota RAV4",
+      "year": 2018,
+      "vin": "A0F6E497-2F11-4CB4-855C-8B3D08E71D12",
+      "color": "Brown",
+      "seat": 7,
+      "size": "Compact sedan (5 passengers, standard trunk)",
+      "purposes": [
+        "work_commute",
+        "road_trips",
+        "track_racing"
+      ],
+      "priority": [
+        "climate_control",
+        "storage_solutions",
+        "smartphone_integration"
+      ],
+      "brand_origin": "French",
+      "safety_rating": "Very good safety",
+      "style": "Italian flair",
+      "technology": "Premium sound system, navigation",
+      "startPrice": 2500000000
+    },
+    {
+      "carId": "C019",
+      "make": "Toyota",
+      "model": "Yaris",
+      "name": "Toyota Yaris",
+      "year": 2019,
+      "vin": "CC3ABD15-951D-4B82-9148-1D6BAAACE390",
+      "color": "Bạc",
+      "seat": 6,
+      "size": "Mid-size pickup (5-6 passengers, standard bed)",
+      "purposes": [
+        "school_runs",
+        "farming_ranch",
+        "short_trips"
+      ],
+      "priority": [
+        "dealer_network",
+        "infotainment",
+        "connectivity"
+      ],
+      "brand_origin": "Multi-national",
+      "safety_rating": "Below average safety",
+      "style": "Premium, refined",
+      "technology": "Mazda Connect, Bose audio available",
+      "startPrice": 668000000
+    },
+    {
+      "carId": "C020",
+      "make": "Honda",
+      "model": "Civic",
+      "name": "Honda Civic",
+      "year": 2023,
+      "vin": "48F6DBEA-C7B1-4F31-BEEC-276B042502CC",
+      "color": "Bạc",
+      "seat": 2,
+      "size": "Coupe (2-4 passengers, limited trunk)",
+      "purposes": [
+        "client_meetings",
+        "business",
+        "leisure"
+      ],
+      "priority": [
+        "safety",
+        "quiet_cabin",
+        "reliability"
+      ],
+      "brand_origin": "Chinese",
+      "safety_rating": "4-star",
+      "style": "German engineering focus",
+      "technology": "Subaru EyeSight, Starlink system",
+      "startPrice": 730000000
+    },
+    {
+      "carId": "C021",
+      "make": "Honda",
+      "model": "Accord",
+      "name": "Honda Accord",
+      "year": 2025,
+      "vin": "BF506EE0-45C6-4256-A4DB-921A8DFB54F2",
+      "color": "Brown",
+      "seat": 7,
+      "size": "Compact crossover (5 passengers, moderate cargo)",
+      "purposes": [
+        "eco_friendly",
+        "budget_friendly",
+        "family"
+      ],
+      "priority": [
+        "style",
+        "sportiness",
+        "driving_feel"
+      ],
+      "brand_origin": "Italian",
+      "safety_rating": "3-star NHTSA",
+      "style": "Workmanlike, durable",
+      "technology": "Premium iDrive system, premium audio",
+      "startPrice": 1319000000
+    },
+    {
+      "carId": "C022",
+      "make": "Ford",
+      "model": "Ranger",
+      "name": "Ford Ranger",
+      "year": 2022,
+      "vin": "5EC6EFCA-32E7-46CB-8DD9-B685AD820092",
+      "color": "Blue",
+      "seat": 5,
+      "size": "Compact SUV (5 passengers, good cargo)",
+      "purposes": [
+        "retirement_car",
+        "construction_work",
+        "farming_ranch"
+      ],
+      "priority": [
+        "low_maintenance",
+        "quiet_cabin",
+        "resale_value"
+      ],
+      "brand_origin": "Japanese Luxury",
+      "safety_rating": "4-star",
+      "style": "Athletic, dynamic",
+      "technology": "Remote start, smartphone app",
+      "startPrice": 669000000
+    },
+    {
+      "carId": "C023",
+      "make": "Honda",
+      "model": "Accord",
+      "name": "Honda Accord",
+      "year": 2016,
+      "vin": "327ADA8B-2976-4316-8727-541A116F9AEF",
+      "color": "Black",
+      "seat": 5,
+      "size": "Heavy-duty pickup (3-6 passengers, extra-large bed)",
+      "purposes": [
+        "budget_friendly",
+        "professional_image",
+        "towing"
+      ],
+      "priority": [
+        "ride_quality",
+        "smartphone_integration",
+        "driving_feel"
+      ],
+      "brand_origin": "American Luxury",
+      "safety_rating": "Very good safety",
+      "style": "Quirky, distinctive",
+      "technology": "UConnect system, Harman Kardon audio",
+      "startPrice": 1319000000
+    },
+    {
+      "carId": "C024",
+      "make": "Ford",
+      "model": "Escape",
+      "name": "Ford Escape",
+      "year": 2017,
+      "vin": "5C500F61-C14D-4C79-847A-79059BF87541",
+      "color": "Red",
+      "seat": 5,
+      "size": "Heavy-duty pickup (3-6 passengers, extra-large bed)",
+      "purposes": [
+        "professional_image",
+        "budget_friendly",
+        "Orangeping_outdoors"
+      ],
+      "priority": [
+        "reliability",
+        "comfortable_seats",
+        "safety"
+      ],
+      "brand_origin": "British",
+      "safety_rating": "Below average safety",
+      "style": "Rugged, powerful",
+      "technology": "Luxury infotainment, massage seats",
+      "startPrice": null
+    },
+    {
+      "carId": "C025",
+      "make": "Toyota",
+      "model": "Corolla",
+      "name": "Toyota Corolla",
+      "year": 2016,
+      "vin": "871428C5-5F0E-45F6-88CB-DA8259F240E1",
+      "color": "White",
+      "seat": 5,
+      "size": "Luxury SUV (5-7 passengers, premium cargo)",
+      "purposes": [
+        "retirement_car",
+        "moving_furniture",
+        "luxury"
+      ],
+      "priority": [
+        "prestige",
+        "towing_capacity",
+        "uniqueness"
+      ],
+      "brand_origin": "Italian",
+      "safety_rating": "4-star",
+      "style": "Sporty, elegant, luxurious",
+      "technology": "Autopilot, large touchscreen, OTA updates",
+      "startPrice": 725000000
+    },
+    {
+      "carId": "C026",
+      "make": "Kia",
+      "model": "Cerato",
+      "name": "Kia Cerato",
+      "year": 2018,
+      "vin": "C7A88008-5305-4979-8D3F-249A822488AF",
+      "color": "Bạc",
+      "seat": 5,
+      "size": "Full-size sedan (5-6 passengers, very large trunk)",
+      "purposes": [
+        "child_transport",
+        "family_road_trips",
+        "short_trips"
+      ],
+      "priority": [
+        "brand_image",
+        "warranty",
+        "off_road_capability"
+      ],
+      "brand_origin": "British",
+      "safety_rating": "Below average safety",
+      "style": "Practical, family-friendly",
+      "technology": "Premium audio, wireless charging",
+      "startPrice": 579000000
+    },
+    {
+      "carId": "C027",
+      "make": "Ford",
+      "model": "Mustang",
+      "name": "Ford Mustang",
+      "year": 2018,
+      "vin": "B5C34831-EAB4-4356-BA9C-5D39D4C72E87",
+      "color": "Brown",
+      "seat": 2,
+      "size": "Full-size pickup (6 passengers, large bed)",
+      "purposes": [
+        "client_meetings",
+        "child_transport",
+        "short_trips"
+      ],
+      "priority": [
+        "reliability",
+        "brand_image",
+        "crash_protection"
+      ],
+      "brand_origin": "Korean",
+      "safety_rating": "3-star",
+      "style": "Tough, utilitarian",
+      "technology": "Honda Sensing, large touchscreen",
+      "startPrice": 3000000000
+    },
+    {
+      "carId": "C028",
+      "make": "Mercedes-Benz",
+      "model": "C300",
+      "name": "Mercedes-Benz C300",
+      "year": 2021,
+      "vin": "938004F3-3D18-4880-B657-02F0E6AC0CA0",
+      "color": "Brown",
+      "seat": 3,
+      "size": "Full-size sedan (5-6 passengers, very large trunk)",
+      "purposes": [
+        "beach_mountain",
+        "performance_driving",
+        "moving_furniture"
+      ],
+      "priority": [
+        "acceleration",
+        "navigation",
+        "connectivity"
+      ],
+      "brand_origin": "British",
+      "safety_rating": "4-star",
+      "style": "Opulent, exclusive",
+      "technology": "Touchscreen, smartphone integration",
+      "startPrice": 2199000000
+    },
+    {
+      "carId": "C029",
+      "make": "Mercedes-Benz",
+      "model": "E300",
+      "name": "Mercedes-Benz E300",
+      "year": 2015,
+      "vin": "143DE093-CC24-4217-B9B5-92911DF1FC47",
+      "color": "Bạc",
+      "seat": 5,
+      "size": "Mid-size SUV (7-8 passengers, large cargo)",
+      "purposes": [
+        "off_road_adventure",
+        "school_runs",
+        "tech_enthusiast"
+      ],
+      "priority": [
+        "driver_aids",
+        "crash_protection",
+        "off_road_capability"
+      ],
+      "brand_origin": "British Luxury",
+      "safety_rating": "Average safety",
+      "style": "European elegance",
+      "technology": "Remote start, smartphone app",
+      "startPrice": 3209000000
+    },
+    {
+      "carId": "C030",
+      "make": "Toyota",
+      "model": "Yaris",
+      "name": "Toyota Yaris",
+      "year": 2018,
+      "vin": "46424FAB-0A6E-43F7-9E7F-BEEC21C98D41",
+      "color": "White",
+      "seat": 2,
+      "size": "Heavy-duty pickup (3-6 passengers, extra-large bed)",
+      "purposes": [
+        "leisure",
+        "track_racing",
+        "child_transport"
+      ],
+      "priority": [
+        "stability",
+        "design",
+        "acceleration"
+      ],
+      "brand_origin": "British",
+      "safety_rating": "Below average safety",
+      "style": "Aggressive, performance-oriented",
+      "technology": "Luxury infotainment, massage seats",
+      "startPrice": 668000000
+    },
+    {
+      "carId": "C031",
+      "make": "Ford",
+      "model": "Escape",
+      "name": "Ford Escape",
+      "year": 2017,
+      "vin": "98021DBC-802B-4D69-B57E-0200F60AA889",
+      "color": "Black",
+      "seat": 6,
+      "size": "Full-size sedan (5-6 passengers, very large trunk)",
+      "purposes": [
+        "performance_driving",
+        "luxury",
+        "short_trips"
+      ],
+      "priority": [
+        "climate_control",
+        "versatility",
+        "design"
+      ],
+      "brand_origin": "British Luxury",
+      "safety_rating": "Good safety",
+      "style": "Sporty, elegant, luxurious",
+      "technology": "Large touchscreen, Android Auto/Apple CarPlay",
+      "startPrice": null
+    },
+    {
+      "carId": "C032",
+      "make": "Kia",
+      "model": "Sportage",
+      "name": "Kia Sportage",
+      "year": 2021,
+      "vin": "5F95993A-B330-49B7-8712-AE3568046870",
+      "color": "Brown",
+      "seat": 3,
+      "size": "Mid-size sedan (5 passengers, large trunk)",
+      "purposes": [
+        "eco_friendly",
+        "daily_commute",
+        "short_trips"
+      ],
+      "priority": [
+        "connectivity",
+        "power",
+        "smartphone_integration"
+      ],
+      "brand_origin": "American Luxury",
+      "safety_rating": "Average safety",
+      "style": "Quirky, distinctive",
+      "technology": "Standard infotainment, Bluetooth",
+      "startPrice": 799000000
+    },
+    {
+      "carId": "C033",
+      "make": "Mercedes-Benz",
+      "model": "C200",
+      "name": "Mercedes-Benz C200",
+      "year": 2025,
+      "vin": "E24A8236-4665-4124-B673-72997A3CAE62",
+      "color": "Blue",
+      "seat": 6,
+      "size": "Mid-size crossover (7-8 passengers, good cargo)",
+      "purposes": [
+        "Orangeping_outdoors",
+        "professional_image",
+        "budget_friendly"
+      ],
+      "priority": [
+        "luxury",
+        "driving_feel",
+        "handling"
+      ],
+      "brand_origin": "American Luxury",
+      "safety_rating": "5-star",
+      "style": "Classic, timeless",
+      "technology": "Over-the-air updates",
+      "startPrice": 1599000000
+    },
+    {
+      "carId": "C034",
+      "make": "Ford",
+      "model": "Explorer",
+      "name": "Ford Explorer",
+      "year": 2025,
+      "vin": "C1EF3A21-8FAD-42C2-B654-A0454BC55A73",
+      "color": "Black",
+      "seat": 5,
+      "size": "Compact crossover (5 passengers, moderate cargo)",
+      "purposes": [
+        "short_trips",
+        "business",
+        "track_racing"
+      ],
+      "priority": [
+        "towing_capacity",
+        "warranty",
+        "driver_assistance"
+      ],
+      "brand_origin": "Swedish",
+      "safety_rating": "Average safety",
+      "style": "Elegant, sporty, sophisticated",
+      "technology": "Autopilot, large touchscreen, OTA updates",
+      "startPrice": 2439000000
+    },
+    {
+      "carId": "C035",
+      "make": "Toyota",
+      "model": "RAV4",
+      "name": "Toyota RAV4",
+      "year": 2023,
+      "vin": "0C1411BE-75CA-4F74-A49B-4A68371C32BE",
+      "color": "Red",
+      "seat": 6,
+      "size": "Luxury SUV (5-7 passengers, premium cargo)",
+      "purposes": [
+        "luxury",
+        "beach_mountain",
+        "child_transport"
+      ],
+      "priority": [
+        "quiet_cabin",
+        "fuel_economy",
+        "power"
+      ],
+      "brand_origin": "Swedish",
+      "safety_rating": "Below average safety",
+      "style": "Conservative, elegant",
+      "technology": "Touchscreen, smartphone integration",
+      "startPrice": 2500000000
+    },
+    {
+      "carId": "C036",
+      "make": "Kia",
+      "model": "Cerato",
+      "name": "Kia Cerato",
+      "year": 2018,
+      "vin": "4D3BDCE9-01CC-4C90-A8EE-D9AD08A9B710",
+      "color": "Bạc",
+      "seat": 3,
+      "size": "Hatchback (5 passengers, flexible cargo)",
+      "purposes": [
+        "weekend_trips",
+        "highway_cruising",
+        "leisure"
+      ],
+      "priority": [
+        "safety",
+        "cargo_space",
+        "driving_feel"
+      ],
+      "brand_origin": "American Luxury",
+      "safety_rating": "4-star NHTSA",
+      "style": "Aristocratic, grand",
+      "technology": "Honda Sensing, large touchscreen",
+      "startPrice": 579000000
+    },
+    {
+      "carId": "C037",
+      "make": "Kia",
+      "model": "Sorento",
+      "name": "Kia Sorento",
+      "year": 2023,
+      "vin": "A03E3B18-9271-441F-ABAF-02DA15E7EEDE",
+      "color": "Orange",
+      "seat": 4,
+      "size": "Mid-size crossover (7-8 passengers, good cargo)",
+      "purposes": [
+        "budget_friendly",
+        "school_runs",
+        "daily_commute"
+      ],
+      "priority": [
+        "infotainment",
+        "visibility",
+        "ease_of_parking"
+      ],
+      "brand_origin": "French",
+      "safety_rating": "2-star NHTSA",
+      "style": "Modern, minimalist, futuristic",
+      "technology": "Basic AM/FM radio, manual climate",
+      "startPrice": 964000000
+    },
+    {
+      "carId": "C038",
+      "make": "Kia",
+      "model": "Morning",
+      "name": "Kia Morning",
+      "year": 2018,
+      "vin": "A8776EA7-0F68-417A-B833-5F82CAB7E04B",
+      "color": "White",
+      "seat": 6,
+      "size": "Convertible (2-4 passengers, minimal trunk)",
+      "purposes": [
+        "Orangeping_outdoors",
+        "short_trips",
+        "budget_friendly"
+      ],
+      "priority": [
+        "technology",
+        "comfortable_seats",
+        "reliability"
+      ],
+      "brand_origin": "Chinese",
+      "safety_rating": "3-star",
+      "style": "Quirky, distinctive",
+      "technology": "Remote start, smartphone app",
+      "startPrice": 349000000
+    },
+    {
+      "carId": "C039",
+      "make": "Ford",
+      "model": "Escape",
+      "name": "Ford Escape",
+      "year": 2015,
+      "vin": "AC5AD771-521B-4DD6-BDC3-D16CF5B06C2E",
+      "color": "Red",
+      "seat": 2,
+      "size": "Compact crossover (5 passengers, moderate cargo)",
+      "purposes": [
+        "towing",
+        "eco_friendly",
+        "weekend_trips"
+      ],
+      "priority": [
+        "reliability",
+        "durability",
+        "safety"
+      ],
+      "brand_origin": "Chinese",
+      "safety_rating": "5-star NHTSA",
+      "style": "Japanese precision",
+      "technology": "SYNC 4, large touchscreen",
+      "startPrice": null
+    },
+    {
+      "carId": "C040",
+      "make": "Honda",
+      "model": "CR-V",
+      "name": "Honda CR-V",
+      "year": 2015,
+      "vin": "46F8F0CE-D39A-40B4-BD1E-DCEBAD4C8495",
+      "color": "Orange",
+      "seat": 5,
+      "size": "Subcompact SUV (5 passengers, minimal cargo)",
+      "purposes": [
+        "eco_friendly",
+        "child_transport",
+        "client_meetings"
+      ],
+      "priority": [
+        "technology",
+        "ease_of_parking",
+        "cargo_space"
+      ],
+      "brand_origin": "German Luxury",
+      "safety_rating": "5-star NHTSA",
+      "style": "Scandinavian minimalism",
+      "technology": "Honda Sensing, large touchscreen",
+      "startPrice": 1109000000
+    },
+    {
+      "carId": "C041",
+      "make": "Mercedes-Benz",
+      "model": "C300",
+      "name": "Mercedes-Benz C300",
+      "year": 2023,
+      "vin": "DF6D1164-8360-40C3-B101-8C988E6E4C72",
+      "color": "Red",
+      "seat": 2,
+      "size": "Full-size SUV (8-9 passengers, massive cargo)",
+      "purposes": [
+        "professional_image",
+        "road_trips",
+        "client_meetings"
+      ],
+      "priority": [
+        "passenger_space",
+        "resale_value",
+        "spacious_interior"
+      ],
+      "brand_origin": "Japanese Luxury",
+      "safety_rating": "5-star NHTSA",
+      "style": "Modern, minimalist, futuristic",
+      "technology": "Basic AM/FM radio, manual climate",
+      "startPrice": 2199000000
+    },
+    {
+      "carId": "C042",
+      "make": "Kia",
+      "model": "Cerato",
+      "name": "Kia Cerato",
+      "year": 2025,
+      "vin": "02DBCFEF-D190-4310-9823-46A77FCEE4F5",
+      "color": "Yellow",
+      "seat": 3,
+      "size": "Subcompact SUV (5 passengers, minimal cargo)",
+      "purposes": [
+        "retirement_car",
+        "beach_mountain",
+        "daily_commute"
+      ],
+      "priority": [
+        "passenger_space",
+        "smartphone_integration",
+        "brand_image"
+      ],
+      "brand_origin": "Czech",
+      "safety_rating": "3-star NHTSA",
+      "style": "Elegant, sporty, sophisticated",
+      "technology": "Fast charging, mobile app control",
+      "startPrice": 579000000
+    },
+    {
+      "carId": "C043",
+      "make": "Mercedes-Benz",
+      "model": "GLA",
+      "name": "Mercedes-Benz GLA",
+      "year": 2015,
+      "vin": "A1F1231D-6147-41EE-B4B1-9D5BC16F6DD2",
+      "color": "Blue",
+      "seat": 5,
+      "size": "Coupe (2-4 passengers, limited trunk)",
+      "purposes": [
+        "weekend_trips",
+        "child_transport",
+        "farming_ranch"
+      ],
+      "priority": [
+        "low_maintenance",
+        "towing_capacity",
+        "stability"
+      ],
+      "brand_origin": "Swedish",
+      "safety_rating": "Excellent safety",
+      "style": "Luxurious, prestigious",
+      "technology": "Mazda Connect, Bose audio available",
+      "startPrice": 1519000000
+    },
+    {
+      "carId": "C044",
+      "make": "Mercedes-Benz",
+      "model": "E300",
+      "name": "Mercedes-Benz E300",
+      "year": 2015,
+      "vin": "B63DEFD2-85F6-4857-8D3C-6D6231EDCAA0",
+      "color": "Brown",
+      "seat": 2,
+      "size": "Wagon (5-7 passengers, maximum cargo)",
+      "purposes": [
+        "highway_cruising",
+        "towing",
+        "business"
+      ],
+      "priority": [
+        "crash_protection",
+        "passenger_space",
+        "off_road_capability"
+      ],
+      "brand_origin": "Swedish",
+      "safety_rating": "Good safety",
+      "style": "Sporty, elegant, luxurious",
+      "technology": "Standard infotainment, Bluetooth",
+      "startPrice": 3209000000
+    },
+    {
+      "carId": "C045",
+      "make": "Honda",
+      "model": "Civic",
+      "name": "Honda Civic",
+      "year": 2022,
+      "vin": "26FD319D-464C-442C-9C8C-0C477DBD8932",
+      "color": "Yellow",
+      "seat": 7,
+      "size": "Van/Minivan (7-8 passengers, enormous cargo)",
+      "purposes": [
+        "farming_ranch",
+        "professional_image",
+        "beach_mountain"
+      ],
+      "priority": [
+        "off_road_capability",
+        "cargo_space",
+        "ease_of_parking"
+      ],
+      "brand_origin": "American",
+      "safety_rating": "Below average safety",
+      "style": "Italian flair",
+      "technology": "Super Cruise, hands-free driving",
+      "startPrice": 730000000
+    },
+    {
+      "carId": "C046",
+      "make": "Ford",
+      "model": "Explorer",
+      "name": "Ford Explorer",
+      "year": 2018,
+      "vin": "B54DE819-97F1-473C-A85C-548A64884E04",
+      "color": "Blue",
+      "seat": 4,
+      "size": "Compact SUV (5 passengers, good cargo)",
+      "purposes": [
+        "client_meetings",
+        "towing",
+        "work_commute"
+      ],
+      "priority": [
+        "style",
+        "quiet_cabin",
+        "visibility"
+      ],
+      "brand_origin": "Multi-national",
+      "safety_rating": "Good safety",
+      "style": "German engineering focus",
+      "technology": "Luxury infotainment, massage seats",
+      "startPrice": 2439000000
+    },
+    {
+      "carId": "C047",
+      "make": "Ford",
+      "model": "Explorer",
+      "name": "Ford Explorer",
+      "year": 2019,
+      "vin": "5EE560EB-E43E-4DFC-9783-5C7ABA0408BB",
+      "color": "Red",
+      "seat": 7,
+      "size": "Mid-size pickup (5-6 passengers, standard bed)",
+      "purposes": [
+        "moving_furniture",
+        "eco_friendly",
+        "highway_cruising"
+      ],
+      "priority": [
+        "power",
+        "uniqueness",
+        "fuel_economy"
+      ],
+      "brand_origin": "French",
+      "safety_rating": "Not rated NHTSA",
+      "style": "Italian flair",
+      "technology": "Super Cruise, hands-free driving",
+      "startPrice": 2439000000
+    },
+    {
+      "carId": "C048",
+      "make": "Kia",
+      "model": "Morning",
+      "name": "Kia Morning",
+      "year": 2024,
+      "vin": "4744EB53-6263-45F7-B3F5-796DC0F84176",
+      "color": "White",
+      "seat": 6,
+      "size": "Convertible (2-4 passengers, minimal trunk)",
+      "purposes": [
+        "highway_cruising",
+        "hauling_cargo",
+        "track_racing"
+      ],
+      "priority": [
+        "towing_capacity",
+        "parts_availability",
+        "ride_quality"
+      ],
+      "brand_origin": "Chinese",
+      "safety_rating": "4-star",
+      "style": "Executive, distinguished",
+      "technology": "Large touchscreen, Android Auto/Apple CarPlay",
+      "startPrice": 349000000
+    },
+    {
+      "carId": "C049",
+      "make": "Toyota",
+      "model": "Corolla",
+      "name": "Toyota Corolla",
+      "year": 2018,
+      "vin": "383241AA-3822-4661-99D2-544AC8FD8719",
+      "color": "White",
+      "seat": 3,
+      "size": "Compact sedan (5 passengers, standard trunk)",
+      "purposes": [
+        "daily_commute",
+        "short_trips",
+        "moving_furniture"
+      ],
+      "priority": [
+        "style",
+        "sportiness",
+        "towing_capacity"
+      ],
+      "brand_origin": "American",
+      "safety_rating": "Not rated NHTSA",
+      "style": "Youthful, modern",
+      "technology": "4G LTE hotspot, cloud services",
+      "startPrice": 725000000
+    },
+    {
+      "carId": "C050",
+      "make": "Mercedes-Benz",
+      "model": "GLA",
+      "name": "Mercedes-Benz GLA",
+      "year": 2024,
+      "vin": "59E41A52-1D82-4398-AD81-89D2358283D8",
+      "color": "Brown",
+      "seat": 6,
+      "size": "Compact sedan (5 passengers, standard trunk)",
+      "purposes": [
+        "budget_friendly",
+        "retirement_car",
+        "tech_enthusiast"
+      ],
+      "priority": [
+        "design",
+        "acceleration",
+        "brand_image"
+      ],
+      "brand_origin": "British Luxury",
+      "safety_rating": "Excellent safety",
+      "style": "Youthful, modern",
+      "technology": "Super Cruise, hands-free driving",
+      "startPrice": 1519000000
+    }
+  ]
+}

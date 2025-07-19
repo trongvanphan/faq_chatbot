@@ -1,0 +1,1380 @@
+{
+  "accessories": [
+    {
+      "carId": "C001",
+      "accessoryId": "A001",
+      "name": "Nắp bình xăng",
+      "make": "Ford",
+      "quantity": 18,
+      "price": "1,523,309"
+    },
+    {
+      "carId": "C001",
+      "accessoryId": "A002",
+      "name": "Bình ắc quy",
+      "make": "Ford",
+      "quantity": 19,
+      "price": "1,337,259"
+    },
+    {
+      "carId": "C001",
+      "accessoryId": "A003",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Ford",
+      "quantity": 40,
+      "price": "3,862,060"
+    },
+    {
+      "carId": "C001",
+      "accessoryId": "A004",
+      "name": "Kèn xe",
+      "make": "Ford",
+      "quantity": 32,
+      "price": "3,375,316"
+    },
+    {
+      "carId": "C001",
+      "accessoryId": "A005",
+      "name": "Má phanh",
+      "make": "Ford",
+      "quantity": 11,
+      "price": "289,923"
+    },
+    {
+      "carId": "C002",
+      "accessoryId": "A006",
+      "name": "Lọc dầu",
+      "make": "Honda",
+      "quantity": 10,
+      "price": "4,580,248"
+    },
+    {
+      "carId": "C002",
+      "accessoryId": "A007",
+      "name": "Bình ắc quy",
+      "make": "Honda",
+      "quantity": 30,
+      "price": "969,976"
+    },
+    {
+      "carId": "C002",
+      "accessoryId": "A008",
+      "name": "Camera hành trình",
+      "make": "Honda",
+      "quantity": 43,
+      "price": "1,689,917"
+    },
+    {
+      "carId": "C002",
+      "accessoryId": "A009",
+      "name": "Thảm lót sàn",
+      "make": "Honda",
+      "quantity": 25,
+      "price": "2,434,956"
+    },
+    {
+      "carId": "C003",
+      "accessoryId": "A010",
+      "name": "Kèn xe",
+      "make": "Honda",
+      "quantity": 9,
+      "price": "1,679,325"
+    },
+    {
+      "carId": "C003",
+      "accessoryId": "A011",
+      "name": "Lọc gió",
+      "make": "Honda",
+      "quantity": 5,
+      "price": "1,897,343"
+    },
+    {
+      "carId": "C003",
+      "accessoryId": "A012",
+      "name": "Thảm lót sàn",
+      "make": "Honda",
+      "quantity": 12,
+      "price": "3,538,985"
+    },
+    {
+      "carId": "C004",
+      "accessoryId": "A013",
+      "name": "Kèn xe",
+      "make": "Ford",
+      "quantity": 48,
+      "price": "4,834,220"
+    },
+    {
+      "carId": "C004",
+      "accessoryId": "A014",
+      "name": "Nắp bình xăng",
+      "make": "Ford",
+      "quantity": 18,
+      "price": "362,637"
+    },
+    {
+      "carId": "C004",
+      "accessoryId": "A015",
+      "name": "Bugi",
+      "make": "Ford",
+      "quantity": 41,
+      "price": "229,883"
+    },
+    {
+      "carId": "C005",
+      "accessoryId": "A016",
+      "name": "Lọc dầu",
+      "make": "Honda",
+      "quantity": 48,
+      "price": "1,895,869"
+    },
+    {
+      "carId": "C005",
+      "accessoryId": "A017",
+      "name": "Lọc gió",
+      "make": "Honda",
+      "quantity": 47,
+      "price": "492,988"
+    },
+    {
+      "carId": "C005",
+      "accessoryId": "A018",
+      "name": "Thảm lót sàn",
+      "make": "Honda",
+      "quantity": 40,
+      "price": "613,738"
+    },
+    {
+      "carId": "C006",
+      "accessoryId": "A019",
+      "name": "Bình ắc quy",
+      "make": "Kia",
+      "quantity": 37,
+      "price": "3,600,665"
+    },
+    {
+      "carId": "C006",
+      "accessoryId": "A020",
+      "name": "Má phanh",
+      "make": "Kia",
+      "quantity": 39,
+      "price": "2,981,508"
+    },
+    {
+      "carId": "C006",
+      "accessoryId": "A021",
+      "name": "Bọc vô lăng",
+      "make": "Kia",
+      "quantity": 17,
+      "price": "1,379,912"
+    },
+    {
+      "carId": "C006",
+      "accessoryId": "A022",
+      "name": "Dây curoa",
+      "make": "Kia",
+      "quantity": 48,
+      "price": "2,392,724"
+    },
+    {
+      "carId": "C006",
+      "accessoryId": "A023",
+      "name": "Đèn pha LED",
+      "make": "Kia",
+      "quantity": 29,
+      "price": "216,793"
+    },
+    {
+      "carId": "C007",
+      "accessoryId": "A024",
+      "name": "Camera hành trình",
+      "make": "Toyota",
+      "quantity": 33,
+      "price": "4,350,607"
+    },
+    {
+      "carId": "C007",
+      "accessoryId": "A025",
+      "name": "Gạt mưa",
+      "make": "Toyota",
+      "quantity": 32,
+      "price": "2,973,153"
+    },
+    {
+      "carId": "C008",
+      "accessoryId": "A026",
+      "name": "Bơm lốp",
+      "make": "Ford",
+      "quantity": 9,
+      "price": "3,099,759"
+    },
+    {
+      "carId": "C008",
+      "accessoryId": "A027",
+      "name": "Thảm lót sàn",
+      "make": "Ford",
+      "quantity": 33,
+      "price": "3,824,331"
+    },
+    {
+      "carId": "C008",
+      "accessoryId": "A028",
+      "name": "Gạt mưa",
+      "make": "Ford",
+      "quantity": 17,
+      "price": "629,696"
+    },
+    {
+      "carId": "C008",
+      "accessoryId": "A029",
+      "name": "Bugi",
+      "make": "Ford",
+      "quantity": 21,
+      "price": "2,098,821"
+    },
+    {
+      "carId": "C009",
+      "accessoryId": "A030",
+      "name": "Bugi",
+      "make": "Ford",
+      "quantity": 43,
+      "price": "621,067"
+    },
+    {
+      "carId": "C009",
+      "accessoryId": "A031",
+      "name": "Gạt mưa",
+      "make": "Ford",
+      "quantity": 34,
+      "price": "2,451,460"
+    },
+    {
+      "carId": "C009",
+      "accessoryId": "A032",
+      "name": "Nắp bình xăng",
+      "make": "Ford",
+      "quantity": 2,
+      "price": "169,045"
+    },
+    {
+      "carId": "C009",
+      "accessoryId": "A033",
+      "name": "Bơm lốp",
+      "make": "Ford",
+      "quantity": 1,
+      "price": "1,659,750"
+    },
+    {
+      "carId": "C010",
+      "accessoryId": "A034",
+      "name": "Bình ắc quy",
+      "make": "Honda",
+      "quantity": 20,
+      "price": "988,989"
+    },
+    {
+      "carId": "C010",
+      "accessoryId": "A035",
+      "name": "Bọc vô lăng",
+      "make": "Honda",
+      "quantity": 18,
+      "price": "2,488,992"
+    },
+    {
+      "carId": "C010",
+      "accessoryId": "A036",
+      "name": "Đèn pha LED",
+      "make": "Honda",
+      "quantity": 3,
+      "price": "394,242"
+    },
+    {
+      "carId": "C011",
+      "accessoryId": "A037",
+      "name": "Đèn pha LED",
+      "make": "Ford",
+      "quantity": 9,
+      "price": "4,724,522"
+    },
+    {
+      "carId": "C011",
+      "accessoryId": "A038",
+      "name": "Dây curoa",
+      "make": "Ford",
+      "quantity": 37,
+      "price": "1,422,904"
+    },
+    {
+      "carId": "C011",
+      "accessoryId": "A039",
+      "name": "Lọc dầu",
+      "make": "Ford",
+      "quantity": 20,
+      "price": "273,633"
+    },
+    {
+      "carId": "C012",
+      "accessoryId": "A040",
+      "name": "Bugi",
+      "make": "Mercedes-Benz",
+      "quantity": 4,
+      "price": "3,661,037"
+    },
+    {
+      "carId": "C012",
+      "accessoryId": "A041",
+      "name": "Đèn pha LED",
+      "make": "Mercedes-Benz",
+      "quantity": 49,
+      "price": "2,388,013"
+    },
+    {
+      "carId": "C013",
+      "accessoryId": "A042",
+      "name": "Bugi",
+      "make": "Kia",
+      "quantity": 3,
+      "price": "1,621,740"
+    },
+    {
+      "carId": "C013",
+      "accessoryId": "A043",
+      "name": "Thảm lót sàn",
+      "make": "Kia",
+      "quantity": 31,
+      "price": "1,126,278"
+    },
+    {
+      "carId": "C013",
+      "accessoryId": "A044",
+      "name": "Má phanh",
+      "make": "Kia",
+      "quantity": 44,
+      "price": "1,320,520"
+    },
+    {
+      "carId": "C014",
+      "accessoryId": "A045",
+      "name": "Gạt mưa",
+      "make": "Toyota",
+      "quantity": 31,
+      "price": "1,625,450"
+    },
+    {
+      "carId": "C014",
+      "accessoryId": "A046",
+      "name": "Má phanh",
+      "make": "Toyota",
+      "quantity": 11,
+      "price": "3,022,879"
+    },
+    {
+      "carId": "C014",
+      "accessoryId": "A047",
+      "name": "Đèn pha LED",
+      "make": "Toyota",
+      "quantity": 48,
+      "price": "1,233,930"
+    },
+    {
+      "carId": "C015",
+      "accessoryId": "A048",
+      "name": "Bugi",
+      "make": "Ford",
+      "quantity": 26,
+      "price": "1,565,804"
+    },
+    {
+      "carId": "C015",
+      "accessoryId": "A049",
+      "name": "Lọc dầu",
+      "make": "Ford",
+      "quantity": 12,
+      "price": "1,159,101"
+    },
+    {
+      "carId": "C015",
+      "accessoryId": "A050",
+      "name": "Bơm lốp",
+      "make": "Ford",
+      "quantity": 7,
+      "price": "4,990,371"
+    },
+    {
+      "carId": "C015",
+      "accessoryId": "A051",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Ford",
+      "quantity": 48,
+      "price": "1,312,607"
+    },
+    {
+      "carId": "C016",
+      "accessoryId": "A052",
+      "name": "Thảm lót sàn",
+      "make": "Mercedes-Benz",
+      "quantity": 36,
+      "price": "4,978,952"
+    },
+    {
+      "carId": "C016",
+      "accessoryId": "A053",
+      "name": "Bơm lốp",
+      "make": "Mercedes-Benz",
+      "quantity": 44,
+      "price": "3,227,617"
+    },
+    {
+      "carId": "C016",
+      "accessoryId": "A054",
+      "name": "Bình ắc quy",
+      "make": "Mercedes-Benz",
+      "quantity": 8,
+      "price": "791,747"
+    },
+    {
+      "carId": "C016",
+      "accessoryId": "A055",
+      "name": "Bugi",
+      "make": "Mercedes-Benz",
+      "quantity": 49,
+      "price": "2,030,553"
+    },
+    {
+      "carId": "C017",
+      "accessoryId": "A056",
+      "name": "Lọc gió",
+      "make": "Honda",
+      "quantity": 25,
+      "price": "962,968"
+    },
+    {
+      "carId": "C017",
+      "accessoryId": "A057",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Honda",
+      "quantity": 38,
+      "price": "4,179,107"
+    },
+    {
+      "carId": "C017",
+      "accessoryId": "A058",
+      "name": "Má phanh",
+      "make": "Honda",
+      "quantity": 2,
+      "price": "3,384,337"
+    },
+    {
+      "carId": "C017",
+      "accessoryId": "A059",
+      "name": "Bugi",
+      "make": "Honda",
+      "quantity": 24,
+      "price": "2,315,604"
+    },
+    {
+      "carId": "C018",
+      "accessoryId": "A060",
+      "name": "Kèn xe",
+      "make": "Toyota",
+      "quantity": 30,
+      "price": "3,617,237"
+    },
+    {
+      "carId": "C018",
+      "accessoryId": "A061",
+      "name": "Gạt mưa",
+      "make": "Toyota",
+      "quantity": 19,
+      "price": "1,553,859"
+    },
+    {
+      "carId": "C018",
+      "accessoryId": "A062",
+      "name": "Đèn pha LED",
+      "make": "Toyota",
+      "quantity": 32,
+      "price": "190,814"
+    },
+    {
+      "carId": "C019",
+      "accessoryId": "A063",
+      "name": "Bình ắc quy",
+      "make": "Toyota",
+      "quantity": 39,
+      "price": "4,768,422"
+    },
+    {
+      "carId": "C019",
+      "accessoryId": "A064",
+      "name": "Camera hành trình",
+      "make": "Toyota",
+      "quantity": 29,
+      "price": "4,164,487"
+    },
+    {
+      "carId": "C019",
+      "accessoryId": "A065",
+      "name": "Gạt mưa",
+      "make": "Toyota",
+      "quantity": 42,
+      "price": "1,212,201"
+    },
+    {
+      "carId": "C019",
+      "accessoryId": "A066",
+      "name": "Thảm lót sàn",
+      "make": "Toyota",
+      "quantity": 23,
+      "price": "3,410,445"
+    },
+    {
+      "carId": "C020",
+      "accessoryId": "A067",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Honda",
+      "quantity": 25,
+      "price": "2,799,584"
+    },
+    {
+      "carId": "C020",
+      "accessoryId": "A068",
+      "name": "Camera hành trình",
+      "make": "Honda",
+      "quantity": 8,
+      "price": "3,268,248"
+    },
+    {
+      "carId": "C020",
+      "accessoryId": "A069",
+      "name": "Dây curoa",
+      "make": "Honda",
+      "quantity": 10,
+      "price": "2,418,340"
+    },
+    {
+      "carId": "C021",
+      "accessoryId": "A070",
+      "name": "Bơm lốp",
+      "make": "Honda",
+      "quantity": 25,
+      "price": "963,725"
+    },
+    {
+      "carId": "C021",
+      "accessoryId": "A071",
+      "name": "Bọc vô lăng",
+      "make": "Honda",
+      "quantity": 36,
+      "price": "3,226,315"
+    },
+    {
+      "carId": "C021",
+      "accessoryId": "A072",
+      "name": "Đèn pha LED",
+      "make": "Honda",
+      "quantity": 33,
+      "price": "4,323,506"
+    },
+    {
+      "carId": "C021",
+      "accessoryId": "A073",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Honda",
+      "quantity": 14,
+      "price": "560,236"
+    },
+    {
+      "carId": "C022",
+      "accessoryId": "A074",
+      "name": "Bọc vô lăng",
+      "make": "Ford",
+      "quantity": 44,
+      "price": "843,423"
+    },
+    {
+      "carId": "C022",
+      "accessoryId": "A075",
+      "name": "Lọc gió",
+      "make": "Ford",
+      "quantity": 25,
+      "price": "1,497,021"
+    },
+    {
+      "carId": "C022",
+      "accessoryId": "A076",
+      "name": "Má phanh",
+      "make": "Ford",
+      "quantity": 13,
+      "price": "3,315,773"
+    },
+    {
+      "carId": "C023",
+      "accessoryId": "A077",
+      "name": "Lọc gió",
+      "make": "Honda",
+      "quantity": 49,
+      "price": "2,760,714"
+    },
+    {
+      "carId": "C023",
+      "accessoryId": "A078",
+      "name": "Đèn pha LED",
+      "make": "Honda",
+      "quantity": 50,
+      "price": "3,891,201"
+    },
+    {
+      "carId": "C023",
+      "accessoryId": "A079",
+      "name": "Bình ắc quy",
+      "make": "Honda",
+      "quantity": 43,
+      "price": "1,164,681"
+    },
+    {
+      "carId": "C023",
+      "accessoryId": "A080",
+      "name": "Dây curoa",
+      "make": "Honda",
+      "quantity": 29,
+      "price": "2,414,176"
+    },
+    {
+      "carId": "C023",
+      "accessoryId": "A081",
+      "name": "Camera hành trình",
+      "make": "Honda",
+      "quantity": 22,
+      "price": "161,736"
+    },
+    {
+      "carId": "C024",
+      "accessoryId": "A082",
+      "name": "Má phanh",
+      "make": "Ford",
+      "quantity": 13,
+      "price": "3,729,833"
+    },
+    {
+      "carId": "C024",
+      "accessoryId": "A083",
+      "name": "Gạt mưa",
+      "make": "Ford",
+      "quantity": 16,
+      "price": "3,522,578"
+    },
+    {
+      "carId": "C024",
+      "accessoryId": "A084",
+      "name": "Kèn xe",
+      "make": "Ford",
+      "quantity": 31,
+      "price": "4,167,089"
+    },
+    {
+      "carId": "C024",
+      "accessoryId": "A085",
+      "name": "Bơm lốp",
+      "make": "Ford",
+      "quantity": 6,
+      "price": "3,680,037"
+    },
+    {
+      "carId": "C024",
+      "accessoryId": "A086",
+      "name": "Lọc gió",
+      "make": "Ford",
+      "quantity": 47,
+      "price": "4,579,109"
+    },
+    {
+      "carId": "C025",
+      "accessoryId": "A087",
+      "name": "Đèn pha LED",
+      "make": "Toyota",
+      "quantity": 13,
+      "price": "1,136,909"
+    },
+    {
+      "carId": "C025",
+      "accessoryId": "A088",
+      "name": "Lọc gió",
+      "make": "Toyota",
+      "quantity": 43,
+      "price": "4,710,979"
+    },
+    {
+      "carId": "C025",
+      "accessoryId": "A089",
+      "name": "Lọc dầu",
+      "make": "Toyota",
+      "quantity": 33,
+      "price": "2,905,224"
+    },
+    {
+      "carId": "C025",
+      "accessoryId": "A090",
+      "name": "Bugi",
+      "make": "Toyota",
+      "quantity": 40,
+      "price": "2,984,505"
+    },
+    {
+      "carId": "C025",
+      "accessoryId": "A091",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Toyota",
+      "quantity": 9,
+      "price": "2,510,427"
+    },
+    {
+      "carId": "C026",
+      "accessoryId": "A092",
+      "name": "Bugi",
+      "make": "Kia",
+      "quantity": 26,
+      "price": "352,549"
+    },
+    {
+      "carId": "C026",
+      "accessoryId": "A093",
+      "name": "Gạt mưa",
+      "make": "Kia",
+      "quantity": 26,
+      "price": "3,111,163"
+    },
+    {
+      "carId": "C026",
+      "accessoryId": "A094",
+      "name": "Lọc dầu",
+      "make": "Kia",
+      "quantity": 15,
+      "price": "4,021,991"
+    },
+    {
+      "carId": "C026",
+      "accessoryId": "A095",
+      "name": "Camera hành trình",
+      "make": "Kia",
+      "quantity": 12,
+      "price": "785,021"
+    },
+    {
+      "carId": "C026",
+      "accessoryId": "A096",
+      "name": "Kèn xe",
+      "make": "Kia",
+      "quantity": 26,
+      "price": "2,529,489"
+    },
+    {
+      "carId": "C027",
+      "accessoryId": "A097",
+      "name": "Bình ắc quy",
+      "make": "Ford",
+      "quantity": 17,
+      "price": "3,908,966"
+    },
+    {
+      "carId": "C027",
+      "accessoryId": "A098",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Ford",
+      "quantity": 49,
+      "price": "824,220"
+    },
+    {
+      "carId": "C028",
+      "accessoryId": "A099",
+      "name": "Nắp bình xăng",
+      "make": "Mercedes-Benz",
+      "quantity": 40,
+      "price": "3,352,442"
+    },
+    {
+      "carId": "C028",
+      "accessoryId": "A100",
+      "name": "Thảm lót sàn",
+      "make": "Mercedes-Benz",
+      "quantity": 37,
+      "price": "2,523,171"
+    },
+    {
+      "carId": "C028",
+      "accessoryId": "A101",
+      "name": "Camera hành trình",
+      "make": "Mercedes-Benz",
+      "quantity": 29,
+      "price": "3,327,754"
+    },
+    {
+      "carId": "C028",
+      "accessoryId": "A102",
+      "name": "Đèn pha LED",
+      "make": "Mercedes-Benz",
+      "quantity": 29,
+      "price": "282,959"
+    },
+    {
+      "carId": "C029",
+      "accessoryId": "A103",
+      "name": "Đèn pha LED",
+      "make": "Mercedes-Benz",
+      "quantity": 9,
+      "price": "1,175,617"
+    },
+    {
+      "carId": "C029",
+      "accessoryId": "A104",
+      "name": "Bọc vô lăng",
+      "make": "Mercedes-Benz",
+      "quantity": 5,
+      "price": "1,928,341"
+    },
+    {
+      "carId": "C029",
+      "accessoryId": "A105",
+      "name": "Thảm lót sàn",
+      "make": "Mercedes-Benz",
+      "quantity": 26,
+      "price": "3,017,315"
+    },
+    {
+      "carId": "C029",
+      "accessoryId": "A106",
+      "name": "Nắp bình xăng",
+      "make": "Mercedes-Benz",
+      "quantity": 17,
+      "price": "3,128,126"
+    },
+    {
+      "carId": "C030",
+      "accessoryId": "A107",
+      "name": "Lọc dầu",
+      "make": "Toyota",
+      "quantity": 47,
+      "price": "531,528"
+    },
+    {
+      "carId": "C030",
+      "accessoryId": "A108",
+      "name": "Gạt mưa",
+      "make": "Toyota",
+      "quantity": 31,
+      "price": "4,992,556"
+    },
+    {
+      "carId": "C031",
+      "accessoryId": "A109",
+      "name": "Đèn pha LED",
+      "make": "Ford",
+      "quantity": 4,
+      "price": "1,644,676"
+    },
+    {
+      "carId": "C031",
+      "accessoryId": "A110",
+      "name": "Lọc gió",
+      "make": "Ford",
+      "quantity": 37,
+      "price": "1,954,127"
+    },
+    {
+      "carId": "C032",
+      "accessoryId": "A111",
+      "name": "Bơm lốp",
+      "make": "Kia",
+      "quantity": 40,
+      "price": "4,657,048"
+    },
+    {
+      "carId": "C032",
+      "accessoryId": "A112",
+      "name": "Lọc dầu",
+      "make": "Kia",
+      "quantity": 28,
+      "price": "4,929,717"
+    },
+    {
+      "carId": "C032",
+      "accessoryId": "A113",
+      "name": "Camera hành trình",
+      "make": "Kia",
+      "quantity": 28,
+      "price": "2,535,031"
+    },
+    {
+      "carId": "C032",
+      "accessoryId": "A114",
+      "name": "Lọc gió",
+      "make": "Kia",
+      "quantity": 46,
+      "price": "3,113,596"
+    },
+    {
+      "carId": "C033",
+      "accessoryId": "A115",
+      "name": "Đèn pha LED",
+      "make": "Mercedes-Benz",
+      "quantity": 22,
+      "price": "693,203"
+    },
+    {
+      "carId": "C033",
+      "accessoryId": "A116",
+      "name": "Bơm lốp",
+      "make": "Mercedes-Benz",
+      "quantity": 22,
+      "price": "4,834,147"
+    },
+    {
+      "carId": "C033",
+      "accessoryId": "A117",
+      "name": "Má phanh",
+      "make": "Mercedes-Benz",
+      "quantity": 41,
+      "price": "695,231"
+    },
+    {
+      "carId": "C034",
+      "accessoryId": "A118",
+      "name": "Kèn xe",
+      "make": "Ford",
+      "quantity": 11,
+      "price": "1,685,109"
+    },
+    {
+      "carId": "C034",
+      "accessoryId": "A119",
+      "name": "Lọc gió",
+      "make": "Ford",
+      "quantity": 27,
+      "price": "4,785,890"
+    },
+    {
+      "carId": "C034",
+      "accessoryId": "A120",
+      "name": "Camera hành trình",
+      "make": "Ford",
+      "quantity": 17,
+      "price": "2,379,075"
+    },
+    {
+      "carId": "C034",
+      "accessoryId": "A121",
+      "name": "Bọc vô lăng",
+      "make": "Ford",
+      "quantity": 40,
+      "price": "4,276,986"
+    },
+    {
+      "carId": "C035",
+      "accessoryId": "A122",
+      "name": "Kèn xe",
+      "make": "Toyota",
+      "quantity": 8,
+      "price": "2,507,908"
+    },
+    {
+      "carId": "C035",
+      "accessoryId": "A123",
+      "name": "Camera hành trình",
+      "make": "Toyota",
+      "quantity": 37,
+      "price": "4,902,287"
+    },
+    {
+      "carId": "C036",
+      "accessoryId": "A124",
+      "name": "Gạt mưa",
+      "make": "Kia",
+      "quantity": 43,
+      "price": "2,168,172"
+    },
+    {
+      "carId": "C036",
+      "accessoryId": "A125",
+      "name": "Thảm lót sàn",
+      "make": "Kia",
+      "quantity": 12,
+      "price": "3,509,987"
+    },
+    {
+      "carId": "C037",
+      "accessoryId": "A126",
+      "name": "Nắp bình xăng",
+      "make": "Kia",
+      "quantity": 33,
+      "price": "4,430,483"
+    },
+    {
+      "carId": "C037",
+      "accessoryId": "A127",
+      "name": "Đèn pha LED",
+      "make": "Kia",
+      "quantity": 16,
+      "price": "4,028,343"
+    },
+    {
+      "carId": "C038",
+      "accessoryId": "A128",
+      "name": "Lọc dầu",
+      "make": "Kia",
+      "quantity": 17,
+      "price": "1,083,061"
+    },
+    {
+      "carId": "C038",
+      "accessoryId": "A129",
+      "name": "Bình ắc quy",
+      "make": "Kia",
+      "quantity": 28,
+      "price": "747,908"
+    },
+    {
+      "carId": "C038",
+      "accessoryId": "A130",
+      "name": "Lọc gió",
+      "make": "Kia",
+      "quantity": 36,
+      "price": "2,143,953"
+    },
+    {
+      "carId": "C038",
+      "accessoryId": "A131",
+      "name": "Thảm lót sàn",
+      "make": "Kia",
+      "quantity": 8,
+      "price": "4,747,883"
+    },
+    {
+      "carId": "C039",
+      "accessoryId": "A132",
+      "name": "Bugi",
+      "make": "Ford",
+      "quantity": 8,
+      "price": "2,186,461"
+    },
+    {
+      "carId": "C039",
+      "accessoryId": "A133",
+      "name": "Má phanh",
+      "make": "Ford",
+      "quantity": 45,
+      "price": "2,107,866"
+    },
+    {
+      "carId": "C039",
+      "accessoryId": "A134",
+      "name": "Đèn pha LED",
+      "make": "Ford",
+      "quantity": 33,
+      "price": "2,206,269"
+    },
+    {
+      "carId": "C040",
+      "accessoryId": "A135",
+      "name": "Gạt mưa",
+      "make": "Honda",
+      "quantity": 28,
+      "price": "1,834,685"
+    },
+    {
+      "carId": "C040",
+      "accessoryId": "A136",
+      "name": "Bơm lốp",
+      "make": "Honda",
+      "quantity": 19,
+      "price": "2,176,781"
+    },
+    {
+      "carId": "C040",
+      "accessoryId": "A137",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Honda",
+      "quantity": 13,
+      "price": "4,982,049"
+    },
+    {
+      "carId": "C041",
+      "accessoryId": "A138",
+      "name": "Camera hành trình",
+      "make": "Mercedes-Benz",
+      "quantity": 22,
+      "price": "4,191,893"
+    },
+    {
+      "carId": "C041",
+      "accessoryId": "A139",
+      "name": "Lọc dầu",
+      "make": "Mercedes-Benz",
+      "quantity": 9,
+      "price": "307,184"
+    },
+    {
+      "carId": "C041",
+      "accessoryId": "A140",
+      "name": "Nắp bình xăng",
+      "make": "Mercedes-Benz",
+      "quantity": 41,
+      "price": "2,559,918"
+    },
+    {
+      "carId": "C041",
+      "accessoryId": "A141",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Mercedes-Benz",
+      "quantity": 7,
+      "price": "4,565,775"
+    },
+    {
+      "carId": "C041",
+      "accessoryId": "A142",
+      "name": "Bình ắc quy",
+      "make": "Mercedes-Benz",
+      "quantity": 47,
+      "price": "1,870,927"
+    },
+    {
+      "carId": "C042",
+      "accessoryId": "A143",
+      "name": "Lọc dầu",
+      "make": "Kia",
+      "quantity": 44,
+      "price": "721,025"
+    },
+    {
+      "carId": "C042",
+      "accessoryId": "A144",
+      "name": "Má phanh",
+      "make": "Kia",
+      "quantity": 39,
+      "price": "864,290"
+    },
+    {
+      "carId": "C043",
+      "accessoryId": "A145",
+      "name": "Thảm lót sàn",
+      "make": "Mercedes-Benz",
+      "quantity": 31,
+      "price": "2,210,941"
+    },
+    {
+      "carId": "C043",
+      "accessoryId": "A146",
+      "name": "Camera hành trình",
+      "make": "Mercedes-Benz",
+      "quantity": 30,
+      "price": "1,963,177"
+    },
+    {
+      "carId": "C044",
+      "accessoryId": "A147",
+      "name": "Nắp bình xăng",
+      "make": "Mercedes-Benz",
+      "quantity": 17,
+      "price": "3,554,568"
+    },
+    {
+      "carId": "C044",
+      "accessoryId": "A148",
+      "name": "Bơm lốp",
+      "make": "Mercedes-Benz",
+      "quantity": 3,
+      "price": "393,254"
+    },
+    {
+      "carId": "C044",
+      "accessoryId": "A149",
+      "name": "Lọc dầu",
+      "make": "Mercedes-Benz",
+      "quantity": 29,
+      "price": "3,922,965"
+    },
+    {
+      "carId": "C044",
+      "accessoryId": "A150",
+      "name": "Má phanh",
+      "make": "Mercedes-Benz",
+      "quantity": 39,
+      "price": "3,941,621"
+    },
+    {
+      "carId": "C044",
+      "accessoryId": "A151",
+      "name": "Đèn pha LED",
+      "make": "Mercedes-Benz",
+      "quantity": 41,
+      "price": "856,686"
+    },
+    {
+      "carId": "C045",
+      "accessoryId": "A152",
+      "name": "Bơm lốp",
+      "make": "Honda",
+      "quantity": 3,
+      "price": "4,364,571"
+    },
+    {
+      "carId": "C045",
+      "accessoryId": "A153",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Honda",
+      "quantity": 44,
+      "price": "262,548"
+    },
+    {
+      "carId": "C045",
+      "accessoryId": "A154",
+      "name": "Camera hành trình",
+      "make": "Honda",
+      "quantity": 28,
+      "price": "3,526,926"
+    },
+    {
+      "carId": "C045",
+      "accessoryId": "A155",
+      "name": "Dây curoa",
+      "make": "Honda",
+      "quantity": 49,
+      "price": "2,403,365"
+    },
+    {
+      "carId": "C046",
+      "accessoryId": "A156",
+      "name": "Bọc vô lăng",
+      "make": "Ford",
+      "quantity": 31,
+      "price": "2,663,248"
+    },
+    {
+      "carId": "C046",
+      "accessoryId": "A157",
+      "name": "Bugi",
+      "make": "Ford",
+      "quantity": 31,
+      "price": "3,908,888"
+    },
+    {
+      "carId": "C046",
+      "accessoryId": "A158",
+      "name": "Bơm lốp",
+      "make": "Ford",
+      "quantity": 41,
+      "price": "2,206,309"
+    },
+    {
+      "carId": "C046",
+      "accessoryId": "A159",
+      "name": "Cảm biến áp suất lốp",
+      "make": "Ford",
+      "quantity": 24,
+      "price": "2,942,620"
+    },
+    {
+      "carId": "C046",
+      "accessoryId": "A160",
+      "name": "Camera hành trình",
+      "make": "Ford",
+      "quantity": 45,
+      "price": "4,143,349"
+    },
+    {
+      "carId": "C047",
+      "accessoryId": "A161",
+      "name": "Lọc gió",
+      "make": "Ford",
+      "quantity": 36,
+      "price": "3,658,171"
+    },
+    {
+      "carId": "C047",
+      "accessoryId": "A162",
+      "name": "Đèn pha LED",
+      "make": "Ford",
+      "quantity": 2,
+      "price": "2,491,282"
+    },
+    {
+      "carId": "C048",
+      "accessoryId": "A163",
+      "name": "Camera hành trình",
+      "make": "Kia",
+      "quantity": 25,
+      "price": "2,219,846"
+    },
+    {
+      "carId": "C048",
+      "accessoryId": "A164",
+      "name": "Đèn pha LED",
+      "make": "Kia",
+      "quantity": 8,
+      "price": "813,070"
+    },
+    {
+      "carId": "C049",
+      "accessoryId": "A165",
+      "name": "Kèn xe",
+      "make": "Toyota",
+      "quantity": 49,
+      "price": "1,259,767"
+    },
+    {
+      "carId": "C049",
+      "accessoryId": "A166",
+      "name": "Bugi",
+      "make": "Toyota",
+      "quantity": 32,
+      "price": "4,838,491"
+    },
+    {
+      "carId": "C049",
+      "accessoryId": "A167",
+      "name": "Lọc dầu",
+      "make": "Toyota",
+      "quantity": 21,
+      "price": "1,676,155"
+    },
+    {
+      "carId": "C049",
+      "accessoryId": "A168",
+      "name": "Đèn pha LED",
+      "make": "Toyota",
+      "quantity": 16,
+      "price": "4,695,258"
+    },
+    {
+      "carId": "C049",
+      "accessoryId": "A169",
+      "name": "Má phanh",
+      "make": "Toyota",
+      "quantity": 9,
+      "price": "415,458"
+    },
+    {
+      "carId": "C050",
+      "accessoryId": "A170",
+      "name": "Lọc gió",
+      "make": "Mercedes-Benz",
+      "quantity": 24,
+      "price": "2,569,915"
+    },
+    {
+      "carId": "C050",
+      "accessoryId": "A171",
+      "name": "Thảm lót sàn",
+      "make": "Mercedes-Benz",
+      "quantity": 11,
+      "price": "2,683,410"
+    },
+    {
+      "carId": "C050",
+      "accessoryId": "A172",
+      "name": "Bọc vô lăng",
+      "make": "Mercedes-Benz",
+      "quantity": 30,
+      "price": "2,859,398"
+    }
+  ]
+}

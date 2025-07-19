@@ -1,0 +1,283 @@
+{
+  "repairs": [
+    {
+      "billId": "R001",
+      "carId": "C024",
+      "date": "2024-05-19",
+      "description": "Bảo dưỡng định kỳ",
+      "cost": "4.579.109",
+      "details": [
+        {
+          "accessoryId": "A086",
+          "name": "Lọc gió",
+          "quantity": 1,
+          "price": "4.579.109"
+        }
+      ]
+    },
+    {
+      "billId": "R002",
+      "carId": "C024",
+      "date": "2025-03-04",
+      "description": "Bảo dưỡng định kỳ",
+      "cost": "12.680.796",
+      "details": [
+        {
+          "accessoryId": "A083",
+          "name": "Gạt mưa",
+          "quantity": 1,
+          "price": "3.522.578"
+        },
+        {
+          "accessoryId": "A086",
+          "name": "Lọc gió",
+          "quantity": 2,
+          "price": "4.579.109"
+        }
+      ]
+    },
+    {
+      "billId": "R003",
+      "carId": "C024",
+      "date": "2024-07-20",
+      "description": "Bảo dưỡng định kỳ",
+      "cost": "7.252.411",
+      "details": [
+        {
+          "accessoryId": "A082",
+          "name": "Má phanh",
+          "quantity": 1,
+          "price": "3.729.833"
+        },
+        {
+          "accessoryId": "A083",
+          "name": "Gạt mưa",
+          "quantity": 1,
+          "price": "3.522.578"
+        }
+      ]
+    },
+    {
+      "billId": "R004",
+      "carId": "C035",
+      "date": "2023-10-03",
+      "description": "Thay lọc gió",
+      "cost": "12.312.482",
+      "details": [
+        {
+          "accessoryId": "A123",
+          "name": "Camera hành trình",
+          "quantity": 2,
+          "price": "4.902.287"
+        },
+        {
+          "accessoryId": "A122",
+          "name": "Kèn xe",
+          "quantity": 1,
+          "price": "2.507.908"
+        }
+      ]
+    },
+    {
+      "billId": "R005",
+      "carId": "C035",
+      "date": "2024-08-30",
+      "description": "Sửa đèn pha",
+      "cost": "14.820.390",
+      "details": [
+        {
+          "accessoryId": "A122",
+          "name": "Kèn xe",
+          "quantity": 2,
+          "price": "2.507.908"
+        },
+        {
+          "accessoryId": "A123",
+          "name": "Camera hành trình",
+          "quantity": 2,
+          "price": "4.902.287"
+        }
+      ]
+    },
+    {
+      "billId": "R006",
+      "carId": "C039",
+      "date": "2024-03-07",
+      "description": "Thay dầu động cơ",
+      "cost": "10.893.326",
+      "details": [
+        {
+          "accessoryId": "A132",
+          "name": "Bugi",
+          "quantity": 2,
+          "price": "2.186.461"
+        },
+        {
+          "accessoryId": "A133",
+          "name": "Má phanh",
+          "quantity": 1,
+          "price": "2.107.866"
+        },
+        {
+          "accessoryId": "A134",
+          "name": "Đèn pha LED",
+          "quantity": 2,
+          "price": "2.206.269"
+        }
+      ]
+    },
+    {
+      "billId": "R007",
+      "carId": "C044",
+      "date": "2025-07-14",
+      "description": "Thay má phanh",
+      "cost": "11.793.752",
+      "details": [
+        {
+          "accessoryId": "A149",
+          "name": "Lọc dầu",
+          "quantity": 2,
+          "price": "3.922.965"
+        },
+        {
+          "accessoryId": "A147",
+          "name": "Nắp bình xăng",
+          "quantity": 1,
+          "price": "3.554.568"
+        },
+        {
+          "accessoryId": "A148",
+          "name": "Bơm lốp",
+          "quantity": 1,
+          "price": "393.254"
+        }
+      ]
+    },
+    {
+      "billId": "R008",
+      "carId": "C050",
+      "date": "2024-10-17",
+      "description": "Thay má phanh",
+      "cost": "10.796.133",
+      "details": [
+        {
+          "accessoryId": "A171",
+          "name": "Thảm lót sàn",
+          "quantity": 2,
+          "price": "2.683.410"
+        },
+        {
+          "accessoryId": "A172",
+          "name": "Bọc vô lăng",
+          "quantity": 1,
+          "price": "2.859.398"
+        },
+        {
+          "accessoryId": "A170",
+          "name": "Lọc gió",
+          "quantity": 1,
+          "price": "2.569.915"
+        }
+      ]
+    },
+    {
+      "billId": "R009",
+      "carId": "C050",
+      "date": "2025-01-12",
+      "description": "Sửa kèn xe",
+      "cost": "5.429.313",
+      "details": [
+        {
+          "accessoryId": "A172",
+          "name": "Bọc vô lăng",
+          "quantity": 1,
+          "price": "2.859.398"
+        },
+        {
+          "accessoryId": "A170",
+          "name": "Lọc gió",
+          "quantity": 1,
+          "price": "2.569.915"
+        }
+      ]
+    },
+    {
+      "billId": "R010",
+      "carId": "C050",
+      "date": "2024-11-13",
+      "description": "Thay bugi",
+      "cost": "10.858.626",
+      "details": [
+        {
+          "accessoryId": "A172",
+          "name": "Bọc vô lăng",
+          "quantity": 2,
+          "price": "2.859.398"
+        },
+        {
+          "accessoryId": "A170",
+          "name": "Lọc gió",
+          "quantity": 2,
+          "price": "2.569.915"
+        }
+      ]
+    },
+    {
+      "billId": "R011",
+      "carId": "C017",
+      "date": "2024-01-29",
+      "description": "Bảo dưỡng định kỳ",
+      "cost": "4.241.540",
+      "details": [
+        {
+          "accessoryId": "A056",
+          "name": "Lọc gió",
+          "quantity": 2,
+          "price": "962.968"
+        },
+        {
+          "accessoryId": "A059",
+          "name": "Bugi",
+          "quantity": 1,
+          "price": "2.315.604"
+        }
+      ]
+    },
+    {
+      "billId": "R012",
+      "carId": "C017",
+      "date": "2025-03-18",
+      "description": "Thay lọc gió",
+      "cost": "1.925.936",
+      "details": [
+        {
+          "accessoryId": "A056",
+          "name": "Lọc gió",
+          "quantity": 2,
+          "price": "962.968"
+        }
+      ]
+    },
+    {
+      "billId": "R013",
+      "carId": "C040",
+      "date": "2024-03-07",
+      "description": "Thay dầu động cơ",
+      "cost": "8.651.419",
+      "details": [
+        {
+          "accessoryId": "A135",
+          "name": "Gạt mưa",
+          "quantity": 2,
+          "price": "1.834.685"
+        },
+        {
+          "accessoryId": "A137",
+          "name": "Cảm biến áp suất lốp",
+          "quantity": 1,
+          "price": "4.982.049"
+        }
+      ]
+    }
+  ]
+}

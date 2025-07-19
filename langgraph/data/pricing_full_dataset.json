@@ -1,0 +1,1162 @@
+{
+  "pricing": [
+    {
+      "carId": "C001",
+      "costPrice": "646,671,572",
+      "sellPrice": "672,132,444",
+      "active": true
+    },
+    {
+      "carId": "C001",
+      "costPrice": "646,671,572",
+      "sellPrice": "738,388,313",
+      "active": false
+    },
+    {
+      "carId": "C001",
+      "costPrice": "646,671,572",
+      "sellPrice": "622,967,802",
+      "active": false
+    },
+    {
+      "carId": "C001",
+      "costPrice": "646,671,572",
+      "sellPrice": "754,000,295",
+      "active": false
+    },
+    {
+      "carId": "C002",
+      "costPrice": "525,047,200",
+      "sellPrice": "702,534,915",
+      "active": false
+    },
+    {
+      "carId": "C002",
+      "costPrice": "525,047,200",
+      "sellPrice": "564,310,627",
+      "active": true
+    },
+    {
+      "carId": "C002",
+      "costPrice": "525,047,200",
+      "sellPrice": "674,095,653",
+      "active": false
+    },
+    {
+      "carId": "C003",
+      "costPrice": "1,060,213,251",
+      "sellPrice": "1,138,974,854",
+      "active": false
+    },
+    {
+      "carId": "C003",
+      "costPrice": "1,060,213,251",
+      "sellPrice": "1,194,106,762",
+      "active": false
+    },
+    {
+      "carId": "C003",
+      "costPrice": "1,060,213,251",
+      "sellPrice": "1,252,301,551",
+      "active": false
+    },
+    {
+      "carId": "C003",
+      "costPrice": "1,060,213,251",
+      "sellPrice": "1,078,198,393",
+      "active": true
+    },
+    {
+      "carId": "C004",
+      "costPrice": "1,220,243,425",
+      "sellPrice": "1,412,808,184",
+      "active": true
+    },
+    {
+      "carId": "C004",
+      "costPrice": "1,220,243,425",
+      "sellPrice": "1,386,967,569",
+      "active": false
+    },
+    {
+      "carId": "C005",
+      "costPrice": "665,491,169",
+      "sellPrice": "643,653,410",
+      "active": false
+    },
+    {
+      "carId": "C005",
+      "costPrice": "665,491,169",
+      "sellPrice": "628,011,920",
+      "active": true
+    },
+    {
+      "carId": "C005",
+      "costPrice": "665,491,169",
+      "sellPrice": "816,834,271",
+      "active": false
+    },
+    {
+      "carId": "C005",
+      "costPrice": "665,491,169",
+      "sellPrice": "732,947,704",
+      "active": false
+    },
+    {
+      "carId": "C006",
+      "costPrice": "475,782,807",
+      "sellPrice": "519,481,273",
+      "active": false
+    },
+    {
+      "carId": "C006",
+      "costPrice": "475,782,807",
+      "sellPrice": "573,603,263",
+      "active": false
+    },
+    {
+      "carId": "C006",
+      "costPrice": "475,782,807",
+      "sellPrice": "615,019,236",
+      "active": false
+    },
+    {
+      "carId": "C006",
+      "costPrice": "475,782,807",
+      "sellPrice": "523,082,537",
+      "active": true
+    },
+    {
+      "carId": "C007",
+      "costPrice": "1,031,779,584",
+      "sellPrice": "1,054,290,264",
+      "active": true
+    },
+    {
+      "carId": "C007",
+      "costPrice": "1,031,779,584",
+      "sellPrice": "1,071,561,280",
+      "active": false
+    },
+    {
+      "carId": "C007",
+      "costPrice": "1,031,779,584",
+      "sellPrice": "1,222,477,275",
+      "active": false
+    },
+    {
+      "carId": "C007",
+      "costPrice": "1,031,779,584",
+      "sellPrice": "997,545,535",
+      "active": false
+    },
+    {
+      "carId": "C007",
+      "costPrice": "1,031,779,584",
+      "sellPrice": "1,058,726,752",
+      "active": false
+    },
+    {
+      "carId": "C008",
+      "costPrice": "541,715,390",
+      "sellPrice": "672,034,372",
+      "active": false
+    },
+    {
+      "carId": "C008",
+      "costPrice": "541,715,390",
+      "sellPrice": "595,660,844",
+      "active": true
+    },
+    {
+      "carId": "C008",
+      "costPrice": "541,715,390",
+      "sellPrice": "739,921,342",
+      "active": false
+    },
+    {
+      "carId": "C008",
+      "costPrice": "541,715,390",
+      "sellPrice": "499,943,398",
+      "active": false
+    },
+    {
+      "carId": "C008",
+      "costPrice": "541,715,390",
+      "sellPrice": "626,543,125",
+      "active": false
+    },
+    {
+      "carId": "C008",
+      "costPrice": "541,715,390",
+      "sellPrice": "528,117,034",
+      "active": false
+    },
+    {
+      "carId": "C009",
+      "costPrice": "927,330,070",
+      "sellPrice": "1,090,968,797",
+      "active": false
+    },
+    {
+      "carId": "C009",
+      "costPrice": "927,330,070",
+      "sellPrice": "915,615,921",
+      "active": true
+    },
+    {
+      "carId": "C010",
+      "costPrice": "873,422,375",
+      "sellPrice": "1,038,585,506",
+      "active": true
+    },
+    {
+      "carId": "C010",
+      "costPrice": "873,422,375",
+      "sellPrice": "1,028,602,210",
+      "active": false
+    },
+    {
+      "carId": "C010",
+      "costPrice": "873,422,375",
+      "sellPrice": "1,008,206,897",
+      "active": false
+    },
+    {
+      "carId": "C011",
+      "costPrice": "1,009,971,713",
+      "sellPrice": "972,982,266",
+      "active": false
+    },
+    {
+      "carId": "C011",
+      "costPrice": "1,009,971,713",
+      "sellPrice": "988,396,776",
+      "active": false
+    },
+    {
+      "carId": "C011",
+      "costPrice": "1,009,971,713",
+      "sellPrice": "1,172,698,659",
+      "active": true
+    },
+    {
+      "carId": "C011",
+      "costPrice": "1,009,971,713",
+      "sellPrice": "964,258,395",
+      "active": false
+    },
+    {
+      "carId": "C011",
+      "costPrice": "1,009,971,713",
+      "sellPrice": "981,864,962",
+      "active": false
+    },
+    {
+      "carId": "C012",
+      "costPrice": "997,505,139",
+      "sellPrice": "1,050,726,155",
+      "active": false
+    },
+    {
+      "carId": "C012",
+      "costPrice": "997,505,139",
+      "sellPrice": "1,016,717,332",
+      "active": false
+    },
+    {
+      "carId": "C012",
+      "costPrice": "997,505,139",
+      "sellPrice": "1,058,313,657",
+      "active": true
+    },
+    {
+      "carId": "C012",
+      "costPrice": "997,505,139",
+      "sellPrice": "1,148,049,807",
+      "active": false
+    },
+    {
+      "carId": "C012",
+      "costPrice": "997,505,139",
+      "sellPrice": "1,050,329,098",
+      "active": false
+    },
+    {
+      "carId": "C013",
+      "costPrice": "525,758,813",
+      "sellPrice": "685,254,855",
+      "active": false
+    },
+    {
+      "carId": "C013",
+      "costPrice": "525,758,813",
+      "sellPrice": "676,801,447",
+      "active": true
+    },
+    {
+      "carId": "C013",
+      "costPrice": "525,758,813",
+      "sellPrice": "588,510,019",
+      "active": false
+    },
+    {
+      "carId": "C013",
+      "costPrice": "525,758,813",
+      "sellPrice": "551,935,615",
+      "active": false
+    },
+    {
+      "carId": "C014",
+      "costPrice": "1,209,962,946",
+      "sellPrice": "1,181,467,113",
+      "active": true
+    },
+    {
+      "carId": "C014",
+      "costPrice": "1,209,962,946",
+      "sellPrice": "1,240,407,592",
+      "active": false
+    },
+    {
+      "carId": "C015",
+      "costPrice": "720,312,750",
+      "sellPrice": "868,903,629",
+      "active": false
+    },
+    {
+      "carId": "C015",
+      "costPrice": "720,312,750",
+      "sellPrice": "732,960,886",
+      "active": true
+    },
+    {
+      "carId": "C015",
+      "costPrice": "720,312,750",
+      "sellPrice": "892,307,562",
+      "active": false
+    },
+    {
+      "carId": "C015",
+      "costPrice": "720,312,750",
+      "sellPrice": "868,634,088",
+      "active": false
+    },
+    {
+      "carId": "C015",
+      "costPrice": "720,312,750",
+      "sellPrice": "690,302,482",
+      "active": false
+    },
+    {
+      "carId": "C015",
+      "costPrice": "720,312,750",
+      "sellPrice": "880,554,464",
+      "active": false
+    },
+    {
+      "carId": "C016",
+      "costPrice": "735,129,227",
+      "sellPrice": "802,079,089",
+      "active": false
+    },
+    {
+      "carId": "C016",
+      "costPrice": "735,129,227",
+      "sellPrice": "790,984,211",
+      "active": false
+    },
+    {
+      "carId": "C016",
+      "costPrice": "735,129,227",
+      "sellPrice": "693,229,776",
+      "active": true
+    },
+    {
+      "carId": "C016",
+      "costPrice": "735,129,227",
+      "sellPrice": "695,603,814",
+      "active": false
+    },
+    {
+      "carId": "C016",
+      "costPrice": "735,129,227",
+      "sellPrice": "759,180,170",
+      "active": false
+    },
+    {
+      "carId": "C016",
+      "costPrice": "735,129,227",
+      "sellPrice": "687,888,540",
+      "active": false
+    },
+    {
+      "carId": "C017",
+      "costPrice": "470,198,678",
+      "sellPrice": "487,395,568",
+      "active": true
+    },
+    {
+      "carId": "C017",
+      "costPrice": "470,198,678",
+      "sellPrice": "571,333,008",
+      "active": false
+    },
+    {
+      "carId": "C017",
+      "costPrice": "470,198,678",
+      "sellPrice": "631,443,432",
+      "active": false
+    },
+    {
+      "carId": "C018",
+      "costPrice": "879,862,740",
+      "sellPrice": "1,022,182,259",
+      "active": false
+    },
+    {
+      "carId": "C018",
+      "costPrice": "879,862,740",
+      "sellPrice": "1,016,116,011",
+      "active": false
+    },
+    {
+      "carId": "C018",
+      "costPrice": "879,862,740",
+      "sellPrice": "1,069,613,851",
+      "active": false
+    },
+    {
+      "carId": "C018",
+      "costPrice": "879,862,740",
+      "sellPrice": "995,079,200",
+      "active": false
+    },
+    {
+      "carId": "C018",
+      "costPrice": "879,862,740",
+      "sellPrice": "940,304,658",
+      "active": false
+    },
+    {
+      "carId": "C018",
+      "costPrice": "879,862,740",
+      "sellPrice": "857,996,318",
+      "active": true
+    },
+    {
+      "carId": "C019",
+      "costPrice": "1,259,231,414",
+      "sellPrice": "1,425,603,221",
+      "active": true
+    },
+    {
+      "carId": "C019",
+      "costPrice": "1,259,231,414",
+      "sellPrice": "1,452,248,421",
+      "active": false
+    },
+    {
+      "carId": "C020",
+      "costPrice": "833,778,591",
+      "sellPrice": "868,143,760",
+      "active": false
+    },
+    {
+      "carId": "C020",
+      "costPrice": "833,778,591",
+      "sellPrice": "861,906,696",
+      "active": false
+    },
+    {
+      "carId": "C020",
+      "costPrice": "833,778,591",
+      "sellPrice": "795,175,165",
+      "active": false
+    },
+    {
+      "carId": "C020",
+      "costPrice": "833,778,591",
+      "sellPrice": "1,001,071,644",
+      "active": false
+    },
+    {
+      "carId": "C020",
+      "costPrice": "833,778,591",
+      "sellPrice": "855,729,619",
+      "active": true
+    },
+    {
+      "carId": "C020",
+      "costPrice": "833,778,591",
+      "sellPrice": "983,066,598",
+      "active": false
+    },
+    {
+      "carId": "C021",
+      "costPrice": "1,179,106,678",
+      "sellPrice": "1,214,893,770",
+      "active": true
+    },
+    {
+      "carId": "C021",
+      "costPrice": "1,179,106,678",
+      "sellPrice": "1,229,403,893",
+      "active": false
+    },
+    {
+      "carId": "C021",
+      "costPrice": "1,179,106,678",
+      "sellPrice": "1,178,862,967",
+      "active": false
+    },
+    {
+      "carId": "C021",
+      "costPrice": "1,179,106,678",
+      "sellPrice": "1,221,424,671",
+      "active": false
+    },
+    {
+      "carId": "C021",
+      "costPrice": "1,179,106,678",
+      "sellPrice": "1,302,275,146",
+      "active": false
+    },
+    {
+      "carId": "C022",
+      "costPrice": "1,061,363,703",
+      "sellPrice": "1,146,105,189",
+      "active": true
+    },
+    {
+      "carId": "C022",
+      "costPrice": "1,061,363,703",
+      "sellPrice": "1,150,967,922",
+      "active": false
+    },
+    {
+      "carId": "C022",
+      "costPrice": "1,061,363,703",
+      "sellPrice": "1,233,848,644",
+      "active": false
+    },
+    {
+      "carId": "C023",
+      "costPrice": "442,280,804",
+      "sellPrice": "490,378,747",
+      "active": false
+    },
+    {
+      "carId": "C023",
+      "costPrice": "442,280,804",
+      "sellPrice": "424,813,985",
+      "active": false
+    },
+    {
+      "carId": "C023",
+      "costPrice": "442,280,804",
+      "sellPrice": "640,710,654",
+      "active": false
+    },
+    {
+      "carId": "C023",
+      "costPrice": "442,280,804",
+      "sellPrice": "580,870,358",
+      "active": false
+    },
+    {
+      "carId": "C023",
+      "costPrice": "442,280,804",
+      "sellPrice": "625,915,885",
+      "active": true
+    },
+    {
+      "carId": "C024",
+      "costPrice": "642,473,510",
+      "sellPrice": "735,941,692",
+      "active": false
+    },
+    {
+      "carId": "C024",
+      "costPrice": "642,473,510",
+      "sellPrice": "625,432,615",
+      "active": false
+    },
+    {
+      "carId": "C024",
+      "costPrice": "642,473,510",
+      "sellPrice": "728,130,615",
+      "active": false
+    },
+    {
+      "carId": "C024",
+      "costPrice": "642,473,510",
+      "sellPrice": "744,699,670",
+      "active": false
+    },
+    {
+      "carId": "C024",
+      "costPrice": "642,473,510",
+      "sellPrice": "626,825,310",
+      "active": true
+    },
+    {
+      "carId": "C025",
+      "costPrice": "837,091,375",
+      "sellPrice": "898,435,411",
+      "active": false
+    },
+    {
+      "carId": "C025",
+      "costPrice": "837,091,375",
+      "sellPrice": "789,818,288",
+      "active": true
+    },
+    {
+      "carId": "C025",
+      "costPrice": "837,091,375",
+      "sellPrice": "884,257,667",
+      "active": false
+    },
+    {
+      "carId": "C025",
+      "costPrice": "837,091,375",
+      "sellPrice": "958,212,826",
+      "active": false
+    },
+    {
+      "carId": "C025",
+      "costPrice": "837,091,375",
+      "sellPrice": "944,435,653",
+      "active": false
+    },
+    {
+      "carId": "C025",
+      "costPrice": "837,091,375",
+      "sellPrice": "883,482,855",
+      "active": false
+    },
+    {
+      "carId": "C026",
+      "costPrice": "497,981,756",
+      "sellPrice": "546,478,864",
+      "active": true
+    },
+    {
+      "carId": "C026",
+      "costPrice": "497,981,756",
+      "sellPrice": "604,260,205",
+      "active": false
+    },
+    {
+      "carId": "C026",
+      "costPrice": "497,981,756",
+      "sellPrice": "643,056,780",
+      "active": false
+    },
+    {
+      "carId": "C027",
+      "costPrice": "945,203,705",
+      "sellPrice": "959,757,003",
+      "active": false
+    },
+    {
+      "carId": "C027",
+      "costPrice": "945,203,705",
+      "sellPrice": "912,833,402",
+      "active": true
+    },
+    {
+      "carId": "C028",
+      "costPrice": "333,364,017",
+      "sellPrice": "450,410,268",
+      "active": false
+    },
+    {
+      "carId": "C028",
+      "costPrice": "333,364,017",
+      "sellPrice": "530,251,020",
+      "active": true
+    },
+    {
+      "carId": "C029",
+      "costPrice": "965,795,603",
+      "sellPrice": "1,002,244,680",
+      "active": true
+    },
+    {
+      "carId": "C029",
+      "costPrice": "965,795,603",
+      "sellPrice": "941,912,910",
+      "active": false
+    },
+    {
+      "carId": "C029",
+      "costPrice": "965,795,603",
+      "sellPrice": "1,029,451,457",
+      "active": false
+    },
+    {
+      "carId": "C029",
+      "costPrice": "965,795,603",
+      "sellPrice": "1,130,412,134",
+      "active": false
+    },
+    {
+      "carId": "C029",
+      "costPrice": "965,795,603",
+      "sellPrice": "962,758,903",
+      "active": false
+    },
+    {
+      "carId": "C030",
+      "costPrice": "1,234,461,608",
+      "sellPrice": "1,334,112,251",
+      "active": false
+    },
+    {
+      "carId": "C030",
+      "costPrice": "1,234,461,608",
+      "sellPrice": "1,278,298,204",
+      "active": true
+    },
+    {
+      "carId": "C030",
+      "costPrice": "1,234,461,608",
+      "sellPrice": "1,253,717,195",
+      "active": false
+    },
+    {
+      "carId": "C030",
+      "costPrice": "1,234,461,608",
+      "sellPrice": "1,424,539,024",
+      "active": false
+    },
+    {
+      "carId": "C031",
+      "costPrice": "1,094,626,658",
+      "sellPrice": "1,222,624,316",
+      "active": true
+    },
+    {
+      "carId": "C031",
+      "costPrice": "1,094,626,658",
+      "sellPrice": "1,240,115,985",
+      "active": false
+    },
+    {
+      "carId": "C031",
+      "costPrice": "1,094,626,658",
+      "sellPrice": "1,103,750,946",
+      "active": false
+    },
+    {
+      "carId": "C031",
+      "costPrice": "1,094,626,658",
+      "sellPrice": "1,054,731,723",
+      "active": false
+    },
+    {
+      "carId": "C031",
+      "costPrice": "1,094,626,658",
+      "sellPrice": "1,215,678,638",
+      "active": false
+    },
+    {
+      "carId": "C032",
+      "costPrice": "1,007,899,963",
+      "sellPrice": "1,126,801,611",
+      "active": false
+    },
+    {
+      "carId": "C032",
+      "costPrice": "1,007,899,963",
+      "sellPrice": "1,179,243,743",
+      "active": false
+    },
+    {
+      "carId": "C032",
+      "costPrice": "1,007,899,963",
+      "sellPrice": "1,115,116,454",
+      "active": false
+    },
+    {
+      "carId": "C032",
+      "costPrice": "1,007,899,963",
+      "sellPrice": "1,016,649,326",
+      "active": true
+    },
+    {
+      "carId": "C032",
+      "costPrice": "1,007,899,963",
+      "sellPrice": "1,143,251,204",
+      "active": false
+    },
+    {
+      "carId": "C032",
+      "costPrice": "1,007,899,963",
+      "sellPrice": "1,145,578,932",
+      "active": false
+    },
+    {
+      "carId": "C033",
+      "costPrice": "360,549,017",
+      "sellPrice": "451,803,464",
+      "active": true
+    },
+    {
+      "carId": "C033",
+      "costPrice": "360,549,017",
+      "sellPrice": "341,800,005",
+      "active": false
+    },
+    {
+      "carId": "C034",
+      "costPrice": "1,029,329,010",
+      "sellPrice": "1,043,711,212",
+      "active": true
+    },
+    {
+      "carId": "C034",
+      "costPrice": "1,029,329,010",
+      "sellPrice": "1,053,289,239",
+      "active": false
+    },
+    {
+      "carId": "C035",
+      "costPrice": "1,274,287,531",
+      "sellPrice": "1,238,358,049",
+      "active": true
+    },
+    {
+      "carId": "C035",
+      "costPrice": "1,274,287,531",
+      "sellPrice": "1,471,754,401",
+      "active": false
+    },
+    {
+      "carId": "C035",
+      "costPrice": "1,274,287,531",
+      "sellPrice": "1,317,088,129",
+      "active": false
+    },
+    {
+      "carId": "C036",
+      "costPrice": "539,199,310",
+      "sellPrice": "512,622,297",
+      "active": true
+    },
+    {
+      "carId": "C036",
+      "costPrice": "539,199,310",
+      "sellPrice": "638,900,317",
+      "active": false
+    },
+    {
+      "carId": "C036",
+      "costPrice": "539,199,310",
+      "sellPrice": "569,284,519",
+      "active": false
+    },
+    {
+      "carId": "C037",
+      "costPrice": "787,196,340",
+      "sellPrice": "772,750,149",
+      "active": false
+    },
+    {
+      "carId": "C037",
+      "costPrice": "787,196,340",
+      "sellPrice": "970,130,359",
+      "active": true
+    },
+    {
+      "carId": "C038",
+      "costPrice": "463,680,612",
+      "sellPrice": "465,087,229",
+      "active": true
+    },
+    {
+      "carId": "C038",
+      "costPrice": "463,680,612",
+      "sellPrice": "627,954,172",
+      "active": false
+    },
+    {
+      "carId": "C038",
+      "costPrice": "463,680,612",
+      "sellPrice": "551,649,136",
+      "active": false
+    },
+    {
+      "carId": "C038",
+      "costPrice": "463,680,612",
+      "sellPrice": "477,524,023",
+      "active": false
+    },
+    {
+      "carId": "C038",
+      "costPrice": "463,680,612",
+      "sellPrice": "578,789,829",
+      "active": false
+    },
+    {
+      "carId": "C038",
+      "costPrice": "463,680,612",
+      "sellPrice": "475,664,902",
+      "active": false
+    },
+    {
+      "carId": "C039",
+      "costPrice": "1,210,319,495",
+      "sellPrice": "1,295,922,761",
+      "active": false
+    },
+    {
+      "carId": "C039",
+      "costPrice": "1,210,319,495",
+      "sellPrice": "1,200,116,552",
+      "active": false
+    },
+    {
+      "carId": "C039",
+      "costPrice": "1,210,319,495",
+      "sellPrice": "1,220,171,689",
+      "active": false
+    },
+    {
+      "carId": "C039",
+      "costPrice": "1,210,319,495",
+      "sellPrice": "1,192,035,053",
+      "active": false
+    },
+    {
+      "carId": "C039",
+      "costPrice": "1,210,319,495",
+      "sellPrice": "1,320,145,207",
+      "active": true
+    },
+    {
+      "carId": "C040",
+      "costPrice": "708,328,490",
+      "sellPrice": "661,804,042",
+      "active": false
+    },
+    {
+      "carId": "C040",
+      "costPrice": "708,328,490",
+      "sellPrice": "799,769,925",
+      "active": true
+    },
+    {
+      "carId": "C040",
+      "costPrice": "708,328,490",
+      "sellPrice": "907,835,467",
+      "active": false
+    },
+    {
+      "carId": "C040",
+      "costPrice": "708,328,490",
+      "sellPrice": "755,749,844",
+      "active": false
+    },
+    {
+      "carId": "C041",
+      "costPrice": "955,450,689",
+      "sellPrice": "1,025,098,141",
+      "active": true
+    },
+    {
+      "carId": "C041",
+      "costPrice": "955,450,689",
+      "sellPrice": "910,047,744",
+      "active": false
+    },
+    {
+      "carId": "C041",
+      "costPrice": "955,450,689",
+      "sellPrice": "970,203,475",
+      "active": false
+    },
+    {
+      "carId": "C042",
+      "costPrice": "340,393,174",
+      "sellPrice": "444,485,437",
+      "active": false
+    },
+    {
+      "carId": "C042",
+      "costPrice": "340,393,174",
+      "sellPrice": "476,295,140",
+      "active": true
+    },
+    {
+      "carId": "C042",
+      "costPrice": "340,393,174",
+      "sellPrice": "291,082,096",
+      "active": false
+    },
+    {
+      "carId": "C042",
+      "costPrice": "340,393,174",
+      "sellPrice": "435,529,612",
+      "active": false
+    },
+    {
+      "carId": "C042",
+      "costPrice": "340,393,174",
+      "sellPrice": "317,860,015",
+      "active": false
+    },
+    {
+      "carId": "C042",
+      "costPrice": "340,393,174",
+      "sellPrice": "389,375,432",
+      "active": false
+    },
+    {
+      "carId": "C043",
+      "costPrice": "561,148,312",
+      "sellPrice": "750,442,956",
+      "active": false
+    },
+    {
+      "carId": "C043",
+      "costPrice": "561,148,312",
+      "sellPrice": "710,486,163",
+      "active": false
+    },
+    {
+      "carId": "C043",
+      "costPrice": "561,148,312",
+      "sellPrice": "579,731,670",
+      "active": true
+    },
+    {
+      "carId": "C043",
+      "costPrice": "561,148,312",
+      "sellPrice": "558,097,694",
+      "active": false
+    },
+    {
+      "carId": "C043",
+      "costPrice": "561,148,312",
+      "sellPrice": "624,105,962",
+      "active": false
+    },
+    {
+      "carId": "C044",
+      "costPrice": "1,169,381,050",
+      "sellPrice": "1,217,697,251",
+      "active": true
+    },
+    {
+      "carId": "C044",
+      "costPrice": "1,169,381,050",
+      "sellPrice": "1,191,592,921",
+      "active": false
+    },
+    {
+      "carId": "C044",
+      "costPrice": "1,169,381,050",
+      "sellPrice": "1,282,676,237",
+      "active": false
+    },
+    {
+      "carId": "C045",
+      "costPrice": "706,286,804",
+      "sellPrice": "890,884,761",
+      "active": true
+    },
+    {
+      "carId": "C045",
+      "costPrice": "706,286,804",
+      "sellPrice": "721,791,417",
+      "active": false
+    },
+    {
+      "carId": "C046",
+      "costPrice": "466,631,992",
+      "sellPrice": "592,854,688",
+      "active": false
+    },
+    {
+      "carId": "C046",
+      "costPrice": "466,631,992",
+      "sellPrice": "543,368,312",
+      "active": true
+    },
+    {
+      "carId": "C047",
+      "costPrice": "871,886,871",
+      "sellPrice": "1,051,699,940",
+      "active": false
+    },
+    {
+      "carId": "C047",
+      "costPrice": "871,886,871",
+      "sellPrice": "1,028,335,809",
+      "active": true
+    },
+    {
+      "carId": "C048",
+      "costPrice": "1,168,120,157",
+      "sellPrice": "1,204,796,642",
+      "active": true
+    },
+    {
+      "carId": "C048",
+      "costPrice": "1,168,120,157",
+      "sellPrice": "1,261,069,986",
+      "active": false
+    },
+    {
+      "carId": "C049",
+      "costPrice": "506,083,351",
+      "sellPrice": "674,661,275",
+      "active": true
+    },
+    {
+      "carId": "C049",
+      "costPrice": "506,083,351",
+      "sellPrice": "553,476,437",
+      "active": false
+    },
+    {
+      "carId": "C050",
+      "costPrice": "635,664,218",
+      "sellPrice": "698,422,319",
+      "active": false
+    },
+    {
+      "carId": "C050",
+      "costPrice": "635,664,218",
+      "sellPrice": "611,548,049",
+      "active": false
+    },
+    {
+      "carId": "C050",
+      "costPrice": "635,664,218",
+      "sellPrice": "678,990,742",
+      "active": false
+    },
+    {
+      "carId": "C050",
+      "costPrice": "635,664,218",
+      "sellPrice": "805,416,492",
+      "active": false
+    },
+    {
+      "carId": "C050",
+      "costPrice": "635,664,218",
+      "sellPrice": "668,816,860",
+      "active": true
+    },
+    {
+      "carId": "C050",
+      "costPrice": "635,664,218",
+      "sellPrice": "618,858,773",
+      "active": false
+    }
+  ]
+}

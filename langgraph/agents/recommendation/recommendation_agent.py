@@ -1,12 +1,13 @@
 """
 Car Recommendation Agent
 Specialized agent for providing intelligent car recommendations based on user criteria.
+Uses ChromaDB to query car information that was already ingested via the UI.
 """
 
 from typing import Dict, List, Any, Optional
 from chat_state import ChatState
-from services import get_azure_llm
-from .car_database import CarDatabase, VALID_PURPOSES, VALID_PRIORITIES, VALID_BRAND_ORIGINS
+from services import get_azure_llm, get_vectordb
+from .car_database import VALID_PURPOSES, VALID_PRIORITIES, VALID_BRAND_ORIGINS
 import json
 import re
 
@@ -14,11 +15,11 @@ import re
 class CarRecommendationAgent:
     """
     Intelligent car recommendation agent that analyzes user needs and provides 
-    personalized vehicle recommendations.
+    personalized vehicle recommendations using ChromaDB for car data retrieval.
     """
     
     def __init__(self):
-        self.car_db = CarDatabase()
+        self.vectordb = get_vectordb()
         self.llm = get_azure_llm()
     
     def extract_user_criteria(self, question: str) -> Dict[str, Any]:
@@ -115,64 +116,137 @@ class CarRecommendationAgent:
         
         return criteria
     
-    def filter_cars_by_criteria(self, criteria: Dict[str, Any]) -> Dict[str, Dict]:
+    def query_cars_from_chromadb(self, criteria: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
-        Filter cars based on extracted criteria.
+        Query car information from ChromaDB based on user criteria.
         """
-        cars = self.car_db.get_all_cars()
-        filtered_cars = {}
-        
-        for car_name, specs in cars.items():
-            score = 0
-            match = True
+        try:
+            # Build query string based on criteria
+            query_parts = []
             
-            # Budget filter
+            # Add budget-related queries
             if criteria.get("budget_max"):
-                price_range = specs["price_range"]
-                max_price = int(price_range.split('-')[1].replace('$', '').replace(',', ''))
-                if max_price > criteria["budget_max"]:
-                    match = False
-                    continue
+                budget = criteria["budget_max"]
+                if budget < 25000:
+                    query_parts.append("affordable budget-friendly economical cheap inexpensive")
+                elif budget < 40000:
+                    query_parts.append("mid-range moderate price value")
                 else:
-                    score += 10  # Budget match bonus
+                    query_parts.append("luxury premium high-end expensive")
             
-            # Purpose filter
+            # Add purpose-related queries
             if criteria.get("purposes"):
-                car_purposes = specs["purposes"]
-                purpose_matches = sum(1 for p in criteria["purposes"] if p in car_purposes)
-                if purpose_matches == 0:
-                    match = False
-                    continue
-                else:
-                    score += purpose_matches * 15
+                purposes_text = " ".join(criteria["purposes"])
+                query_parts.append(purposes_text)
             
-            # Brand preference
-            if criteria.get("brand_preference"):
-                if criteria["brand_preference"].lower() in specs["brand_origin"].lower():
-                    score += 20
-                else:
-                    score -= 5
-            
-            # Priority matching
+            # Add priority-related queries
             if criteria.get("priorities"):
-                car_priorities = specs["priorities"]
-                priority_matches = sum(1 for p in criteria["priorities"] if p in car_priorities)
-                score += priority_matches * 10
+                priorities_text = " ".join(criteria["priorities"])
+                query_parts.append(priorities_text)
             
-            if match:
-                filtered_cars[car_name] = {**specs, "match_score": score}
-        
-        return filtered_cars
+            # Add brand preference
+            if criteria.get("brand_preference"):
+                query_parts.append(criteria["brand_preference"])
+            
+            # Add size preference
+            if criteria.get("size_preference"):
+                query_parts.append(criteria["size_preference"])
+            
+            # Add style preference
+            if criteria.get("style_preference"):
+                query_parts.append(criteria["style_preference"])
+            
+            # Create comprehensive query
+            query = " ".join(query_parts) if query_parts else "car vehicle automobile"
+            
+            # Search ChromaDB for relevant car information
+            results = self.vectordb.similarity_search_with_score(query, k=10)
+            
+            # Extract car information from results
+            car_info_list = []
+            for doc, score in results:
+                car_info_list.append({
+                    "content": doc.page_content,
+                    "metadata": doc.metadata,
+                    "similarity_score": score
+                })
+            
+            return car_info_list
+            
+        except Exception as e:
+            print(f"Error querying ChromaDB: {e}")
+            return []
     
-    def rank_recommendations(self, filtered_cars: Dict[str, Dict]) -> List[tuple]:
+    def analyze_car_data_with_llm(self, car_data: List[Dict[str, Any]], criteria: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """
+        Use LLM to analyze retrieved car data and extract structured information.
+        """
+        if not car_data:
+            return []
+        
+        # Combine all car information from ChromaDB results
+        car_content = "\n\n".join([item["content"] for item in car_data])
+        
+        analysis_prompt = f"""
+        You are a car expert analyzing car data to provide recommendations. 
+        
+        User criteria: {json.dumps(criteria, indent=2)}
+        
+        Car data from database:
+        {car_content}
+        
+        Based on this data, extract and return information about the most suitable cars as a JSON array. 
+        Each car should include:
+        {{
+            "name": "Car Make Model",
+            "make": "Brand",
+            "model": "Model",
+            "year": year,
+            "price": price_info,
+            "purposes": [list of suitable purposes],
+            "priorities": [list of matching priorities],
+            "brand_origin": "origin",
+            "safety_rating": "rating",
+            "technology": "tech features",
+            "style": "style description",
+            "fuel_economy": "economy info",
+            "size": "size description",
+            "match_score": score_out_of_100,
+            "why_recommended": "explanation of why this car matches user needs"
+        }}
+        
+        Return only the JSON array, no other text. Focus on cars that best match the user's criteria.
+        """
+        
+        try:
+            response = self.llm.invoke(analysis_prompt)
+            # Try to extract JSON from the response
+            content = response.content.strip()
+            
+            # Handle potential markdown code blocks
+            if content.startswith("```json"):
+                content = content[7:-3].strip()
+            elif content.startswith("```"):
+                content = content[3:-3].strip()
+            
+            cars = json.loads(content)
+            return cars if isinstance(cars, list) else [cars]
+            
+        except Exception as e:
+            print(f"Error analyzing car data with LLM: {e}")
+            return []
+    def rank_recommendations(self, cars: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
         Rank cars by match score and return top recommendations.
         """
-        ranked = [(name, specs) for name, specs in filtered_cars.items()]
-        ranked.sort(key=lambda x: x[1].get("match_score", 0), reverse=True)
-        return ranked[:3]  # Top 3 recommendations
+        if not cars:
+            return []
+            
+        # Sort by match_score (descending)
+        ranked_cars = sorted(cars, key=lambda x: x.get("match_score", 0), reverse=True)
+        return ranked_cars[:3]  # Top 3 recommendations
     
-    def generate_recommendation_response(self, question: str, top_cars: List[tuple]) -> str:
+    def generate_recommendation_response(self, question: str, top_cars: List[Dict[str, Any]]) -> str:
         """
         Generate detailed recommendation response using LLM.
         """
@@ -180,18 +254,21 @@ class CarRecommendationAgent:
             return self._get_fallback_response()
         
         cars_info = []
-        for i, (car_name, specs) in enumerate(top_cars, 1):
+        for i, car in enumerate(top_cars, 1):
             car_info = f"""
-            {i}. **{car_name}**
-               - Price: {specs['price_range']}
-               - Fuel Economy: {specs['fuel_economy']}
-               - Size: {specs['size']}
-               - Purposes: {', '.join(specs['purposes'])}
-               - Priorities: {', '.join(specs['priorities'])}
-               - Brand: {specs['brand_origin']}
-               - Safety: {specs['safety_rating']}
-               - Technology: {specs['technology']}
-               - Style: {specs['style']}
+            {i}. **{car.get('name', 'Unknown Car')}**
+               - Price: {car.get('price', 'Price not specified')}
+               - Year: {car.get('year', 'N/A')}
+               - Fuel Economy: {car.get('fuel_economy', 'Not specified')}
+               - Size: {car.get('size', 'Not specified')}
+               - Purposes: {', '.join(car.get('purposes', []))}
+               - Priorities: {', '.join(car.get('priorities', []))}
+               - Brand Origin: {car.get('brand_origin', 'Not specified')}
+               - Safety Rating: {car.get('safety_rating', 'Not specified')}
+               - Technology: {car.get('technology', 'Not specified')}
+               - Style: {car.get('style', 'Not specified')}
+               - Match Score: {car.get('match_score', 0)}/100
+               - Why Recommended: {car.get('why_recommended', 'Good match for your needs')}
             """
             cars_info.append(car_info)
         
@@ -217,23 +294,25 @@ class CarRecommendationAgent:
         except Exception as e:
             return self._format_basic_response(question, top_cars)
     
-    def _format_basic_response(self, question: str, top_cars: List[tuple]) -> str:
+    def _format_basic_response(self, question: str, top_cars: List[Dict[str, Any]]) -> str:
         """
         Generate a basic formatted response without LLM.
         """
         response = "🚗 **Car Recommendations Based on Your Needs**\n\n"
         
-        for i, (car_name, specs) in enumerate(top_cars, 1):
-            response += f"**{i}. {car_name}** ({specs['price_range']})\n"
-            response += f"   • **Why it fits:** Perfect for {', '.join(specs['purposes'])}\n"
-            response += f"   • **Fuel Economy:** {specs['fuel_economy']}\n"
-            response += f"   • **Size:** {specs['size']}\n"
-            response += f"   • **Key Features:** {specs['technology']}\n"
-            response += f"   • **Style:** {specs['style']}\n\n"
+        for i, car in enumerate(top_cars, 1):
+            response += f"**{i}. {car.get('name', 'Unknown Car')}** ({car.get('price', 'Price not specified')})\n"
+            response += f"   • **Why it fits:** {car.get('why_recommended', 'Good match for your needs')}\n"
+            response += f"   • **Year:** {car.get('year', 'N/A')}\n"
+            response += f"   • **Fuel Economy:** {car.get('fuel_economy', 'Not specified')}\n"
+            response += f"   • **Size:** {car.get('size', 'Not specified')}\n"
+            response += f"   • **Key Features:** {car.get('technology', 'Not specified')}\n"
+            response += f"   • **Style:** {car.get('style', 'Not specified')}\n"
+            response += f"   • **Match Score:** {car.get('match_score', 0)}/100\n\n"
         
         response += "**My Recommendation:** "
         if top_cars:
-            top_choice = top_cars[0][0]
+            top_choice = top_cars[0].get('name', 'Unknown Car')
             response += f"The **{top_choice}** would be my top choice based on your requirements. "
             response += "It offers the best balance of your priorities and budget.\n\n"
         
@@ -281,7 +360,7 @@ class CarRecommendationAgent:
     
     def process_recommendation_request(self, state: ChatState) -> ChatState:
         """
-        Main method to process car recommendation requests.
+        Main method to process car recommendation requests using ChromaDB.
         """
         question = state["question"]
         
@@ -289,18 +368,22 @@ class CarRecommendationAgent:
             # Step 1: Extract user criteria
             criteria = self.extract_user_criteria(question)
             
-            # Step 2: Filter cars based on criteria
-            filtered_cars = self.filter_cars_by_criteria(criteria)
+            # Step 2: Query car data from ChromaDB
+            car_data = self.query_cars_from_chromadb(criteria)
             
-            # Step 3: Rank recommendations
-            top_cars = self.rank_recommendations(filtered_cars)
+            # Step 3: Use LLM to analyze and structure car data
+            analyzed_cars = self.analyze_car_data_with_llm(car_data, criteria)
             
-            # Step 4: Generate response
+            # Step 4: Rank recommendations
+            top_cars = self.rank_recommendations(analyzed_cars)
+            
+            # Step 5: Generate response
             response = self.generate_recommendation_response(question, top_cars)
             
             return {**state, "answer": response}
             
         except Exception as e:
+            print(f"Error in recommendation processing: {e}")
             # Fallback response
             response = self._get_fallback_response()
             return {**state, "answer": response}
