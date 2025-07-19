@@ -2,7 +2,7 @@ import streamlit as st
 import re
 import os
 from dotenv import load_dotenv
-from typing import TypedDict, List, Tuple
+from chat_state import ChatState
 from langchain.chains import ConversationalRetrievalChain
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
 from langchain.vectorstores import Chroma
@@ -16,12 +16,7 @@ from services import get_azure_llm, get_vectordb
 
 load_dotenv()
 
-class ChatState(TypedDict, total=False):
-    question: str
-    chat_history: List[Tuple[str, str]]
-    context_docs: List[str]
-    answer: str
-    next_step: str
+
 
 def retrieve_docs(state:ChatState) -> ChatState:
     retriever = get_vectordb().as_retriever(search_kwargs={"k": 4}) 
