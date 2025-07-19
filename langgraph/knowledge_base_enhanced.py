@@ -10,18 +10,10 @@ from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
 from langchain_community.vectorstores import Chroma
 import docx2txt
 from PyPDF2 import PdfReader
+from markitdown import MarkItDown
 from typing import List, Dict, Any
 import tempfile
 import logging
-import json
-
-# Try to import MarkItDown, use fallback if not available
-try:
-    from markitdown import MarkItDown
-    MARKITDOWN_AVAILABLE = True
-except ImportError:
-    MARKITDOWN_AVAILABLE = False
-    MarkItDown = None
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -36,12 +28,7 @@ class KnowledgeBaseManager:
     
     def __init__(self):
         self.vectordb = self._initialize_vectordb()
-        if MARKITDOWN_AVAILABLE:
-            self.markitdown = MarkItDown()
-            logger.info("MarkItDown initialized for enhanced document parsing")
-        else:
-            self.markitdown = None
-            logger.warning("MarkItDown not available, using fallback parsing methods")
+        self.markitdown = MarkItDown()
     
     def _initialize_vectordb(self) -> Chroma:
         """Initialize ChromaDB with Azure OpenAI embeddings."""
@@ -64,132 +51,68 @@ class KnowledgeBaseManager:
     
     def parse_pdf(self, file) -> str:
         """Convert PDF file data to Markdown using MarkItDown with fallback."""
-        if MARKITDOWN_AVAILABLE and self.markitdown:
-            try:
-                # Primary: Use MarkItDown
-                result = self.markitdown.convert_stream(file, file_extension=".pdf")
-                logger.info(f"Successfully parsed PDF with MarkItDown: {len(result.text_content)} characters")
-                return result.text_content
-            except Exception as e:
-                logger.warning(f"MarkItDown PDF parsing failed: {e}, falling back to PyPDF2")
-        
-        # Fallback: Use PyPDF2
         try:
-            file.seek(0)
-            reader = PdfReader(file)
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text() or ""
-            logger.info(f"Successfully parsed PDF with PyPDF2: {len(text)} characters")
-            return text
+            # Primary: Use MarkItDown
+            result = self.markitdown.convert_stream(file, file_extension=".pdf")
+            logger.info(f"Successfully parsed PDF with MarkItDown: {len(result.text_content)} characters")
+            return result.text_content
         except Exception as e:
-            logger.error(f"PDF parsing failed: {e}")
-            return f"Error parsing PDF: {str(e)}"
+            logger.warning(f"MarkItDown PDF parsing failed: {e}, falling back to PyPDF2")
+            try:
+                # Fallback: Use PyPDF2
+                file.seek(0)
+                reader = PdfReader(file)
+                text = ""
+                for page in reader.pages:
+                    text += page.extract_text() or ""
+                logger.info(f"Successfully parsed PDF with PyPDF2: {len(text)} characters")
+                return text
+            except Exception as e2:
+                logger.error(f"Both PDF parsing methods failed: {e2}")
+                return f"Error parsing PDF: {str(e2)}"
     
     def parse_txt(self, file) -> str:
         """Convert TXT file data to Markdown using MarkItDown with fallback."""
-        if MARKITDOWN_AVAILABLE and self.markitdown:
-            try:
-                # Primary: Use MarkItDown
-                result = self.markitdown.convert_stream(file, file_extension=".txt")
-                logger.info(f"Successfully parsed TXT with MarkItDown: {len(result.text_content)} characters")
-                return result.text_content
-            except Exception as e:
-                logger.warning(f"MarkItDown TXT parsing failed: {e}, falling back to direct read")
-        
-        # Fallback: Direct read
         try:
-            file.seek(0)
-            text = file.read().decode("utf-8")
-            logger.info(f"Successfully parsed TXT with direct read: {len(text)} characters")
-            return text
+            # Primary: Use MarkItDown
+            result = self.markitdown.convert_stream(file, file_extension=".txt")
+            logger.info(f"Successfully parsed TXT with MarkItDown: {len(result.text_content)} characters")
+            return result.text_content
         except Exception as e:
-            logger.error(f"TXT parsing failed: {e}")
-            return f"Error parsing TXT: {str(e)}"
+            logger.warning(f"MarkItDown TXT parsing failed: {e}, falling back to direct read")
+            try:
+                # Fallback: Direct read
+                file.seek(0)
+                text = file.read().decode("utf-8")
+                logger.info(f"Successfully parsed TXT with direct read: {len(text)} characters")
+                return text
+            except Exception as e2:
+                logger.error(f"Both TXT parsing methods failed: {e2}")
+                return f"Error parsing TXT: {str(e2)}"
     
     def parse_docx(self, file) -> str:
         """Convert DOCX file data to Markdown using MarkItDown with fallback."""
-        if MARKITDOWN_AVAILABLE and self.markitdown:
+        try:
+            # Primary: Use MarkItDown
+            result = self.markitdown.convert_stream(file, file_extension=".docx")
+            logger.info(f"Successfully parsed DOCX with MarkItDown: {len(result.text_content)} characters")
+            return result.text_content
+        except Exception as e:
+            logger.warning(f"MarkItDown DOCX parsing failed: {e}, falling back to docx2txt")
             try:
-                # Primary: Use MarkItDown
-                result = self.markitdown.convert_stream(file, file_extension=".docx")
-                logger.info(f"Successfully parsed DOCX with MarkItDown: {len(result.text_content)} characters")
-                return result.text_content
-            except Exception as e:
-                logger.warning(f"MarkItDown DOCX parsing failed: {e}, falling back to docx2txt")
-        
-        # Fallback: Use docx2txt with temporary file
-        try:
-            file.seek(0)
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as temp_file:
-                temp_file.write(file.read())
-                temp_path = temp_file.name
-            
-            text = docx2txt.process(temp_path)
-            os.unlink(temp_path)  # Clean up temp file
-            logger.info(f"Successfully parsed DOCX with docx2txt: {len(text)} characters")
-            return text
-        except Exception as e:
-            logger.error(f"DOCX parsing failed: {e}")
-            return f"Error parsing DOCX: {str(e)}"
-    
-    def parse_json(self, file) -> str:
-        """Convert JSON file data to readable text format."""
-        try:
-            file.seek(0)
-            json_data = json.load(file)
-            
-            # Convert JSON to formatted text
-            if isinstance(json_data, dict):
-                text_content = self._json_to_text(json_data)
-            elif isinstance(json_data, list):
-                text_content = self._json_list_to_text(json_data)
-            else:
-                text_content = f"JSON Content: {str(json_data)}"
-            
-            logger.info(f"Successfully parsed JSON: {len(text_content)} characters")
-            return text_content
-            
-        except json.JSONDecodeError as e:
-            logger.error(f"Invalid JSON format: {e}")
-            return f"Error parsing JSON: Invalid JSON format - {str(e)}"
-        except Exception as e:
-            logger.error(f"JSON parsing failed: {e}")
-            return f"Error parsing JSON: {str(e)}"
-    
-    def _json_to_text(self, json_obj: Dict, prefix: str = "") -> str:
-        """Convert JSON object to readable text format."""
-        text_lines = []
-        
-        for key, value in json_obj.items():
-            current_key = f"{prefix}{key}" if prefix else key
-            
-            if isinstance(value, dict):
-                text_lines.append(f"{current_key}:")
-                text_lines.append(self._json_to_text(value, f"{current_key}."))
-            elif isinstance(value, list):
-                text_lines.append(f"{current_key}:")
-                text_lines.append(self._json_list_to_text(value, current_key))
-            else:
-                text_lines.append(f"{current_key}: {value}")
-        
-        return "\n".join(text_lines)
-    
-    def _json_list_to_text(self, json_list: List, prefix: str = "") -> str:
-        """Convert JSON list to readable text format."""
-        text_lines = []
-        
-        for i, item in enumerate(json_list):
-            if isinstance(item, dict):
-                text_lines.append(f"{prefix} Item {i+1}:")
-                text_lines.append(self._json_to_text(item, f"{prefix}.{i+1}."))
-            elif isinstance(item, list):
-                text_lines.append(f"{prefix} Item {i+1}:")
-                text_lines.append(self._json_list_to_text(item, f"{prefix}.{i+1}"))
-            else:
-                text_lines.append(f"{prefix} Item {i+1}: {item}")
-        
-        return "\n".join(text_lines)
+                # Fallback: Use docx2txt with temporary file
+                file.seek(0)
+                with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as temp_file:
+                    temp_file.write(file.read())
+                    temp_path = temp_file.name
+                
+                text = docx2txt.process(temp_path)
+                os.unlink(temp_path)  # Clean up temp file
+                logger.info(f"Successfully parsed DOCX with docx2txt: {len(text)} characters")
+                return text
+            except Exception as e2:
+                logger.error(f"Both DOCX parsing methods failed: {e2}")
+                return f"Error parsing DOCX: {str(e2)}"
     
     def parse_file(self, file) -> str:
         """Parse uploaded file based on its type."""
@@ -199,8 +122,6 @@ class KnowledgeBaseManager:
             return self.parse_txt(file)
         elif file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
             return self.parse_docx(file)
-        elif file.type == "application/json" or file.name.lower().endswith('.json'):
-            return self.parse_json(file)
         else:
             logger.warning(f"Unsupported file type: {file.type} for file: {file.name}")
             return f"Unsupported file type: {file.type}"
@@ -378,10 +299,10 @@ def knowledge_base_tab():
     # File upload section
     st.subheader("Upload Documents")
     uploaded_files = st.file_uploader(
-        "Upload documents (PDF, TXT, DOCX, JSON)",
-        type=["pdf", "txt", "docx", "json"],
+        "Upload documents (PDF, TXT, DOCX)",
+        type=["pdf", "txt", "docx"],
         accept_multiple_files=True,
-        help="Upload multiple documents to build your knowledge base. JSON files will be converted to readable text format."
+        help="Upload multiple documents to build your knowledge base"
     )
     
     # Chunking configuration

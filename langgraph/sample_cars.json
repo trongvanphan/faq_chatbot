@@ -1,0 +1,91 @@
+{
+  "car_models": [
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "year": 2024,
+      "type": "Sedan",
+      "price": 24000,
+      "fuel_economy": {
+        "city_mpg": 31,
+        "highway_mpg": 40,
+        "combined_mpg": 35
+      },
+      "features": [
+        "Honda Sensing Safety Suite",
+        "Apple CarPlay/Android Auto",
+        "Automatic Climate Control",
+        "LED Headlights"
+      ],
+      "specifications": {
+        "engine": "2.0L 4-cylinder",
+        "transmission": "CVT",
+        "drivetrain": "FWD",
+        "seating_capacity": 5
+      },
+      "safety_ratings": {
+        "nhtsa_overall": 5,
+        "iihs_top_safety_pick": true
+      }
+    },
+    {
+      "make": "Nissan",
+      "model": "Altima",
+      "year": 2024,
+      "type": "Sedan",
+      "price": 26000,
+      "fuel_economy": {
+        "city_mpg": 28,
+        "highway_mpg": 39,
+        "combined_mpg": 32
+      },
+      "features": [
+        "ProPILOT Assist",
+        "NissanConnect Services",
+        "Intelligent Key with Push Button Start",
+        "Dual-Zone Automatic Climate Control"
+      ],
+      "specifications": {
+        "engine": "2.5L 4-cylinder",
+        "transmission": "CVT",
+        "drivetrain": "FWD",
+        "seating_capacity": 5
+      },
+      "safety_ratings": {
+        "nhtsa_overall": 5,
+        "iihs_rating": "Good"
+      }
+    }
+  ],
+  "dealership_info": {
+    "name": "Premier Auto Center",
+    "location": "San Francisco, CA",
+    "contact": {
+      "phone": "415-555-0123",
+      "email": "sales@premierauto.com",
+      "website": "www.premierauto.com"
+    },
+    "services": [
+      "New Car Sales",
+      "Used Car Sales", 
+      "Auto Financing",
+      "Service & Maintenance",
+      "Parts & Accessories"
+    ],
+    "hours": {
+      "monday_friday": "8:00 AM - 8:00 PM",
+      "saturday": "8:00 AM - 6:00 PM",
+      "sunday": "10:00 AM - 6:00 PM"
+    }
+  },
+  "financing_options": {
+    "loan_rates": {
+      "excellent_credit": "3.5% APR",
+      "good_credit": "4.8% APR",
+      "fair_credit": "7.2% APR"
+    },
+    "lease_terms": [24, 36, 48],
+    "down_payment_minimum": 2000,
+    "trade_in_accepted": true
+  }
+}

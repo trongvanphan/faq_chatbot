@@ -106,17 +106,41 @@ class MasterOrchestrationAgent:
     
     def retrieve_docs(self, state: ChatState) -> ChatState:
         """
-        Handle document retrieval requests.
+        Handle document retrieval requests using enhanced knowledge base.
         """
-        from services import get_vectordb
-        
         try:
-            retriever = get_vectordb().as_retriever(search_kwargs={"k": 4}) 
-            docs = retriever.get_relevant_documents(state["question"])
-            return {**state, "context_docs": docs}
+            from knowledge_base import knowledge_base
+            
+            # Use the enhanced knowledge base search
+            results = knowledge_base.search_similar(state["question"], k=4)
+            
+            if results:
+                # Convert search results to document format for compatibility
+                docs = []
+                for result in results:
+                    # Create a mock document object
+                    class MockDoc:
+                        def __init__(self, content, metadata):
+                            self.page_content = content
+                            self.metadata = metadata
+                    
+                    docs.append(MockDoc(result["content"], result["metadata"]))
+                
+                return {**state, "context_docs": docs}
+            else:
+                return {**state, "context_docs": [], "answer": "I couldn't find relevant information in the knowledge base."}
+                
         except Exception as e:
-            logger.error(f"Error in document retrieval: {e}")
-            return {**state, "context_docs": [], "answer": "I'm having trouble accessing the document database right now."}
+            logger.error(f"Error in enhanced document retrieval: {e}")
+            # Fallback to basic retrieval if enhanced version fails
+            try:
+                from services import get_vectordb
+                retriever = get_vectordb().as_retriever(search_kwargs={"k": 4}) 
+                docs = retriever.get_relevant_documents(state["question"])
+                return {**state, "context_docs": docs}
+            except Exception as e2:
+                logger.error(f"Fallback document retrieval also failed: {e2}")
+                return {**state, "context_docs": [], "answer": "I'm having trouble accessing the document database right now."}
     
     def search_news(self, state: ChatState) -> ChatState:
         """

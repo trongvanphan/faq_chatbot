@@ -9,3 +9,4 @@ chroma_db/chroma.sqlite3
 /langgraph/.chromadb
 /langgraph/agents/recommendation/__pycache__
 /langgraph/agents/__pycache__
+/langgraph/chroma_db

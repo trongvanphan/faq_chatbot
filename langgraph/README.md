@@ -1,23 +1,39 @@
-# Multi-Agent Chatbot Architecture
+# Multi-Agent Chatbot with Enhanced RAG
 
-This project has been restructured to use a master orchestration agent that coordinates multiple specialized agents.
+This project features a sophisticated multi-agent system with enhanced RAG (Retrieval-Augmented Generation) capabilities, powered by a master orchestration agent that coordinates multiple specialized agents.
+
+## 🚀 **New RAG Features**
+
+### **Enhanced Document Processing**
+- **MarkItDown Integration**: Primary parsing with Microsoft's MarkItDown for superior document conversion
+- **Fallback Mechanisms**: Robust fallback to PyPDF2, docx2txt when MarkItDown unavailable
+- **Multi-format Support**: PDF, TXT, DOCX, JSON with intelligent parsing
+- **Configurable Chunking**: Adjustable chunk size and overlap for optimal retrieval
+
+### **Advanced Knowledge Base Management**
+- **Smart File Processing**: Batch upload with detailed processing feedback
+- **Enhanced Search**: Similarity search with scoring and metadata
+- **Database Statistics**: Real-time stats on chunks, sources, and database health
+- **Robust Error Handling**: Graceful degradation and detailed error reporting
 
 ## 📁 Project Structure
 
 ```
 langgraph/
-├── agents/                          # Specialized agents directory
+├── agents/                          # 🆕 Specialized agents directory
 │   ├── __init__.py                  # Agents package initialization
 │   └── recommendation/              # Car recommendation agent
 │       ├── __init__.py              # Package initialization
 │       ├── car_database.py          # Comprehensive car database
 │       └── recommendation_agent.py  # Smart recommendation logic
-├── chat.py                          # Main Streamlit UI
-├── orchestration_agent.py           # Master orchestration agent
+├── chat.py                          # 🔄 Updated Streamlit UI with orchestration
+├── orchestration_agent.py           # 🆕 Master orchestration agent
+├── knowledge_base.py                # 🆕 Enhanced RAG with MarkItDown support
+├── services.py                      # 🔄 Updated to use enhanced knowledge base
 ├── chat_state.py                    # State management
-├── services.py                      # Azure LLM and vector DB services
-├── knowledge_base.py                # Knowledge base utilities
-└── app.py                           # Application entry point
+├── app.py                           # Application entry point
+├── requirements.txt                 # 🆕 Complete dependency list
+└── README.md                        # 🔄 Updated documentation
 ```
 
 ## 🤖 Agent Architecture
@@ -72,26 +88,60 @@ langgraph/
 
 ## 🎯 Available Agents
 
-### 1. Recommendation Agent
+### 1. **Enhanced Document Retrieval Agent** 🔍
+**Triggers**: Knowledge base queries, document search, information lookup
+**Features**:
+- Advanced similarity search with scoring
+- Intelligent document chunking and retrieval
+- Metadata-rich search results
+- Fallback mechanisms for reliability
+
+**Examples**:
+- *"Tell me about maintenance schedules"*
+- *"What information do you have about warranty coverage?"*
+- *"Search for troubleshooting guides"*
+
+### 2. **Car Recommendation Agent** 🚗
 **Triggers**: Car-related queries, buying advice, recommendations
-**Examples**:
-- "I need a car recommendation for my family of 4 with a budget of $35,000"
-- "What car should I buy for daily commuting that's fuel efficient?"
-- "Recommend a reliable car for business use under $50,000"
+**Features**:
+- Comprehensive car database with 9+ models
+- Multi-criteria matching (budget, purpose, brand, etc.)
+- Intelligent scoring and ranking system
+- Detailed explanations and comparisons
 
-### 2. Document Retrieval Agent
-**Triggers**: Knowledge base queries, document search
 **Examples**:
-- "Tell me about maintenance schedules"
-- "What information do you have about warranty coverage?"
-- "Search for troubleshooting guides"
+- *"I need a family car under $35,000"*
+- *"What's the best fuel-efficient car for daily commuting?"*
+- *"Recommend a reliable business car"*
 
-### 3. News Search Agent
-**Triggers**: Current events, news, updates
+### 3. **News Search Agent** 📰
+**Triggers**: Current events, news, automotive updates
 **Examples**:
-- "Show me latest automotive news"
-- "What's new in electric vehicles?"
-- "Recent updates in car technology"
+- *"Latest electric vehicle news"*
+- *"What's new in automotive technology?"*
+- *"Recent car industry updates"*
+
+## 🛠️ **Enhanced RAG Capabilities**
+
+### **Document Processing Pipeline**
+1. **Upload**: Multi-file upload with size and type validation
+2. **Parse**: MarkItDown primary + fallback parsing methods
+3. **Chunk**: Configurable chunking with overlap control
+4. **Embed**: Azure OpenAI embeddings with batch processing
+5. **Store**: ChromaDB vector storage with metadata
+6. **Search**: Advanced similarity search with scoring
+
+### **Supported File Formats**
+- **PDF**: MarkItDown → PyPDF2 fallback
+- **TXT**: MarkItDown → Direct read fallback  
+- **DOCX**: MarkItDown → docx2txt fallback
+- **JSON**: Smart parsing with structured data conversion to readable text
+
+### **Knowledge Base Features**
+- **Real-time Statistics**: Track chunks, sources, database health
+- **Advanced Search**: Similarity search with configurable results
+- **Metadata Enrichment**: Source tracking, processing details
+- **Database Management**: Clear, refresh, and maintain operations
 
 ## 🔧 Usage
 
