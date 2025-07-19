@@ -10,7 +10,7 @@ from services import get_azure_llm
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableSequence
 from langchain_core.output_parsers import StrOutputParser
-from agents.recommendation import recommend_car
+from agents.recommendation.recommendation_agent_optimized import recommend_car_fast
 from langgraph.graph import StateGraph, END
 import logging
 
@@ -29,7 +29,7 @@ class MasterOrchestrationAgent:
         self.llm = get_azure_llm()
         self.available_agents = {
             "recommendation": {
-                "function": recommend_car,
+                "function": recommend_car_fast,
                 "description": "Car recommendation and buying advice",
                 "keywords": ["car", "recommend", "buy", "purchase", "vehicle", "budget", "family car", "commute"]
             },
@@ -55,19 +55,27 @@ class MasterOrchestrationAgent:
         ])
         
         self.intent_prompt = PromptTemplate.from_template(
-            f"""You are an intelligent intent classifier for a multi-agent system.
+            f"""Bạn là một trợ lý AI chuyên về ô tô và xe hơi tại Việt Nam. Bạn chỉ được trả lời các câu hỏi liên quan đến:
+            - Tư vấn mua xe, gợi ý xe phù hợp
+            - Thông tin kỹ thuật về xe ô tô
+            - Tin tức về ngành ô tô
+            - Bảo dưỡng và sửa chữa xe
+            - So sánh các dòng xe
             
-            Available agents:
+            QUAN TRỌNG: Nếu câu hỏi KHÔNG liên quan đến ô tô, xe hơi, hoặc giao thông, hãy trả lời "INVALID_QUESTION".
+            
+            Các agent có sẵn:
             {agent_descriptions}
             
-            Classify the user's question into one of these agent types:
-            - recommendation (for car buying, vehicle advice, recommendations)
-            - retrieve_docs (for document search, knowledge base queries)
-            - search_news (for news, current events, updates)
+            Phân loại câu hỏi của người dùng thành một trong các loại:
+            - recommendation (tư vấn mua xe, gợi ý xe, so sánh xe)
+            - retrieve_docs (tìm kiếm thông tin, tài liệu về xe)
+            - search_news (tin tức về ô tô, xu hướng mới)
+            - INVALID_QUESTION (câu hỏi không liên quan đến ô tô)
             
-            User question: {{question}}
+            Câu hỏi của người dùng: {{question}}
             
-            Respond with only the agent name (recommendation/retrieve_docs/search_news)."""
+            Chỉ trả lời tên agent (recommendation/retrieve_docs/search_news/INVALID_QUESTION)."""
         )
         
         self.intent_classifier: RunnableSequence = (
@@ -82,6 +90,11 @@ class MasterOrchestrationAgent:
         """
         try:
             intent = self.intent_classifier.invoke({"question": question}).strip().lower()
+            
+            # Handle invalid questions (guardrail)
+            if intent == "invalid_question":
+                logger.info(f"Blocked invalid question: {question[:50]}...")
+                return "invalid_question"
             
             # Validate intent
             if intent not in self.available_agents:
@@ -101,6 +114,21 @@ class MasterOrchestrationAgent:
         """
         question = state["question"]
         intent = self.classify_intent(question)
+        
+        # Handle invalid questions with Vietnamese response
+        if intent == "invalid_question":
+            return {
+                **state, 
+                "answer": "🚫 Xin lỗi, tôi chỉ có thể trả lời các câu hỏi liên quan đến ô tô, xe hơi và giao thông. \n\n"
+                         "📋 Tôi có thể giúp bạn:\n"
+                         "• 🚗 Tư vấn mua xe phù hợp\n"
+                         "• 🔧 Thông tin kỹ thuật về xe\n" 
+                         "• 📰 Tin tức ngành ô tô\n"
+                         "• 🛠️ Bảo dưỡng và sửa chữa xe\n"
+                         "• ⚖️ So sánh các dòng xe\n\n"
+                         "Vui lòng đặt câu hỏi về ô tô để tôi có thể hỗ trợ bạn tốt nhất! 😊",
+                "next_step": "generate_answer"
+            }
         
         logger.info(f"Routing to agent: {intent}")
         return {**state, "next_step": intent}
@@ -159,20 +187,20 @@ class MasterOrchestrationAgent:
             try:
                 context = "\n".join([doc.page_content for doc in docs])
                 enhanced_prompt = f"""
-                Based on the following context documents, please answer the user's question comprehensively.
+                Dựa trên các tài liệu sau, hãy trả lời câu hỏi của người dùng bằng tiếng Việt một cách chi tiết và hữu ích.
                 
-                Context: {context}
+                Tài liệu tham khảo: {context}
                 
-                Question: {question}
+                Câu hỏi: {question}
                 
-                Please provide a detailed, helpful answer based on the context provided.
-                If the context doesn't contain relevant information, please say so clearly.
+                Vui lòng trả lời bằng tiếng Việt với thông tin chính xác từ tài liệu.
+                Nếu tài liệu không chứa thông tin liên quan, hãy nói rõ ràng.
                 """
                 response = self.llm.invoke(enhanced_prompt)
                 return {**state, "answer": response.content}
             except Exception as e:
                 logger.error(f"Error in answer generation: {e}")
-                return {**state, "answer": "I encountered an error while processing the documents."}
+                return {**state, "answer": "Tôi gặp lỗi khi xử lý tài liệu. Vui lòng thử lại hoặc đặt câu hỏi khác."}
         
         # If answer is already set by an agent (recommendation/news), return it
         elif "answer" in state and state["answer"]:
@@ -180,7 +208,7 @@ class MasterOrchestrationAgent:
         
         # Fallback response
         else:
-            return {**state, "answer": "I'm not sure how to help with that right now. Could you please rephrase your question?"}
+            return {**state, "answer": "Tôi không chắc chắn về câu hỏi này. Bạn có thể hỏi lại bằng cách khác được không? 🤔"}
     
     def setup_workflow(self):
         """
@@ -191,7 +219,7 @@ class MasterOrchestrationAgent:
         # Add all nodes
         self.graph.add_node("router", self.route_user_input)
         self.graph.add_node("retrieve_docs", self.retrieve_docs)
-        self.graph.add_node("recommendation", recommend_car)
+        self.graph.add_node("recommendation", recommend_car_fast)
         self.graph.add_node("search_news", self.search_news)
         self.graph.add_node("generate_answer", self.generate_answer)
         
@@ -202,7 +230,8 @@ class MasterOrchestrationAgent:
         self.graph.add_conditional_edges("router", lambda state: state["next_step"], {
             "retrieve_docs": "retrieve_docs",
             "recommendation": "recommendation", 
-            "search_news": "search_news"
+            "search_news": "search_news",
+            "generate_answer": "generate_answer"  # For invalid questions
         })
         
         # Connect all paths to answer generation

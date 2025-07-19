@@ -205,3 +205,13 @@ master_agent.add_agent(
 4. **Testability**: Each agent can be tested independently
 5. **Performance**: Efficient routing reduces unnecessary processing
 6. **Extensibility**: Plugin-like architecture for new agents
+
+## 📚 Documentation
+
+### Context Packs
+
+This repository includes comprehensive context packs to help developers and AI assistants understand the codebase:
+
+| Context Pack | Type | Description |
+|-------------|------|-------------|
+| [Automotive Chatbot](docs/context/automotive-chatbot-context-pack.md) | App | Multi-agent conversational AI system for automotive assistance |

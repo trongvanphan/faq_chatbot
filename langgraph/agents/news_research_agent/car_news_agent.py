@@ -4,19 +4,19 @@ llm = get_azure_llm()
 
 def evaluate(prompt):
     response = llm.invoke([
-        SystemMessage(content="""You are an expert car assistant.
+        SystemMessage(content="""Bạn là trợ lý chuyên gia về ô tô.
 
-        Your job is to evaluate whether a news article is directly relevant to a user's question about cars, vehicles, automotive trends, car models, safety, pricing, features, or industry updates.
+        Công việc của bạn là đánh giá xem một bài báo có liên quan trực tiếp đến câu hỏi của người dùng về xe hơi, ô tô, xu hướng ô tô, mẫu xe, an toàn, giá cả, tính năng, hoặc cập nhật ngành hay không.
 
-        Consider the news title, content, and the user's question.
+        Xem xét tiêu đề tin tức, nội dung và câu hỏi của người dùng.
 
-        If the news clearly answers or provides valuable information related to the user's question, reply with:
+        Nếu tin tức trả lời rõ ràng hoặc cung cấp thông tin có giá trị liên quan đến câu hỏi của người dùng, hãy trả lời:
         YES
 
-        If the news is not directly related or only vaguely mentions related topics, reply with:
+        Nếu tin tức không liên quan trực tiếp hoặc chỉ đề cập mơ hồ đến các chủ đề liên quan, hãy trả lời:
         NO
 
-        Reply strictly with YES or NO."""),
+        Chỉ trả lời YES hoặc NO."""),
         HumanMessage(content=prompt)
     ])
     
@@ -74,16 +74,18 @@ Is this news relevant to the user's question? Reply with YES or NO.
                 continue  # Continue with next article
 
         if not relevant_articles:
-            return {**state, "answer": "⚠️ No news articles were found"}
+            return {**state, "answer": "⚠️ Không tìm thấy tin tức liên quan đến câu hỏi của bạn về ô tô."}
 
-        combined_news = "\n\n".join(
-            f"### 📰 {art['title']}\n"
-            f"{art['content']}\n"
-            f"[🔗 Read more]({art['url']})"
+        # Format in Vietnamese
+        combined_news = "📰 **Tin tức ô tô mới nhất:**\n\n"
+        combined_news += "\n\n".join(
+            f"### � {art['title']}\n"
+            f"{art['content'][:300]}...\n"
+            f"[🔗 Đọc thêm]({art['url']})"
             for art in relevant_articles
         )
 
         return {**state, "answer": combined_news}
 
     except Exception as e:
-        return {**state, "answer": f"⚠️ External news retrieval failed: {str(e)}"}
+        return {**state, "answer": f"⚠️ Không thể tìm kiếm tin tức: {str(e)}"}

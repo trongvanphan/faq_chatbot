@@ -11,3 +11,4 @@ chroma_db/chroma.sqlite3
 /langgraph/agents/__pycache__
 /langgraph/chroma_db
 /langgraph/.chroma_db
+/langgraph/agents/news_research_agent/__pycache__

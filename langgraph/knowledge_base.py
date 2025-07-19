@@ -465,7 +465,9 @@ def knowledge_base_tab():
     # Database management
     st.subheader("🗄️ Database Management")
     if st.button("🗑️ Clear Database", type="secondary"):
-        if st.confirm("Are you sure you want to clear all documents from the database?"):
+        st.warning("Are you sure you want to clear all documents from the database?")
+        confirm_clear = st.checkbox("Yes, I want to clear the database.")
+        if confirm_clear:
             if knowledge_base.clear_database():
                 st.success("Database cleared successfully!")
                 st.session_state['file_list'] = []
