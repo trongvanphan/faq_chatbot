@@ -8,6 +8,7 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
 from langchain_community.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 import docx2txt
 from PyPDF2 import PdfReader
 from typing import List, Dict, Any
@@ -207,18 +208,16 @@ class KnowledgeBaseManager:
     
     def chunk_text(self, text: str, chunk_size: int = 500, overlap: int = 50) -> List[str]:
         """Split text into overlapping chunks."""
+        """Split text into overlapping chunks using LangChain."""
         if not text.strip():
             return []
-        
-        words = text.split()
-        chunks = []
-        
-        for i in range(0, len(words), chunk_size - overlap):
-            chunk = " ".join(words[i:i + chunk_size])
-            if chunk.strip():
-                chunks.append(chunk)
-        
-        logger.info(f"Text chunked into {len(chunks)} chunks")
+
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=chunk_size,
+            chunk_overlap=overlap,
+            separators=["\n\n", "\n", " ", ""],  # configurable
+        )
+        chunks = splitter.split_text(text)
         return chunks
     
     def add_documents(self, files, chunk_size: int = 500, overlap: int = 50) -> Dict[str, Any]:
