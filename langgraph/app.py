@@ -6,7 +6,7 @@ from knowledge_base import knowledge_base_tab
 from chat import chat_tab
 
 st.set_page_config(page_title="RAG Q&A App", layout="wide")
-st.title("📚 RAG Q&A Document Application")
+st.title("📚 Automotive ChatBot")
 
 tab1, tab2 = st.tabs(["Chat", "Knowledge Base"])
 

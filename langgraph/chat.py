@@ -11,7 +11,7 @@ load_dotenv()
 
 
 def chat_tab():
-    st.header("Chat with your documents")
+    st.header("Chat with me")
     vectordb = get_vectordb()
     USER_BUBBLE = "background-color:#e6f7ff;padding:12px 16px;border-radius:12px 12px 12px 2px;margin-bottom:4px;display:inline-block;max-width:80%;"
     AI_BUBBLE = "background-color:#f6f6f6;padding:12px 16px;border-radius:12px 12px 2px 12px;margin-bottom:16px;display:inline-block;max-width:80%;"
@@ -51,7 +51,7 @@ def chat_tab():
         st.rerun()
     
     # Chat input
-    user_input = st.chat_input("Ask me anything - I can help with car recommendations, document search, or news!")
+    user_input = st.chat_input("Ask me anything...")
     if user_input:
         st.session_state['chat_history'].append((user_input, "..."))
         st.rerun()

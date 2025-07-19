@@ -127,9 +127,9 @@ class CarRecommendationAgent:
             # Add budget-related queries
             if criteria.get("budget_max"):
                 budget = criteria["budget_max"]
-                if budget < 25000:
+                if budget < 500000000:
                     query_parts.append("affordable budget-friendly economical cheap inexpensive")
-                elif budget < 40000:
+                elif budget < 800000000:
                     query_parts.append("mid-range moderate price value")
                 else:
                     query_parts.append("luxury premium high-end expensive")
