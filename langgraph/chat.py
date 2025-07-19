@@ -166,7 +166,10 @@ def chat_tab():
         with st.spinner("Generating answer..."):
             result = workflow.invoke({
                 "question": user_msg,
-                "chat_history": st.session_state['chat_history'][:-1]
+                "chat_history": st.session_state['chat_history'][:-1],
+                "context_docs": [],
+                "answer": "",
+                "next_step": ""
             })
             answer = result["answer"]
         st.session_state['chat_history'][-1] = (user_msg, answer)
