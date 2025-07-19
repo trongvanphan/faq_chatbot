@@ -2,9 +2,11 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import AzureOpenAIEmbeddings, AzureChatOpenAI
 from langchain_community.vectorstores import Chroma
+from langchain.vectorstores import Chroma
+from langchain_tavily import TavilySearch
 
 load_dotenv()
-
+os.environ["TAVILY_API_KEY"] = os.getenv("TAVILY_API_KEY")
 def get_vectordb():
     """
     Get vector database instance - now uses enhanced knowledge base.
@@ -31,3 +33,5 @@ def get_azure_llm():
         model=os.getenv("AZURE_OPENAI_LLM_MODEL"),
         api_version="2024-07-01-preview"
     )
+def get_tavily_search():
+    return TavilySearch()
